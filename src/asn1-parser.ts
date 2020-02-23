@@ -16,3 +16,17 @@ export function parsePublicKey(buf: Buffer) {
   const value = values[1] as asn1js.BitString;
   return Buffer.from(value.valueBlock.valueHex.slice(1));
 }
+
+export function parseSignature(buf: Buffer) {
+  const { result } = asn1js.fromBER(toArrayBuffer(buf));
+  const values = (result as asn1js.Sequence).valueBlock.value;
+
+  const getHex = (value: asn1js.Integer) => {
+    const buf = Buffer.from(value.valueBlock.valueHex);
+    return buf.slice(Math.max(buf.length - 32, 0));
+  };
+
+  const r = getHex(values[0] as asn1js.Integer);
+  const s = getHex(values[1] as asn1js.Integer);
+  return { r, s };
+}
