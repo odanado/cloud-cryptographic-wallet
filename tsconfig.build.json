@@ -13,7 +13,8 @@
   },
   "include": [
     "./src/**/*.ts",
-    "./types/**/*.ts"
+    "./types/**/*.ts",
+    "./examples/**/*.ts"
   ],
   "exclude": [
     "./src/**/*.spec.ts"

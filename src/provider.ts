@@ -1,5 +1,6 @@
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider from "web3-provider-engine/subproviders/hooked-wallet";
+import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction } from "ethereumjs-tx";
 
 import {
@@ -10,12 +11,17 @@ import {
 
 import { KmsSigner } from "./signer/kms-signer";
 
+export interface KmsOptions {
+  region: string;
+  keyId: string;
+}
+
 export class KmsProvider implements Provider {
   private readonly engine: ProviderEngine;
   private readonly signer: KmsSigner;
-  public constructor(region: string, keyId: string) {
+  public constructor(endpoint: string, kmsOptions: KmsOptions) {
     this.engine = new ProviderEngine();
-    this.signer = new KmsSigner(region, keyId);
+    this.signer = new KmsSigner(kmsOptions.region, kmsOptions.keyId);
 
     this.engine.addProvider(
       new HookedSubprovider({
@@ -29,14 +35,14 @@ export class KmsProvider implements Provider {
             });
         },
         signTransaction: (txData, callback) => {
-          const tx = new Transaction(txData, { chain: "rinkeby" });
+          const tx = new Transaction(txData, { chain: "ropsten" });
           const digest = tx.hash(false);
 
           this.signer
             .sign(digest)
             .then(signature => {
               const v = Buffer.alloc(1);
-              v.writeUInt8(signature.v + tx.getChainId() * 2 + 8, 0);
+              v.writeUInt8(signature.v + tx.getChainId() * 2 + 35, 0);
 
               tx.r = signature.r;
               tx.s = signature.s;
@@ -50,11 +56,15 @@ export class KmsProvider implements Provider {
         }
       })
     );
+
+    this.engine.addProvider(new RpcSubprovider({ rpcUrl: endpoint }));
+
+    this.engine.start();
   }
 
   public async getAccounts(): Promise<string[]> {
     const address = await this.signer.getAddress();
-    return [address.toString("hex")];
+    return [`0x${address.toString("hex")}`];
   }
 
   public sendAsync(

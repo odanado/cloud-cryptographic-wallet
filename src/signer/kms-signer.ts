@@ -72,7 +72,8 @@ export class KmsSigner implements Signer {
     const address = await this.getAddress();
     const candidate = [...new Array(2).keys()].filter(v => {
       const publicKey = recover(digest, r, s, v);
-      return address === toAddress(publicKey);
+
+      return address.equals(toAddress(publicKey));
     });
 
     if (candidate.length === 1) {
