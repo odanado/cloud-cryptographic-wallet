@@ -5,10 +5,15 @@
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ]
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./types/**/*.ts"
   ],
   "exclude": [
     "./src/**/*.spec.ts"

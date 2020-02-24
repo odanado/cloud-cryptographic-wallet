@@ -2,6 +2,7 @@ import AWS from "aws-sdk";
 
 import { Signer, Signature } from "./signer";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
+import { recover, toAddress } from "../crypto";
 
 export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
@@ -25,7 +26,7 @@ export class KmsSigner implements Signer {
     const signature = parseSignature(response.Signature);
 
     return {
-      v: 0,
+      v: await this.solveV(digest, signature.r, signature.s),
       ...signature
     };
   }
@@ -38,7 +39,7 @@ export class KmsSigner implements Signer {
     }
 
     const publicKey = parsePublicKey(response.PublicKey);
-    return publicKey;
+    return toAddress(publicKey);
   }
 
   private _getPublicKey() {
@@ -65,5 +66,18 @@ export class KmsSigner implements Signer {
         }
       );
     });
+  }
+
+  private async solveV(digest: Buffer, r: Buffer, s: Buffer): Promise<number> {
+    const address = await this.getAddress();
+    const candidate = [...new Array(2).keys()].filter(v => {
+      const publicKey = recover(digest, r, s, v);
+      return address === toAddress(publicKey);
+    });
+
+    if (candidate.length === 1) {
+      return candidate[0];
+    }
+    throw new Error(`invalid ${candidate}`);
   }
 }

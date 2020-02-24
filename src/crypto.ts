@@ -1,4 +1,5 @@
 import secp256k1 from "secp256k1";
+import crypto from "crypto";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const createKeccakHash = require("keccak");
@@ -26,24 +27,25 @@ export function hash(data: Buffer): Buffer {
     .digest();
 }
 
+export function toAddress(publicKey: Buffer) {
+  return hash(publicKey).slice(12, 32);
+}
+
 export function recover(
   messageHash: Buffer,
   r: Buffer,
-  s: Buffer
-  //v: Buffer
-): Address {
-  console.log(r.length, s.length);
+  s: Buffer,
+  v: number
+): Buffer {
   if (r.length !== 32) {
     throw new Error("invalid signature length");
   }
   if (s.length !== 32) {
     throw new Error("invalid signature length");
   }
-  const recovery = 1 % 2;
-  const pubkey = secp256k1
-    .recover(messageHash, Buffer.concat([r, s]), recovery, false)
+  const publicKey = secp256k1
+    .recover(messageHash, Buffer.concat([r, s]), v, false)
     .slice(1);
-  const address = hash(pubkey).slice(12, 32);
 
-  return addHexadecimalPrefix(address.toString("hex"));
+  return publicKey;
 }

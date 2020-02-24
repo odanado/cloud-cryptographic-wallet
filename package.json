@@ -5,9 +5,11 @@
   "license": "MIT",
   "devDependencies": {
     "@types/asn1js": "^0.0.1",
+    "@types/ethereum-protocol": "^1.0.0",
     "@types/jest": "^24.0.24",
     "@types/node": "^13.1.8",
     "@types/secp256k1": "^3.5.0",
+    "@types/web3-provider-engine": "^14.0.0",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
     "eslint": "^6.8.0",
@@ -30,8 +32,10 @@
   "dependencies": {
     "asn1js": "^2.0.26",
     "aws-sdk": "^2.610.0",
+    "ethereumjs-tx": "^2.1.2",
     "keccak": "^3.0.0",
     "secp256k1": "3.7",
-    "web3": "^1.2.5-rc.0"
+    "web3": "^1.2.5-rc.0",
+    "web3-provider-engine": "^15.0.6"
   }
 }
