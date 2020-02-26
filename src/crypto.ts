@@ -31,7 +31,7 @@ export function toAddress(publicKey: Buffer) {
 }
 
 export function recover(
-  messageHash: Buffer,
+  digest: Buffer,
   r: Buffer,
   s: Buffer,
   v: number
@@ -42,9 +42,15 @@ export function recover(
   if (s.length !== 32) {
     throw new Error("invalid signature length");
   }
+
   const publicKey = secp256k1
-    .recover(messageHash, Buffer.concat([r, s]), v, false)
+    .ecdsaRecover(
+      Uint8Array.from(Buffer.concat([r, s])),
+      v,
+      Uint8Array.from(digest),
+      false
+    )
     .slice(1);
 
-  return publicKey;
+  return Buffer.from(publicKey);
 }
