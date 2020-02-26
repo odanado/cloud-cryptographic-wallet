@@ -8,6 +8,7 @@ $ openssl asn1parse -in public.pem -out public.der
 $ hexdump -ve '/1 "%02x"' public.der | pbcopy
 
 $ echo abcde > plain.txt
+$ openssl ec -in key-pair.pem -outform PEM -out private.pem
 $ openssl dgst -sha1 -sign private.pem plain.txt > signature.dat
 $ openssl asn1parse -inform DER -in signature.dat
 */
