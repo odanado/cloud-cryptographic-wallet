@@ -1,7 +1,7 @@
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
-import { Transaction } from "ethereumjs-tx";
+import { Transaction, TxData } from "ethereumjs-tx";
 
 import {
   Provider,
@@ -35,21 +35,8 @@ export class KmsProvider implements Provider {
             });
         },
         signTransaction: (txData, callback) => {
-          const tx = new Transaction(txData, { chain: "ropsten" });
-          const digest = tx.hash(false);
-
-          this.signer
-            .sign(digest)
-            .then(signature => {
-              const v = Buffer.alloc(1);
-              v.writeUInt8(signature.v + tx.getChainId() * 2 + 35, 0);
-
-              tx.r = signature.r;
-              tx.s = signature.s;
-              tx.v = v;
-
-              const rawTx = `0x${tx.serialize().toString("hex")}`;
-
+          this.signTransaction(txData)
+            .then(rawTx => {
               callback(null, rawTx);
             })
             .catch(err => callback(err));
@@ -65,6 +52,24 @@ export class KmsProvider implements Provider {
   public async getAccounts(): Promise<string[]> {
     const address = await this.signer.getAddress();
     return [`0x${address.toString("hex")}`];
+  }
+
+  public async signTransaction(txData: TxData) {
+    // TODO: fix chain id
+    const tx = new Transaction(txData, { chain: "ropsten" });
+    const digest = tx.hash(false);
+
+    const signature = await this.signer.sign(digest);
+    const v = Buffer.alloc(1);
+    v.writeUInt8(signature.v + tx.getChainId() * 2 + 35, 0);
+
+    tx.r = signature.r;
+    tx.s = signature.s;
+    tx.v = v;
+
+    const rawTx = `0x${tx.serialize().toString("hex")}`;
+
+    return rawTx;
   }
 
   public sendAsync(
