@@ -35,14 +35,14 @@ export class KmsSigner implements Signer {
     const response = await this._getPublicKey();
 
     if (!Buffer.isBuffer(response.PublicKey)) {
-      throw new TypeError("public key is not BUffer");
+      throw new TypeError("PublicKey is not Buffer");
     }
 
     const publicKey = parsePublicKey(response.PublicKey);
     return toAddress(publicKey);
   }
 
-  private _getPublicKey() {
+  private async _getPublicKey() {
     return new Promise<AWS.KMS.GetPublicKeyResponse>((resolve, reject) => {
       this.kms.getPublicKey({ KeyId: this.keyId }, (err, data) => {
         if (err) return reject(err);
