@@ -15,12 +15,8 @@ export class KmsSigner implements Signer {
 
   public async sign(digest: Buffer): Promise<Signature> {
     const response = await this._sign(digest);
-    if (!response.Signature) {
-      throw new Error("signature is undefined");
-    }
-
     if (!Buffer.isBuffer(response.Signature)) {
-      throw new TypeError("signature is not BUffer");
+      throw new TypeError("Signature is not BUffer");
     }
 
     const signature = parseSignature(response.Signature);

@@ -91,4 +91,85 @@ describe("KmsSigner", () => {
       });
     });
   });
+
+  describe("sign", () => {
+    type Sign = (
+      params: AWS.KMS.Types.SignRequest,
+      callback?: (err: AWS.AWSError, data: AWS.KMS.Types.SignResponse) => void
+    ) => AWS.Request<AWS.KMS.Types.SignResponse, AWS.AWSError>;
+    describe("correct", () => {
+      beforeEach(() => {
+        const sign: Sign = (
+          param: AWS.KMS.Types.SignRequest,
+          callback?: (
+            err: AWS.AWSError,
+            data: AWS.KMS.Types.SignResponse
+          ) => void
+        ) => {
+          const err: AWS.AWSError = null as any;
+          const data: AWS.KMS.Types.SignResponse = {
+            Signature: Buffer.from(
+              "304502201fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0022100e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b",
+              "hex"
+            )
+          };
+          if (callback) {
+            callback(err, data);
+          }
+          return ({} as any) as AWS.Request<
+            AWS.KMS.Types.SignResponse,
+            AWS.AWSError
+          >;
+        };
+
+        jest.overloadSpyOn(signer["kms"], "sign").mockImplementation(sign);
+        signer["solveV"] = jest.fn().mockReturnValue(0);
+      });
+      it("can be return signature", async () => {
+        const digest = Buffer.from("");
+
+        const signature = await signer.sign(digest);
+
+        expect(signature.r.toString("hex")).toBe(
+          "1fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0"
+        );
+
+        expect(signature.s.toString("hex")).toBe(
+          "e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b"
+        );
+      });
+    });
+    describe("when return non buffer type", () => {
+      beforeEach(() => {
+        const sign: Sign = (
+          param: AWS.KMS.Types.SignRequest,
+          callback?: (
+            err: AWS.AWSError,
+            data: AWS.KMS.Types.SignResponse
+          ) => void
+        ) => {
+          const err: AWS.AWSError = null as any;
+          const data: AWS.KMS.Types.SignResponse = {
+            Signature: {} as any
+          };
+          if (callback) {
+            callback(err, data);
+          }
+          return ({} as any) as AWS.Request<
+            AWS.KMS.Types.SignResponse,
+            AWS.AWSError
+          >;
+        };
+
+        jest.overloadSpyOn(signer["kms"], "sign").mockImplementation(sign);
+        signer["solveV"] = jest.fn().mockReturnValue(0);
+      });
+      it("can be throw error", async () => {
+        const digest = Buffer.from("");
+        await expect(signer.sign(digest)).rejects.toThrow(
+          /Signature is not BUffer/
+        );
+      });
+    });
+  });
 });
