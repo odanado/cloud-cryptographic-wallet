@@ -11,6 +11,7 @@ describe("KmsSigner", () => {
     jest.spyOn(signer["kms"], "sign").mockImplementation();
   });
   describe("getPublicKey", () => {
+    // TODO: get from AWS.KMS.prototype.getPublicKey
     type GetPublicKey = (
       params: AWS.KMS.Types.GetPublicKeyRequest,
       callback?: (

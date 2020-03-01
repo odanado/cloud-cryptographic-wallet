@@ -26,7 +26,8 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "run-p test:*",
     "test:build": "yarn build --noEmit",
-    "test:jest": "yarn jest",
+    "test:jest": "yarn jest --runInBand",
+    "test:coverage": "yarn test:jest --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
   },
   "dependencies": {
