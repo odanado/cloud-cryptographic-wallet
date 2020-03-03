@@ -1,5 +1,10 @@
 declare module "web3-provider-engine/subproviders/hooked-wallet" {
-  import { TxData } from "ethereumjs-tx/dist/types";
+  import { TxData as BaseTxData } from "ethereumjs-tx/dist/types";
+
+  export interface TxData extends BaseTxData {
+    from: string;
+    to: string;
+  }
 
   type Callback<T> = (err: Error | null, value?: T) => void;
 

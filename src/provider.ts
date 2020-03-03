@@ -1,7 +1,9 @@
 import ProviderEngine from "web3-provider-engine";
-import HookedSubprovider from "web3-provider-engine/subproviders/hooked-wallet";
+import HookedSubprovider, {
+  TxData
+} from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
-import { Transaction, TxData } from "ethereumjs-tx";
+import { Transaction } from "ethereumjs-tx";
 
 import {
   Provider,
@@ -13,15 +15,19 @@ import { KmsSigner } from "./signer/kms-signer";
 
 export interface KmsOptions {
   region: string;
-  keyId: string;
+  keyIds: string[];
 }
 
 export class KmsProvider implements Provider {
   private readonly engine: ProviderEngine;
-  private readonly signer: KmsSigner;
+  private readonly signers: KmsSigner[];
+  private cacheAccounts: string[] = [];
+
   public constructor(endpoint: string, kmsOptions: KmsOptions) {
     this.engine = new ProviderEngine();
-    this.signer = new KmsSigner(kmsOptions.region, kmsOptions.keyId);
+    this.signers = kmsOptions.keyIds.map(
+      keyId => new KmsSigner(kmsOptions.region, keyId)
+    );
 
     this.engine.addProvider(
       new HookedSubprovider({
@@ -50,16 +56,30 @@ export class KmsProvider implements Provider {
   }
 
   public async getAccounts(): Promise<string[]> {
-    const address = await this.signer.getAddress();
-    return [`0x${address.toString("hex")}`];
+    if (this.cacheAccounts.length !== 0) return this.cacheAccounts;
+
+    const addresses = await Promise.all(
+      this.signers.map(signer => signer.getAddress())
+    );
+    this.cacheAccounts = addresses.map(
+      address => `0x${address.toString("hex")}`
+    );
+    return this.cacheAccounts;
   }
 
   public async signTransaction(txData: TxData) {
+    const from = txData.from.toLowerCase();
+    const signer = this.resolveSigner(from);
+
+    if (!signer) {
+      throw new Error(`Account not found: ${from}`);
+    }
+
     // TODO: fix chain id
     const tx = new Transaction(txData, { chain: "ropsten" });
     const digest = tx.hash(false);
 
-    const signature = await this.signer.sign(digest);
+    const signature = await signer.sign(digest);
     const v = Buffer.alloc(1);
     v.writeUInt8(signature.v + tx.getChainId() * 2 + 35, 0);
 
@@ -77,5 +97,12 @@ export class KmsProvider implements Provider {
     callback: JSONRPCErrorCallback
   ) {
     this.engine.sendAsync(payload, callback);
+  }
+
+  private resolveSigner(address: string) {
+    const index = this.cacheAccounts.indexOf(address);
+    if (index !== -1) {
+      return this.signers[index];
+    }
   }
 }

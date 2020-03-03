@@ -8,7 +8,7 @@ async function main() {
   const endpoint =
     "https://ropsten.infura.io/v3/bd35010d62134981a9e82dff4708728b";
 
-  const provider = new KmsProvider(endpoint, { region, keyId });
+  const provider = new KmsProvider(endpoint, { region, keyIds: [keyId] });
   const web3 = new Web3(provider as any);
 
   const accounts = await web3.eth.getAccounts();
@@ -19,10 +19,10 @@ async function main() {
   const receipt = await web3.eth.sendTransaction({
     from: accounts[0],
     to,
-    value: web3.utils.toWei("0.01", "ether")
+    value: web3.utils.toWei("0.001", "ether")
   });
 
   console.log(receipt);
 }
 
-main();
+main().catch(e => console.error(e));
