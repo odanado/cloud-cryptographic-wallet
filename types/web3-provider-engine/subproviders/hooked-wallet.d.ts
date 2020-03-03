@@ -41,5 +41,5 @@ declare module "web3-provider-engine/subproviders/hooked-wallet" {
   class HookedSubprovider {
     public constructor(opt: HookedSubproviderOptions);
   }
-  export = HookedSubprovider;
+  export default HookedSubprovider;
 }
