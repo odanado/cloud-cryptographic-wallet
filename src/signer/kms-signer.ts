@@ -2,7 +2,8 @@ import AWS from "aws-sdk";
 
 import { Signer, Signature } from "./signer";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
-import { recover, toAddress } from "../crypto";
+import { recover, toAddress, secp256k1halfN, secp256k1N } from "../crypto";
+import BN from "bn.js";
 
 export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
@@ -19,12 +20,15 @@ export class KmsSigner implements Signer {
       throw new TypeError("Signature is not BUffer");
     }
 
-    const signature = parseSignature(response.Signature);
+    const { r, s } = parseSignature(response.Signature);
+    const v = await this.solveV(digest, r, s);
 
-    return {
-      v: await this.solveV(digest, signature.r, signature.s),
-      ...signature
+    const signature: Signature = {
+      r,
+      ...this.flip(s, v)
     };
+
+    return signature;
   }
 
   public async getAddress(): Promise<Buffer> {
@@ -65,6 +69,7 @@ export class KmsSigner implements Signer {
   }
 
   private async solveV(digest: Buffer, r: Buffer, s: Buffer): Promise<number> {
+    console.log("solveV", r, s);
     const address = await this.getAddress();
     const candidate = [...new Array(2).keys()].filter(v => {
       const publicKey = recover(digest, r, s, v);
@@ -76,5 +81,17 @@ export class KmsSigner implements Signer {
       return candidate[0];
     }
     throw new Error(`invalid ${candidate}`);
+  }
+
+  private flip(_s: Buffer, v: number) {
+    // EIP-2
+    const s = new BN(_s);
+    if (s.cmp(secp256k1halfN) > 0) {
+      return {
+        v: v ^ 1,
+        s: secp256k1N.sub(s).toBuffer()
+      };
+    }
+    return { s: _s, v };
   }
 }
