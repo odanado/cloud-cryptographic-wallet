@@ -1,9 +1,11 @@
+import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData
 } from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction } from "ethereumjs-tx";
+import Common from "ethereumjs-common";
 
 import {
   Provider,
@@ -18,16 +20,29 @@ export interface KmsOptions {
   keyIds: string[];
 }
 
+export type Network = "mainnet" | "ropsten" | "rinkeby" | "kovan";
+export interface NetworkOptions {
+  chainName: string;
+  chainId: number;
+  networkId: number;
+}
+
 export class KmsProvider implements Provider {
   private readonly engine: ProviderEngine;
   private readonly signers: KmsSigner[];
   private cacheAccounts: string[] = [];
+  private readonly networkOrNetworkOptions: Network | NetworkOptions;
 
-  public constructor(endpoint: string, kmsOptions: KmsOptions) {
+  public constructor(
+    endpoint: string,
+    kmsOptions: KmsOptions,
+    networkOrNetworkOptions: Network | NetworkOptions
+  ) {
     this.engine = new ProviderEngine();
     this.signers = kmsOptions.keyIds.map(
       keyId => new KmsSigner(kmsOptions.region, keyId)
     );
+    this.networkOrNetworkOptions = networkOrNetworkOptions;
 
     this.engine.addProvider(
       new HookedSubprovider({
@@ -61,22 +76,21 @@ export class KmsProvider implements Provider {
     const addresses = await Promise.all(
       this.signers.map(signer => signer.getAddress())
     );
-    this.cacheAccounts = addresses.map(
-      address => `0x${address.toString("hex")}`
+    this.cacheAccounts = addresses.map(address =>
+      Web3.utils.toChecksumAddress(address.toString("hex"))
     );
     return this.cacheAccounts;
   }
 
   public async signTransaction(txData: TxData) {
-    const from = txData.from.toLowerCase();
+    const from = txData.from;
     const signer = this.resolveSigner(from);
 
     if (!signer) {
       throw new Error(`Account not found: ${from}`);
     }
 
-    // TODO: fix chain id
-    const tx = new Transaction(txData, { chain: "ropsten" });
+    const tx = this.createTransaction(txData);
     const digest = tx.hash(false);
 
     const signature = await signer.sign(digest);
@@ -100,9 +114,29 @@ export class KmsProvider implements Provider {
   }
 
   private resolveSigner(address: string) {
-    const index = this.cacheAccounts.indexOf(address);
+    const index = this.cacheAccounts
+      .map(account => account.toLowerCase())
+      .indexOf(address.toLowerCase());
     if (index !== -1) {
       return this.signers[index];
     }
+  }
+
+  private createTransaction(txData: TxData): Transaction {
+    const isNetworkOptions = (x: any): x is NetworkOptions => {
+      return (
+        typeof x.chainName === "string" &&
+        typeof x.chainId === "number" &&
+        typeof x.networkId === "number"
+      );
+    };
+    if (isNetworkOptions(this.networkOrNetworkOptions)) {
+      const networkOptions = this.networkOrNetworkOptions;
+      return new Transaction(txData, {
+        common: Common.forCustomChain("mainnet", networkOptions)
+      });
+    }
+    const newtwork = this.networkOrNetworkOptions;
+    return new Transaction(txData, { chain: newtwork });
   }
 }
