@@ -136,7 +136,7 @@ describe("KmsSigner", () => {
         );
 
         expect(signature.s.toString("hex")).toBe(
-          "e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b"
+          "1d9083ab830b686a650f8f1383bc142306caa8d319b772cef33d5348e7afc926"
         );
       });
     });
