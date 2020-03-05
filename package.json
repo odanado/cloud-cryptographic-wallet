@@ -1,8 +1,18 @@
 {
-  "name": "typescript-nodejs-template",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "aws-kms-provider",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json",
+    "yarn.lock"
+  ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/asn1js": "^0.0.1",
     "@types/bn.js": "^4.11.6",
@@ -24,6 +34,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
     "test": "run-p test:*",
     "test:build": "yarn build --noEmit",
