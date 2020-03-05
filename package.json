@@ -31,7 +31,7 @@
     "prettier": "^1.18.2",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "prebuild": "rm -rf dist",
