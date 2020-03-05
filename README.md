@@ -1,11 +1,15 @@
 # aws-kms-provider
+
+[![npm version](https://badge.fury.io/js/aws-kms-provider.svg)](https://www.npmjs.com/package/aws-kms-provider)
+[![GitHub Actions](https://github.com/odanado/aws-kms-provider/workflows/Node%20CI/badge.svg)](https://github.com/odanado/aws-kms-provider)
+
 AWS KMS Web3 provider. The provider can sign the transaction using [Asymmetric Keys of AWS Key Management Service](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) without managing a private key.
 
 
 
 ## Install
 ```bash
-$ npm install ${WIP}
+$ npm install aws-kms-provider
 ```
 
 ## Examples
