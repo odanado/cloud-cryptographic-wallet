@@ -1,5 +1,6 @@
 import BN = require("bn.js");
-import { secp256k1halfN, recover, toAddress } from "./crypto";
+import { recover, toAddress } from "./crypto";
+import { secp256k1N, secp256k1halfN } from "./constant";
 
 export class Signature {
   private readonly buffer: Buffer;
@@ -17,6 +18,18 @@ export class Signature {
       throw Error(
         `Signature: invalid signature. V must be 27 or 28. actual: ${this.recovery}`
       );
+    }
+
+    if (!this.isCompatibleEip2()) {
+      const s = new BN(this.s);
+      const recovery = Buffer.alloc(1);
+      recovery.writeUInt8((this.v % 2) + 27, 0);
+
+      this.buffer = Buffer.concat([
+        this.r,
+        secp256k1N.sub(s).toBuffer("be", 32),
+        recovery
+      ]);
     }
   }
 

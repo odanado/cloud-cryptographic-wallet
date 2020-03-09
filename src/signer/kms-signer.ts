@@ -1,9 +1,10 @@
 import AWS from "aws-sdk";
+import BN from "bn.js";
 
 import { Signer, Signature } from "./signer";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
-import { recover, toAddress, secp256k1halfN, secp256k1N } from "../crypto";
-import BN from "bn.js";
+import { recover, toAddress } from "../crypto";
+import { secp256k1halfN, secp256k1N } from "../constant";
 
 export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
