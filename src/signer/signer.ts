@@ -1,8 +1,4 @@
-export interface Signature {
-  r: Buffer;
-  s: Buffer;
-  v: number;
-}
+import { Signature } from "../signature";
 
 export interface Signer {
   sign(digest: Buffer): Promise<Signature>;

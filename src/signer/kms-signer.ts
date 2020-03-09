@@ -1,7 +1,8 @@
 import AWS from "aws-sdk";
 import BN from "bn.js";
 
-import { Signer, Signature } from "./signer";
+import { Signer } from "./signer";
+import { Signature } from "../signature";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
 import { recover, toAddress } from "../crypto";
 import { secp256k1halfN, secp256k1N } from "../constant";
@@ -20,16 +21,9 @@ export class KmsSigner implements Signer {
     if (!Buffer.isBuffer(response.Signature)) {
       throw new TypeError("Signature is not BUffer");
     }
-
+    const address = await this.getAddress();
     const { r, s } = parseSignature(response.Signature);
-    const v = await this.solveV(digest, r, s);
-
-    const signature: Signature = {
-      r,
-      ...this.flip(s, v)
-    };
-
-    return signature;
+    return Signature.fromDigest(digest, address, r, s);
   }
 
   public async getAddress(): Promise<Buffer> {
