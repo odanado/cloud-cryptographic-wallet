@@ -1,5 +1,17 @@
-import { Signature } from "./signature";
+import { mocked } from "ts-jest/utils";
 
+import { Signature } from "./signature";
+import { recover, toAddress } from "./crypto";
+jest.mock("./crypto");
+
+/*
+jest.doMock("./crypto", () => ({
+  recover: jest.fn(),
+  toAddress: () => {
+    return Buffer.alloc(2);
+  }
+}));
+*/
 describe("Signature", () => {
   describe("when invalid length", () => {
     it("should be throw error", () => {
@@ -21,6 +33,25 @@ describe("Signature", () => {
       expect(() => {
         Signature.fromRSV(r, s, v);
       }).toThrow(/Signature: invalid signature. V must be 27 or 28./);
+    });
+  });
+
+  describe("fromDigest", () => {
+    describe("when faild to solve V", () => {
+      beforeEach(() => {
+        mocked(recover).mockImplementation();
+        mocked(toAddress).mockReturnValue(Buffer.alloc(2));
+      });
+      it("should be throw error", () => {
+        expect(() =>
+          Signature.fromDigest(
+            Buffer.alloc(1),
+            Buffer.alloc(2),
+            Buffer.alloc(3),
+            Buffer.alloc(4)
+          )
+        ).toThrow(/Signature: failed to solve V/);
+      });
     });
   });
 
