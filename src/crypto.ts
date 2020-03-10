@@ -1,5 +1,4 @@
 import secp256k1 from "secp256k1";
-import BN from "bn.js";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const createKeccakHash = require("keccak");
