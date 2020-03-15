@@ -11,7 +11,6 @@ export class KmsSigner implements Signer {
 
   public constructor(region: string, keyId: string) {
     this.keyId = keyId;
-    console.log(AWS.KMS);
     this.kms = new AWS.KMS({ region });
   }
 
@@ -30,7 +29,6 @@ export class KmsSigner implements Signer {
   }
 
   private async _getPublicKey(): Promise<Buffer> {
-    console.log(this.kms);
     const response = await this.kms
       .getPublicKey({ KeyId: this.keyId })
       .promise();
