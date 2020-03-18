@@ -26,7 +26,7 @@ function makeKMSMock(publicKey: Buffer, signature: Buffer): AWS.KMS {
     }
   };
 
-  return KMS as any;
+  return KMS as AWS.KMS;
 }
 
 describe("KmsSigner", () => {

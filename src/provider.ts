@@ -123,8 +123,11 @@ export class KmsProvider implements Provider {
   }
 
   private createTransaction(txData: TxData): Transaction {
-    const isNetworkOptions = (x: any): x is NetworkOptions => {
+    const isNetworkOptions = (
+      x: Network | NetworkOptions
+    ): x is NetworkOptions => {
       return (
+        typeof x === "object" &&
         typeof x.chainName === "string" &&
         typeof x.chainId === "number" &&
         typeof x.networkId === "number"
