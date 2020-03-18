@@ -1,55 +1,55 @@
 import { KmsSigner } from "./kms-signer";
 import AWS from "aws-sdk";
+import { mocked } from "ts-jest/utils";
 
-jest.overloadSpyOn = jest.spyOn;
+import { Signature } from "../signature";
+import { parseSignature } from "../asn1-parser";
+
+jest.mock("aws-sdk");
+jest.mock("../signature");
+
+function makeKMSMock(publicKey: Buffer, signature: Buffer): AWS.KMS {
+  const KMS = {
+    getPublicKey() {
+      return {
+        promise() {
+          return Promise.resolve({ PublicKey: publicKey });
+        }
+      };
+    },
+    sign() {
+      return {
+        promise() {
+          return Promise.resolve({ Signature: signature });
+        }
+      };
+    }
+  };
+
+  return KMS as AWS.KMS;
+}
 
 describe("KmsSigner", () => {
   let signer: KmsSigner;
-  beforeEach(() => {
-    signer = new KmsSigner("region", "keyId");
-
-    jest.spyOn(signer["kms"], "sign").mockImplementation();
-  });
+  const publicKey = Buffer.from(
+    "3056301006072a8648ce3d020106052b8104000a034200044badcc1608925c1d944e50ac6c9dbf0c5fb6b04b8548394a14cc7b5ab6667fde96dda298cf815e1f75d72f52704c3fdf333c84263b744d0e974f24d293bd303b",
+    "hex"
+  );
+  const signature = Buffer.from(
+    "304502201fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0022100e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b",
+    "hex"
+  );
   describe("getPublicKey", () => {
-    // TODO: get from AWS.KMS.prototype.getPublicKey
-    type GetPublicKey = (
-      params: AWS.KMS.Types.GetPublicKeyRequest,
-      callback?: (
-        err: AWS.AWSError,
-        data: AWS.KMS.Types.GetPublicKeyResponse
-      ) => void
-    ) => AWS.Request<AWS.KMS.Types.GetPublicKeyResponse, AWS.AWSError>;
-
     describe("correct", () => {
       beforeEach(async () => {
-        const getPublicKey: GetPublicKey = (
-          param: AWS.KMS.GetPublicKeyRequest,
-          callback?: (
-            err: AWS.AWSError,
-            data: AWS.KMS.GetPublicKeyResponse
-          ) => void
-        ) => {
-          const err: AWS.AWSError = null as any;
-          const data: AWS.KMS.GetPublicKeyResponse = {
-            PublicKey: Buffer.from(
-              "3056301006072a8648ce3d020106052b8104000a034200044badcc1608925c1d944e50ac6c9dbf0c5fb6b04b8548394a14cc7b5ab6667fde96dda298cf815e1f75d72f52704c3fdf333c84263b744d0e974f24d293bd303b",
-              "hex"
-            )
-          };
-          if (callback) {
-            callback(err, data);
-          }
-          return ({} as any) as AWS.Request<
-            AWS.KMS.GetPublicKeyResponse,
-            AWS.AWSError
-          >;
-        };
-        jest
-          .overloadSpyOn(signer["kms"], "getPublicKey")
-          .mockImplementation(getPublicKey);
+        mocked(AWS.KMS).mockReturnValue(
+          makeKMSMock(publicKey, Buffer.alloc(0))
+        );
+
+        signer = new KmsSigner("region", "keyId");
       });
 
-      it("can be return address", async () => {
+      it("should be return address", async () => {
         const address = await signer.getAddress();
 
         const expected = Buffer.from(
@@ -62,28 +62,11 @@ describe("KmsSigner", () => {
 
     describe("when return non buffer type", () => {
       beforeEach(() => {
-        const getPublicKey: GetPublicKey = (
-          param: AWS.KMS.GetPublicKeyRequest,
-          callback?: (
-            err: AWS.AWSError,
-            data: AWS.KMS.GetPublicKeyResponse
-          ) => void
-        ) => {
-          const err: AWS.AWSError = null as any;
-          const data: AWS.KMS.GetPublicKeyResponse = {
-            PublicKey: {}
-          };
-          if (callback) {
-            callback(err, data);
-          }
-          return ({} as any) as AWS.Request<
-            AWS.KMS.GetPublicKeyResponse,
-            AWS.AWSError
-          >;
-        };
-        jest
-          .overloadSpyOn(signer["kms"], "getPublicKey")
-          .mockImplementation(getPublicKey);
+        mocked(AWS.KMS).mockReturnValue(
+          makeKMSMock(null as any, Buffer.alloc(0))
+        );
+
+        signer = new KmsSigner("region", "keyId");
       });
       it("can be throw error", async () => {
         await expect(signer.getAddress()).rejects.toThrow(
@@ -100,33 +83,18 @@ describe("KmsSigner", () => {
     ) => AWS.Request<AWS.KMS.Types.SignResponse, AWS.AWSError>;
     describe("correct", () => {
       beforeEach(() => {
-        const sign: Sign = (
-          param: AWS.KMS.Types.SignRequest,
-          callback?: (
-            err: AWS.AWSError,
-            data: AWS.KMS.Types.SignResponse
-          ) => void
-        ) => {
-          const err: AWS.AWSError = null as any;
-          const data: AWS.KMS.Types.SignResponse = {
-            Signature: Buffer.from(
-              "304502201fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0022100e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b",
-              "hex"
-            )
-          };
-          if (callback) {
-            callback(err, data);
-          }
-          return ({} as any) as AWS.Request<
-            AWS.KMS.Types.SignResponse,
-            AWS.AWSError
-          >;
-        };
+        mocked(AWS.KMS).mockReturnValue(makeKMSMock(publicKey, signature));
 
-        jest.overloadSpyOn(signer["kms"], "sign").mockImplementation(sign);
-        signer["solveV"] = jest.fn().mockReturnValue(0);
+        const { r, s } = parseSignature(signature);
+        mocked(Signature).fromDigest.mockReturnValue({
+          r,
+          s,
+          recovery: 27
+        } as any);
+
+        signer = new KmsSigner("region", "keyId");
       });
-      it("can be return signature", async () => {
+      it("should be return signature", async () => {
         const digest = Buffer.from("");
 
         const signature = await signer.sign(digest);
@@ -136,39 +104,20 @@ describe("KmsSigner", () => {
         );
 
         expect(signature.s.toString("hex")).toBe(
-          "1d9083ab830b686a650f8f1383bc142306caa8d319b772cef33d5348e7afc926"
+          "e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b"
         );
       });
     });
     describe("when return non buffer type", () => {
       beforeEach(() => {
-        const sign: Sign = (
-          param: AWS.KMS.Types.SignRequest,
-          callback?: (
-            err: AWS.AWSError,
-            data: AWS.KMS.Types.SignResponse
-          ) => void
-        ) => {
-          const err: AWS.AWSError = null as any;
-          const data: AWS.KMS.Types.SignResponse = {
-            Signature: {} as any
-          };
-          if (callback) {
-            callback(err, data);
-          }
-          return ({} as any) as AWS.Request<
-            AWS.KMS.Types.SignResponse,
-            AWS.AWSError
-          >;
-        };
+        mocked(AWS.KMS).mockReturnValue(makeKMSMock(null as any, null as any));
 
-        jest.overloadSpyOn(signer["kms"], "sign").mockImplementation(sign);
-        signer["solveV"] = jest.fn().mockReturnValue(0);
+        signer = new KmsSigner("region", "keyId");
       });
       it("can be throw error", async () => {
         const digest = Buffer.from("");
         await expect(signer.sign(digest)).rejects.toThrow(
-          /Signature is not BUffer/
+          /Signature is not Buffer/
         );
       });
     });

@@ -95,7 +95,7 @@ export class KmsProvider implements Provider {
 
     const signature = await signer.sign(digest);
     const v = Buffer.alloc(1);
-    v.writeUInt8(signature.v + tx.getChainId() * 2 + 35, 0);
+    v.writeUInt8(signature.v + tx.getChainId() * 2 + 8, 0);
 
     tx.r = signature.r;
     tx.s = signature.s;
@@ -123,8 +123,11 @@ export class KmsProvider implements Provider {
   }
 
   private createTransaction(txData: TxData): Transaction {
-    const isNetworkOptions = (x: any): x is NetworkOptions => {
+    const isNetworkOptions = (
+      x: Network | NetworkOptions
+    ): x is NetworkOptions => {
       return (
+        typeof x === "object" &&
         typeof x.chainName === "string" &&
         typeof x.chainId === "number" &&
         typeof x.networkId === "number"
