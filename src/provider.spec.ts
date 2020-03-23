@@ -1,3 +1,5 @@
 describe("KmsProvider", () => {
-  xit("WIP", () => {});
+  xit("WIP", () => {
+    expect(1).toBe(1);
+  });
 });
