@@ -45,7 +45,7 @@ export class KmsSigner implements Signer {
         KeyId: this.keyId,
         Message: digest,
         MessageType: "DIGEST",
-        SigningAlgorithm: "ECDSA_SHA_256"
+        SigningAlgorithm: "ECDSA_SHA_256",
       })
       .promise();
     if (!Buffer.isBuffer(response.Signature)) {

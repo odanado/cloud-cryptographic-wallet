@@ -64,7 +64,7 @@ describe("Signature", () => {
       let index = 0;
       const addresses = [
         Buffer.from("a".repeat(40)),
-        Buffer.from("b".repeat(40))
+        Buffer.from("b".repeat(40)),
       ];
       beforeEach(() => {
         mocked(recover).mockImplementation();
