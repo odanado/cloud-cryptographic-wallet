@@ -24,10 +24,10 @@ async function main() {
   const receipt = await web3.eth.sendTransaction({
     from: accounts[0],
     to,
-    value: web3.utils.toWei("0.00001", "ether")
+    value: web3.utils.toWei("0.00001", "ether"),
   });
 
   console.log(receipt);
 }
 
-main().catch(e => console.error(e));
+main().catch((e) => console.error(e));

@@ -28,7 +28,7 @@ export class Signature {
       this.buffer = Buffer.concat([
         this.r,
         secp256k1N.sub(s).toBuffer("be", 32),
-        recovery
+        recovery,
       ]);
     }
   }
@@ -45,7 +45,7 @@ export class Signature {
     r: Buffer,
     s: Buffer
   ): Signature {
-    const candidate = [...new Array(2).keys()].filter(v => {
+    const candidate = [...new Array(2).keys()].filter((v) => {
       const publicKey = recover(digest, r, s, v);
 
       return address.equals(toAddress(publicKey));

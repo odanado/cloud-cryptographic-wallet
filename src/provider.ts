@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
-  TxData
+  TxData,
 } from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction } from "ethereumjs-tx";
@@ -10,7 +10,7 @@ import Common from "ethereumjs-common";
 import {
   Provider,
   JSONRPCRequestPayload,
-  JSONRPCErrorCallback
+  JSONRPCErrorCallback,
 } from "ethereum-protocol";
 
 import { KmsSigner } from "./signer/kms-signer";
@@ -40,28 +40,28 @@ export class KmsProvider implements Provider {
   ) {
     this.engine = new ProviderEngine();
     this.signers = kmsOptions.keyIds.map(
-      keyId => new KmsSigner(kmsOptions.region, keyId)
+      (keyId) => new KmsSigner(kmsOptions.region, keyId)
     );
     this.networkOrNetworkOptions = networkOrNetworkOptions;
 
     this.engine.addProvider(
       new HookedSubprovider({
-        getAccounts: callback => {
+        getAccounts: (callback) => {
           this.getAccounts()
-            .then(accounts => {
+            .then((accounts) => {
               callback(null, accounts);
             })
-            .catch(err => {
+            .catch((err) => {
               callback(err);
             });
         },
         signTransaction: (txData, callback) => {
           this.signTransaction(txData)
-            .then(rawTx => {
+            .then((rawTx) => {
               callback(null, rawTx);
             })
-            .catch(err => callback(err));
-        }
+            .catch((err) => callback(err));
+        },
       })
     );
 
@@ -74,9 +74,9 @@ export class KmsProvider implements Provider {
     if (this.cacheAccounts.length !== 0) return this.cacheAccounts;
 
     const addresses = await Promise.all(
-      this.signers.map(signer => signer.getAddress())
+      this.signers.map((signer) => signer.getAddress())
     );
-    this.cacheAccounts = addresses.map(address =>
+    this.cacheAccounts = addresses.map((address) =>
       Web3.utils.toChecksumAddress(address.toString("hex"))
     );
     return this.cacheAccounts;
@@ -115,7 +115,7 @@ export class KmsProvider implements Provider {
 
   private resolveSigner(address: string) {
     const index = this.cacheAccounts
-      .map(account => account.toLowerCase())
+      .map((account) => account.toLowerCase())
       .indexOf(address.toLowerCase());
     if (index !== -1) {
       return this.signers[index];
@@ -136,7 +136,7 @@ export class KmsProvider implements Provider {
     if (isNetworkOptions(this.networkOrNetworkOptions)) {
       const networkOptions = this.networkOrNetworkOptions;
       return new Transaction(txData, {
-        common: Common.forCustomChain("mainnet", networkOptions)
+        common: Common.forCustomChain("mainnet", networkOptions),
       });
     }
     const newtwork = this.networkOrNetworkOptions;

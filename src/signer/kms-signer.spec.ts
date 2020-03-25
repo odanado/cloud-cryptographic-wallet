@@ -14,16 +14,16 @@ function makeKMSMock(publicKey: Buffer, signature: Buffer): AWS.KMS {
       return {
         promise() {
           return Promise.resolve({ PublicKey: publicKey });
-        }
+        },
       };
     },
     sign() {
       return {
         promise() {
           return Promise.resolve({ Signature: signature });
-        }
+        },
       };
-    }
+    },
   };
 
   return KMS as AWS.KMS;
@@ -89,7 +89,7 @@ describe("KmsSigner", () => {
         mocked(Signature).fromDigest.mockReturnValue({
           r,
           s,
-          recovery: 27
+          recovery: 27,
         } as any);
 
         signer = new KmsSigner("region", "keyId");

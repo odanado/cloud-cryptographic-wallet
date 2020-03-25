@@ -21,9 +21,7 @@ export function addHexadecimalPrefix(x: string): string {
 }
 
 export function hash(data: Buffer): Buffer {
-  return createKeccakHash("keccak256")
-    .update(data)
-    .digest();
+  return createKeccakHash("keccak256").update(data).digest();
 }
 
 export function toAddress(publicKey: Buffer) {
