@@ -14,6 +14,7 @@ import {
 } from "ethereum-protocol";
 
 import { KmsSigner } from "./signer/kms-signer";
+import { hash } from "./crypto";
 
 export interface KmsOptions {
   region: string;
@@ -55,6 +56,19 @@ export class KmsProvider implements Provider {
               callback(err);
             });
         },
+        signPersonalMessage: (msgParams, callback) => {
+          console.log(msgParams);
+
+          const message = Buffer.from(msgParams.data.slice(2), "hex");
+          const digest = hash(message);
+          this.sign(msgParams.from, digest)
+            .then((signature) => {
+              callback(null, `0x${signature.buffer.toString("hex")}`);
+            })
+            .catch((err) => {
+              callback(err);
+            });
+        },
         signTransaction: (txData, callback) => {
           this.signTransaction(txData)
             .then((rawTx) => {
@@ -83,17 +97,10 @@ export class KmsProvider implements Provider {
   }
 
   public async signTransaction(txData: TxData) {
-    const from = txData.from;
-    const signer = this.resolveSigner(from);
-
-    if (!signer) {
-      throw new Error(`Account not found: ${from}`);
-    }
-
     const tx = this.createTransaction(txData);
     const digest = tx.hash(false);
 
-    const signature = await signer.sign(digest);
+    const signature = await this.sign(txData.from, digest);
     const v = Buffer.alloc(1);
     v.writeUInt8(signature.v + tx.getChainId() * 2 + 8, 0);
 
@@ -113,6 +120,15 @@ export class KmsProvider implements Provider {
     this.engine.sendAsync(payload, callback);
   }
 
+  private sign(address: string, digest: Buffer) {
+    const signer = this.resolveSigner(address);
+
+    if (!signer) {
+      throw new Error(`Account not found: ${address}`);
+    }
+
+    return signer.sign(digest);
+  }
   private resolveSigner(address: string) {
     const index = this.cacheAccounts
       .map((account) => account.toLowerCase())

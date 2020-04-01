@@ -3,7 +3,7 @@ import { recover, toAddress } from "./crypto";
 import { secp256k1N, secp256k1halfN } from "./constant";
 
 export class Signature {
-  private readonly buffer: Buffer;
+  public readonly buffer: Buffer;
 
   public constructor(buffer: Buffer) {
     if (buffer.length !== 65) {

@@ -25,7 +25,10 @@ declare module "web3-provider-engine/subproviders/hooked-wallet" {
 
     signTransaction?: (txData: TxData, cb: Callback<string>) => void;
     signMessage?: Function;
-    signPersonalMessage?: Function;
+    signPersonalMessage?: (
+      msgParams: { from: string; data: string },
+      cb: Callback<string>
+    ) => void;
     decryptMessage?: Function;
     encryptionPublicKey?: Function;
     signTypedMessage?: Function;
