@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "asn1js": "^2.0.26",
-    "aws-sdk": "^2.610.0",
+    "aws-sdk": "^2.695.0",
     "bn.js": "^5.1.1",
     "ethereumjs-common": "^1.5.0",
     "ethereumjs-tx": "^2.1.2",
