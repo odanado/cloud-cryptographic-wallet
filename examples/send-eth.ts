@@ -9,11 +9,7 @@ const endpoint =
 const to = "0xa802b07c1B5dd0e0E57911c3fB7911a7BCff6622";
 
 async function main() {
-  const provider = new KmsProvider(
-    endpoint,
-    { region, keyIds: [keyId] },
-    "ropsten"
-  );
+  const provider = new KmsProvider(endpoint, { region, keyIds: [keyId] });
 
   // XXX
   const web3 = new Web3(provider as any);
