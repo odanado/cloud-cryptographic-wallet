@@ -4,9 +4,18 @@ export class Ethereum {
   private client: Client;
   constructor(endpoint: string) {
     const url = new URL(endpoint);
-    console.log(url);
 
-    this.client = Client.https({ host: url.host, path: url.pathname });
+    this.client = this.getClient(url);
+  }
+
+  private getClient(url: URL): Client {
+    if (url.protocol === "https:") {
+      return Client.https({ host: url.host, path: url.pathname });
+    }
+    if (url.protocol === "http:") {
+      return Client.http({ host: url.host, path: url.pathname });
+    }
+    throw new Error(`unknown protocol ${url.protocol}`);
   }
 
   public async netVersion(): Promise<string> {
