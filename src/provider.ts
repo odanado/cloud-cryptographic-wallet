@@ -4,7 +4,7 @@ import HookedSubprovider, {
   TxData,
 } from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
-import { Transaction } from "ethereumjs-tx";
+import { Transaction, TransactionOptions } from "ethereumjs-tx";
 import Common from "ethereumjs-common";
 
 import {
@@ -14,6 +14,7 @@ import {
 } from "ethereum-protocol";
 
 import { KmsSigner } from "./signer/kms-signer";
+import { Ethereum } from "./ethereum";
 
 export interface KmsOptions {
   region: string;
@@ -31,18 +32,20 @@ export class KmsProvider implements Provider {
   private readonly engine: ProviderEngine;
   private readonly signers: KmsSigner[];
   private cacheAccounts: string[] = [];
-  private readonly networkOrNetworkOptions: Network | NetworkOptions;
+  private readonly networkOrNetworkOptions?: Network | NetworkOptions;
+  private ethereum: Ethereum;
 
   public constructor(
     endpoint: string,
     kmsOptions: KmsOptions,
-    networkOrNetworkOptions: Network | NetworkOptions
+    networkOrNetworkOptions?: Network | NetworkOptions
   ) {
     this.engine = new ProviderEngine();
     this.signers = kmsOptions.keyIds.map(
       (keyId) => new KmsSigner(kmsOptions.region, keyId)
     );
     this.networkOrNetworkOptions = networkOrNetworkOptions;
+    this.ethereum = new Ethereum(endpoint);
 
     this.engine.addProvider(
       new HookedSubprovider({
@@ -90,7 +93,7 @@ export class KmsProvider implements Provider {
       throw new Error(`Account not found: ${from}`);
     }
 
-    const tx = this.createTransaction(txData);
+    const tx = await this.createTransaction(txData);
     const digest = tx.hash(false);
 
     const signature = await signer.sign(digest);
@@ -122,7 +125,7 @@ export class KmsProvider implements Provider {
     }
   }
 
-  private createTransaction(txData: TxData): Transaction {
+  private async getTransactionOptions(): Promise<TransactionOptions> {
     const isNetworkOptions = (
       x: Network | NetworkOptions
     ): x is NetworkOptions => {
@@ -133,13 +136,35 @@ export class KmsProvider implements Provider {
         typeof x.networkId === "number"
       );
     };
+
+    if (!this.networkOrNetworkOptions) {
+      const networkId = Number.parseInt(await this.ethereum.netVersion());
+      const common = Common.forCustomChain(
+        "mainnet",
+        {
+          chainId: networkId,
+          networkId,
+        },
+        "petersburg"
+      );
+      return {
+        common,
+      };
+    }
+
     if (isNetworkOptions(this.networkOrNetworkOptions)) {
       const networkOptions = this.networkOrNetworkOptions;
-      return new Transaction(txData, {
+      return {
         common: Common.forCustomChain("mainnet", networkOptions),
-      });
+      };
     }
+
     const newtwork = this.networkOrNetworkOptions;
-    return new Transaction(txData, { chain: newtwork });
+    return { chain: newtwork };
+  }
+
+  private async createTransaction(txData: TxData): Promise<Transaction> {
+    const opts = await this.getTransactionOptions();
+    return new Transaction(txData, opts);
   }
 }
