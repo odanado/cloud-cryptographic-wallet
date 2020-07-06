@@ -1,6 +1,6 @@
 {
   "name": "aws-kms-provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -41,7 +41,8 @@
     "test:build": "yarn build --noEmit",
     "test:jest": "yarn jest --detectOpenHandles --forceExit",
     "test:coverage": "yarn test:jest --coverage",
-    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
+    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "asn1js": "^2.0.26",
