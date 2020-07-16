@@ -2,6 +2,7 @@ import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData,
+  MsgParams
 } from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction, TransactionOptions } from "ethereumjs-tx";
@@ -65,6 +66,12 @@ export class KmsProvider implements Provider {
             })
             .catch((err) => callback(err));
         },
+        signMessage: (msgParams, callback) => {
+          this.signMessage(msgParams).then(signature => {
+            callback(null, signature)
+          })
+          .catch(err => callback(err))
+        }
       })
     );
 
@@ -95,6 +102,7 @@ export class KmsProvider implements Provider {
 
     const tx = await this.createTransaction(txData);
     const digest = tx.hash(false);
+    console.log(digest, digest.length)
 
     const signature = await signer.sign(digest);
     const v = Buffer.alloc(1);
@@ -107,6 +115,19 @@ export class KmsProvider implements Provider {
     const rawTx = `0x${tx.serialize().toString("hex")}`;
 
     return rawTx;
+  }
+
+  public async signMessage(msgParams: MsgParams) {
+    const from = msgParams.from;
+    const signer = this.resolveSigner(from);
+
+    if (!signer) {
+      throw new Error(`Account not found: ${from}`);
+    }
+
+    const signature = await signer.sign(Buffer.from(msgParams.data.slice(2), "hex"));
+
+    return `0x${signature.toString()}`;
   }
 
   public sendAsync(
