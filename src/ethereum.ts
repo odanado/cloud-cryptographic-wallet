@@ -10,10 +10,18 @@ export class Ethereum {
 
   private getClient(url: URL): Client {
     if (url.protocol === "https:") {
-      return Client.https({ host: url.host, path: url.pathname });
+      return Client.https({
+        host: url.host,
+        path: url.pathname,
+        port: url.port,
+      });
     }
     if (url.protocol === "http:") {
-      return Client.http({ host: url.host, path: url.pathname });
+      return Client.http({
+        host: url.host,
+        path: url.pathname,
+        port: url.port,
+      });
     }
     throw new Error(`unknown protocol ${url.protocol}`);
   }
