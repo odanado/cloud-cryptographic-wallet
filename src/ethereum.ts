@@ -11,14 +11,14 @@ export class Ethereum {
   private getClient(url: URL): Client {
     if (url.protocol === "https:") {
       return Client.https({
-        host: url.host,
+        hostname: url.hostname,
         path: url.pathname,
         port: url.port,
       });
     }
     if (url.protocol === "http:") {
       return Client.http({
-        host: url.host,
+        hostname: url.hostname,
         path: url.pathname,
         port: url.port,
       });
