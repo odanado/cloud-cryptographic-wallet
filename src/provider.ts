@@ -106,8 +106,11 @@ export class KmsProvider implements Provider {
     const digest = tx.hash(false);
 
     const signature = await signer.sign(digest);
-    const v = Buffer.alloc(1);
-    v.writeUInt8(signature.v + tx.getChainId() * 2 + 8, 0);
+
+    const v = Buffer.from(
+      (signature.v + tx.getChainId() * 2 + 8).toString(16),
+      "hex"
+    );
 
     tx.r = signature.r;
     tx.s = signature.s;
