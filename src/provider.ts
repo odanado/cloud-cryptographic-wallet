@@ -87,7 +87,7 @@ export class KmsProvider implements Provider {
     const addresses = await Promise.all(
       this.signers.map((signer) => signer.getAddress())
     );
-    this.cacheAccounts = addresses.map((address) => address.toString());
+    this.cacheAccounts = addresses.map((address) => `0x${address.toString()}`);
     return this.cacheAccounts;
   }
 
