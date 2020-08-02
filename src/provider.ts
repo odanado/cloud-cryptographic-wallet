@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData,
