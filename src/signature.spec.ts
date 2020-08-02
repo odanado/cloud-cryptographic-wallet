@@ -1,7 +1,7 @@
 import { mocked } from "ts-jest/utils";
 
 import { Signature } from "./signature";
-import { recover, toAddress } from "./crypto";
+import { recover } from "./crypto";
 import { Address } from "./address";
 
 jest.mock("./crypto");
@@ -49,7 +49,6 @@ describe("Signature", () => {
       const publicKey = Buffer.from("a".repeat(128), "hex");
       beforeEach(() => {
         mocked(recover).mockReturnValue(publicKey);
-        mocked(toAddress).mockReturnValue(Buffer.alloc(2));
       });
       it("should be throw error", () => {
         expect(() =>

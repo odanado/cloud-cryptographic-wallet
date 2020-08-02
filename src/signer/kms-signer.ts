@@ -3,7 +3,6 @@ import AWS from "aws-sdk";
 import { Signer } from "./signer";
 import { Signature } from "../signature";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
-import { toAddress } from "../crypto";
 import { Address } from "../address";
 
 export class KmsSigner implements Signer {
