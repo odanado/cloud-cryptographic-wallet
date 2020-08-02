@@ -1,6 +1,7 @@
 import BN = require("bn.js");
-import { recover, toAddress } from "./crypto";
+import { recover } from "./crypto";
 import { secp256k1N, secp256k1halfN } from "./constant";
+import { Address } from "./address";
 
 export class Signature {
   private readonly buffer: Buffer;
@@ -41,14 +42,14 @@ export class Signature {
 
   public static fromDigest(
     digest: Buffer,
-    address: Buffer,
+    address: Address,
     r: Buffer,
     s: Buffer
   ): Signature {
     const candidate = [...new Array(2).keys()].filter((v) => {
       const publicKey = recover(digest, r, s, v);
 
-      return address.equals(toAddress(publicKey));
+      return address.equals(Address.fromPublicKey(publicKey));
     });
 
     if (candidate.length === 1) {

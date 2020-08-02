@@ -88,9 +88,7 @@ export class KmsProvider implements Provider {
     const addresses = await Promise.all(
       this.signers.map((signer) => signer.getAddress())
     );
-    this.cacheAccounts = addresses.map((address) =>
-      Web3.utils.toChecksumAddress(address.toString("hex"))
-    );
+    this.cacheAccounts = addresses.map((address) => address.toString());
     return this.cacheAccounts;
   }
 

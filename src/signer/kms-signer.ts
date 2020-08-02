@@ -4,6 +4,7 @@ import { Signer } from "./signer";
 import { Signature } from "../signature";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
 import { toAddress } from "../crypto";
+import { Address } from "../address";
 
 export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
@@ -21,11 +22,11 @@ export class KmsSigner implements Signer {
     return Signature.fromDigest(digest, address, r, s);
   }
 
-  public async getAddress(): Promise<Buffer> {
+  public async getAddress(): Promise<Address> {
     const asn1PublicKey = await this._getPublicKey();
 
     const publicKey = parsePublicKey(asn1PublicKey);
-    return toAddress(publicKey);
+    return Address.fromPublicKey(publicKey);
   }
 
   private async _getPublicKey(): Promise<Buffer> {
