@@ -76,4 +76,8 @@ export class Signature {
     const s = new BN(this.s);
     return secp256k1halfN.cmp(s) > 0;
   }
+
+  public toString(): string {
+    return this.buffer.toString("hex");
+  }
 }

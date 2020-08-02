@@ -2,10 +2,12 @@ import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData,
+  MsgParams,
 } from "web3-provider-engine/subproviders/hooked-wallet";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction, TransactionOptions } from "ethereumjs-tx";
 import Common from "ethereumjs-common";
+import * as EthUtil from "ethereumjs-util";
 
 import {
   Provider,
@@ -65,6 +67,13 @@ export class KmsProvider implements Provider {
             })
             .catch((err) => callback(err));
         },
+        signMessage: (msgParams, callback) => {
+          this.signMessage(msgParams)
+            .then((signature) => {
+              callback(null, signature);
+            })
+            .catch((err) => callback(err));
+        },
       })
     );
 
@@ -97,8 +106,12 @@ export class KmsProvider implements Provider {
     const digest = tx.hash(false);
 
     const signature = await signer.sign(digest);
-    const v = Buffer.alloc(1);
-    v.writeUInt8(signature.v + tx.getChainId() * 2 + 8, 0);
+
+    // TODO: move to signature.ts
+    const vStr = (signature.v + tx.getChainId() * 2 + 8).toString(16);
+    const length = vStr.length + (vStr.length % 2);
+
+    const v = Buffer.from(vStr.padStart(length, "0"), "hex");
 
     tx.r = signature.r;
     tx.s = signature.s;
@@ -107,6 +120,21 @@ export class KmsProvider implements Provider {
     const rawTx = `0x${tx.serialize().toString("hex")}`;
 
     return rawTx;
+  }
+
+  public async signMessage(msgParams: MsgParams) {
+    const from = msgParams.from;
+    const signer = this.resolveSigner(from);
+
+    if (!signer) {
+      throw new Error(`Account not found: ${from}`);
+    }
+
+    const data = EthUtil.toBuffer(msgParams.data);
+    const digest = EthUtil.hashPersonalMessage(data);
+    const signature = await signer.sign(digest);
+
+    return `0x${signature.toString()}`;
   }
 
   public sendAsync(

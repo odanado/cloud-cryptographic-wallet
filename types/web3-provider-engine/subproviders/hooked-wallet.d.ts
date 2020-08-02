@@ -6,6 +6,11 @@ declare module "web3-provider-engine/subproviders/hooked-wallet" {
     to: string;
   }
 
+  export interface MsgParams {
+    from: string;
+    data: string;
+  }
+
   type Callback<T> = (err: Error | null, value?: T) => void;
 
   interface HookedSubproviderOptions {
@@ -24,7 +29,7 @@ declare module "web3-provider-engine/subproviders/hooked-wallet" {
     approveTypedMessage?: Function;
 
     signTransaction?: (txData: TxData, cb: Callback<string>) => void;
-    signMessage?: Function;
+    signMessage?: (msgParams: MsgParams, cb: Callback<string>) => void;
     signPersonalMessage?: Function;
     decryptMessage?: Function;
     encryptionPublicKey?: Function;

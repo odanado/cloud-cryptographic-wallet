@@ -1,6 +1,6 @@
 {
   "name": "aws-kms-provider",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -24,6 +24,7 @@
     "@types/web3-provider-engine": "^14.0.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.24.0",
+    "aws-sdk": "^2.610.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
@@ -42,18 +43,22 @@
     "test:build": "yarn build --noEmit",
     "test:jest": "yarn jest --detectOpenHandles --forceExit",
     "test:coverage": "yarn test:jest --coverage",
-    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
+    "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "asn1js": "^2.0.26",
-    "aws-sdk": "^2.610.0",
     "bn.js": "^5.1.1",
     "ethereumjs-common": "^1.5.0",
     "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-util": "^7.0.3",
     "jayson": "^3.3.3",
     "keccak": "^3.0.0",
     "secp256k1": "4.0",
     "web3": "^1.2.6",
     "web3-provider-engine": "^15.0.6"
+  },
+  "peerDependencies": {
+    "aws-sdk": "^2.610.0"
   }
 }

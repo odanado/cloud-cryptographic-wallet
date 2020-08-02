@@ -10,7 +10,7 @@ AWS KMS Web3 provider. The provider can sign the transaction using [Asymmetric K
 
 ## Install
 ```bash
-$ npm install aws-kms-provider
+$ npm install aws-kms-provider aws-sdk
 ```
 
 ## Examples
