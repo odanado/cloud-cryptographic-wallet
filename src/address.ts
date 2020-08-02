@@ -1,17 +1,26 @@
 import createKeccakHash from "keccak";
 
 export class Address {
-  private readonly publicKey: Buffer;
-  private constructor(publicKey: Buffer) {
-    if (publicKey.length !== 32) {
-      throw TypeError(
-        `Address: invalid public key. buffer length must be 32. actual: ${publicKey.length}`
-      );
-    }
-    this.publicKey = publicKey;
+  private readonly buffer: Buffer;
+  private constructor(buffer: Buffer) {
+    this.buffer = buffer;
+  }
+
+  private static toAddress(publicKey: Buffer) {
+    const address = createKeccakHash("keccak256")
+      .update(publicKey)
+      .digest()
+      .slice(12, 32);
+    return address;
   }
   public static fromPublicKey(publicKey: Buffer): Address {
-    return new Address(publicKey);
+    if (publicKey.length !== 64) {
+      throw TypeError(
+        `Address: invalid public key. buffer length must be 64. actual: ${publicKey.length}`
+      );
+    }
+
+    return new Address(this.toAddress(publicKey));
   }
 
   private toChecksumAddress(address: string): string {
@@ -25,14 +34,10 @@ export class Address {
       .join("");
   }
   public toString(): string {
-    const address = createKeccakHash("keccak256")
-      .update(this.publicKey)
-      .digest("hex");
-
-    return this.toChecksumAddress(address);
+    return this.toChecksumAddress(this.buffer.toString("hex"));
   }
 
   public equals(other: Address): boolean {
-    return this.publicKey.equals(other.publicKey);
+    return this.buffer.equals(other.buffer);
   }
 }
