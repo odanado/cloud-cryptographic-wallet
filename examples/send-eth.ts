@@ -12,7 +12,7 @@ async function main() {
   const provider = new KmsProvider(endpoint, { region, keyIds: [keyId] });
 
   // XXX
-  const web3 = new Web3(provider as any);
+  const web3 = new Web3(provider);
 
   const accounts = await web3.eth.getAccounts();
   console.log("accounts", accounts);

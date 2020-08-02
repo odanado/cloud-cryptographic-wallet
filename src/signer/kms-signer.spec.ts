@@ -4,6 +4,7 @@ import { mocked } from "ts-jest/utils";
 
 import { Signature } from "../signature";
 import { parseSignature } from "../asn1-parser";
+import { Address } from "../address";
 
 jest.mock("aws-sdk");
 jest.mock("../signature");
@@ -56,7 +57,7 @@ describe("KmsSigner", () => {
           "5de3b70a775a81943a65d9fd2aaa58bd1c141233",
           "hex"
         );
-        expect(address).toEqual(expected);
+        expect(address["buffer"]).toEqual(expected);
       });
     });
 

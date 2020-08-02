@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData,
@@ -88,9 +87,7 @@ export class KmsProvider implements Provider {
     const addresses = await Promise.all(
       this.signers.map((signer) => signer.getAddress())
     );
-    this.cacheAccounts = addresses.map((address) =>
-      Web3.utils.toChecksumAddress(address.toString("hex"))
-    );
+    this.cacheAccounts = addresses.map((address) => `0x${address.toString()}`);
     return this.cacheAccounts;
   }
 
