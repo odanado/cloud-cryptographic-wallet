@@ -732,10 +732,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@types/asn1js@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@types/asn1js/-/asn1js-0.0.1.tgz#ef8b9f9708cb1632a1c3a9cd27717caabe793bc2"
-  integrity sha1-74uflwjLFjKhw6nNJ3F8qr55O8I=
+"@types/asn1js@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/asn1js/-/asn1js-0.0.2.tgz#f278a8af81861813d4fc9cd0a86c8b1ac5f16db3"
+  integrity sha512-xtLPq140WhPqvDZDpY70rTx4qTezHs+8htbhWQGuevBRQko8FRjFSO5WVTwXOwd3W5tQRxJ7eni30fDUP2q4wQ==
   dependencies:
     "@types/pvutils" "*"
 
