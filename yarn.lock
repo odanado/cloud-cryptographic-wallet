@@ -6945,10 +6945,10 @@ web3-net@1.2.11:
     web3-core-method "1.2.11"
     web3-utils "1.2.11"
 
-web3-provider-engine@^15.0.6:
-  version "15.0.6"
-  resolved "https://registry.yarnpkg.com/web3-provider-engine/-/web3-provider-engine-15.0.6.tgz#bb64d49d0718bb6a12f146bdd542d5f2f8fa4e48"
-  integrity sha512-KdIHmRmB7VG6HeSu4hlB+Iypsbv/dAbNV/UWBDxsTwLJuuTSobmtowOq5BEsegXtjWhSSzSi9O0Ci/DVG0kB1g==
+web3-provider-engine@^15.0.12:
+  version "15.0.12"
+  resolved "https://registry.yarnpkg.com/web3-provider-engine/-/web3-provider-engine-15.0.12.tgz#24d7f2f6fb6de856824c7306291018c4fc543ac3"
+  integrity sha512-/OfhQalKPND1iB5ggvGuYF0+SIb2Qj5OFTrT2VrZWP79UhMTdP7T+L2FtblmRdCeOetoAzZHdBaIwLOZsmIX+w==
   dependencies:
     async "^2.5.0"
     backoff "^2.5.0"
