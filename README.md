@@ -18,8 +18,7 @@ See [send-eth.ts](https://github.com/odanado/aws-kms-provider/blob/master/exampl
 
 ```ts
 import Web3 from "web3";
-
-import { KmsProvider } from "../src/provider";
+import { KmsProvider } from ".aws-kms-provider";
 
 const region = "us-east-1";
 const keyId = "xxxxx-xxxx-xxxx-xxxx-xxxxxxxx";
@@ -30,8 +29,7 @@ const to = "0xabcdef";
 async function main() {
   const provider = new KmsProvider(
     endpoint,
-    { region, keyIds: [keyId] },
-    "ropsten"
+    { region, keyIds: [keyId] }
   );
 
   const web3 = new Web3(provider as any);
