@@ -24,10 +24,6 @@ export function hash(data: Buffer): Buffer {
   return createKeccakHash("keccak256").update(data).digest();
 }
 
-export function toAddress(publicKey: Buffer) {
-  return hash(publicKey).slice(12, 32);
-}
-
 export function recover(
   digest: Buffer,
   r: Buffer,

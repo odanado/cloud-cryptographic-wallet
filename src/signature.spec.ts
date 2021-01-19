@@ -1,7 +1,8 @@
 import { mocked } from "ts-jest/utils";
 
 import { Signature } from "./signature";
-import { recover, toAddress } from "./crypto";
+import { recover } from "./crypto";
+import { Address } from "./address";
 
 jest.mock("./crypto");
 
@@ -45,15 +46,15 @@ describe("Signature", () => {
 
   describe("fromDigest", () => {
     describe("when faild to solve V", () => {
+      const publicKey = Buffer.from("a".repeat(128), "hex");
       beforeEach(() => {
-        mocked(recover).mockImplementation();
-        mocked(toAddress).mockReturnValue(Buffer.alloc(2));
+        mocked(recover).mockReturnValue(publicKey);
       });
       it("should be throw error", () => {
         expect(() =>
           Signature.fromDigest(
             Buffer.alloc(1),
-            Buffer.alloc(2),
+            Address.fromPublicKey(publicKey),
             Buffer.alloc(3),
             Buffer.alloc(4)
           )
@@ -62,15 +63,15 @@ describe("Signature", () => {
     });
     describe.each([0, 1])("when succeed to solve V", (v: number) => {
       let index = 0;
-      const addresses = [
-        Buffer.from("a".repeat(40)),
-        Buffer.from("b".repeat(40)),
+      const publicKeys = [
+        Buffer.from("a".repeat(128), "hex"),
+        Buffer.from("b".repeat(128), "hex"),
       ];
+      const addresses = publicKeys.map((publicKey) =>
+        Address.fromPublicKey(publicKey)
+      );
       beforeEach(() => {
-        mocked(recover).mockImplementation();
-        mocked(toAddress).mockImplementation(() => {
-          return addresses[index++];
-        });
+        mocked(recover).mockImplementation(() => publicKeys[index++]);
       });
 
       it("should be return Signature", () => {
