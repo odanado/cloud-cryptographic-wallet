@@ -134,6 +134,10 @@ export class KmsProvider implements Provider {
     return `0x${signature.toString()}`;
   }
 
+  public send(payload: JSONRPCRequestPayload, callback: JSONRPCErrorCallback) {
+    this.engine.sendAsync(payload, callback);
+  }
+
   public sendAsync(
     payload: JSONRPCRequestPayload,
     callback: JSONRPCErrorCallback
