@@ -9,9 +9,9 @@ export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
   private readonly keyId: string;
 
-  public constructor(region: string, keyId: string) {
+  public constructor(region: string, keyId: string, accessKeyId?: string, secretAccessKey?: string) {
     this.keyId = keyId;
-    this.kms = new AWS.KMS({ region });
+    this.kms = new AWS.KMS({ region, accessKeyId, secretAccessKey });
   }
 
   public async sign(digest: Buffer): Promise<Signature> {
