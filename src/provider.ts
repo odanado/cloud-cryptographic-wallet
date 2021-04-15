@@ -20,10 +20,10 @@ import { Ethereum } from "./ethereum";
 export interface KmsOptions {
   region: string;
   keyIds: string[];
-  credential?: KmsCredential;
+  credential?: AwsCredential;
 }
 
-export interface KmsCredential {
+export interface AwsCredential {
   accessKeyId: string;
   secretAccessKey: string;
 }

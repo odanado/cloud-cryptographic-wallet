@@ -4,13 +4,13 @@ import { Signer } from "./signer";
 import { Signature } from "../signature";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
 import { Address } from "../address";
-import { KmsCredential } from '../provider';
+import { AwsCredential } from '../provider';
 
 export class KmsSigner implements Signer {
   private readonly kms: AWS.KMS;
   private readonly keyId: string;
 
-  public constructor(region: string, keyId: string, credential?: KmsCredential) {
+  public constructor(region: string, keyId: string, credential?: AwsCredential) {
     this.keyId = keyId;
     this.kms = new AWS.KMS({
       region,
