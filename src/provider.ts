@@ -20,8 +20,12 @@ import { Ethereum } from "./ethereum";
 export interface KmsOptions {
   region: string;
   keyIds: string[];
-  accessKeyId?: string;
-  secretAccessKey?: string;
+  credential?: KmsCredential;
+}
+
+export interface KmsCredential {
+  accessKeyId: string;
+  secretAccessKey: string;
 }
 
 export type Network = "mainnet" | "ropsten" | "rinkeby" | "kovan";
@@ -44,9 +48,11 @@ export class KmsProvider implements Provider {
     networkOrNetworkOptions?: Network | NetworkOptions
   ) {
     this.engine = new ProviderEngine();
-    this.signers = kmsOptions.keyIds.map(
-      (keyId) => new KmsSigner(kmsOptions.region, keyId, kmsOptions.accessKeyId, kmsOptions.secretAccessKey)
-    );
+    this.signers = kmsOptions.keyIds.map((keyId) => new KmsSigner(
+      kmsOptions.region,
+      keyId,
+      kmsOptions.credential
+    ));
     this.networkOrNetworkOptions = networkOrNetworkOptions;
     this.ethereum = new Ethereum(endpoint);
 
