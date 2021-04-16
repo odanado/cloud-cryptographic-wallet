@@ -2,6 +2,8 @@ name: Node CI
 
 on:
   push:
+    branches:
+      - master
   pull_request:
       types: [synchronize]
   schedule:
