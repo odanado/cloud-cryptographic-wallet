@@ -2,7 +2,10 @@ name: Node CI
 
 on:
   push:
-    branches: "**"
+    branches:
+      - master
+  pull_request:
+      types: [synchronize]
   schedule:
     - cron: '0 0 * * *'
 
@@ -13,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x, 14.x]
 
     steps:
     - uses: actions/checkout@v1
