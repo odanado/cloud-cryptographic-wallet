@@ -48,3 +48,16 @@ async function main() {
 
 main().catch(e => console.error(e));
 ```
+
+
+## For Developer
+### Release
+
+
+```bash
+$ yarn publish
+$ git push origin HEAD
+```
+
+- Write a release note.
+  - https://github.com/odanado/aws-kms-provider/releases/new
