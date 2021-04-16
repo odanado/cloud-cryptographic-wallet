@@ -48,11 +48,9 @@ export class KmsProvider implements Provider {
     networkOrNetworkOptions?: Network | NetworkOptions
   ) {
     this.engine = new ProviderEngine();
-    this.signers = kmsOptions.keyIds.map((keyId) => new KmsSigner(
-      kmsOptions.region,
-      keyId,
-      kmsOptions.credential
-    ));
+    this.signers = kmsOptions.keyIds.map(
+      (keyId) => new KmsSigner(kmsOptions.region, keyId, kmsOptions.credential)
+    );
     this.networkOrNetworkOptions = networkOrNetworkOptions;
     this.ethereum = new Ethereum(endpoint);
 
