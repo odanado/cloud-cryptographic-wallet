@@ -6,12 +6,9 @@ on:
       - master
   pull_request:
       types: [synchronize]
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
-  build:
-
+  setup:
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,9 +24,29 @@ jobs:
     - name: yarn install
       run: |
         yarn install --frozen-lockfile
+
+  test:
+    needs: [setup]
+    runs-on: ubuntu-latest
+
+    steps:
     - name: run test
       run: |
         yarn test
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+
+  e2e:
+    needs: [setup]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: run e2e
+      run: |
+        yarn e2e
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
