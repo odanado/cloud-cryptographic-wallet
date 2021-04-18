@@ -92,7 +92,3 @@ jobs:
     - name: run e2e
       run: |
         yarn e2e
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}

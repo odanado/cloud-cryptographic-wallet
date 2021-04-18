@@ -50,7 +50,6 @@
     "test:jest": "yarn run-jest ./src",
     "test:coverage": "yarn test:jest --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
-    "e2e-temp": "yarn run-jest ./test",
     "e2e": "echo e2e",
     "prepublishOnly": "yarn build"
   },
