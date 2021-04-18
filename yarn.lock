@@ -1282,12 +1282,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@types/asn1js@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@types/asn1js/-/asn1js-0.0.1.tgz#ef8b9f9708cb1632a1c3a9cd27717caabe793bc2"
-  integrity sha1-74uflwjLFjKhw6nNJ3F8qr55O8I=
-  dependencies:
-    "@types/pvutils" "*"
+"@types/asn1js@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/asn1js/-/asn1js-2.0.0.tgz#10ca75692575744d0117098148a8dc84cbee6682"
+  integrity sha512-Jjzp5EqU0hNpADctc/UqhiFbY1y2MqIxBVa2S4dBlbnZHTLPMuggoL5q43X63LpsOIINRDirBjP56DUUKIUWIA==
 
 "@types/babel__core@^7.1.7":
   version "7.1.9"
@@ -1440,11 +1438,6 @@
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.19.1.tgz#33509849f8e679e4add158959fdb086440e9553f"
   integrity sha512-5qOlnZscTn4xxM5MeGXAMOsIOIKIbh9e85zJWfBRVPlRMEVawzoPhINYbRGkBZCI8LxvBe7tJCdWiarA99OZfQ==
-
-"@types/pvutils@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@types/pvutils/-/pvutils-0.0.1.tgz#09282eab1d86ff4f483809984184f48365cd758d"
-  integrity sha1-CSguqx2G/09IOAmYQYT0g2XNdY0=
 
 "@types/qs@*":
   version "6.9.3"
