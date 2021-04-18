@@ -92,3 +92,6 @@ jobs:
     - name: run e2e
       run: |
         yarn e2e
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
