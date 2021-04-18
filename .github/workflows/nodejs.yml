@@ -57,7 +57,7 @@ jobs:
           node_modules
         key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-    - name: run test
+    - name: run unit test
       run: |
         yarn test
     - name: Coveralls
@@ -92,7 +92,7 @@ jobs:
       id: geth
       uses: odanado/geth-action@v0.0.10
 
-    - name: run e2e
+    - name: run e2e test
       run: |
         yarn e2e
       env:

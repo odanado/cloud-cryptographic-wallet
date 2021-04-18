@@ -6,7 +6,6 @@ import { getConfig } from "../config";
 const { region, keyId, rpcUrl, privateKey } = getConfig();
 
 beforeEach(async () => {
-  console.log({ rpcUrl });
   const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
   const account = web3.eth.accounts.privateKeyToAccount(privateKey);
   web3.eth.accounts.wallet.add(account);
