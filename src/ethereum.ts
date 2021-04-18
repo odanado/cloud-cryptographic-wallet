@@ -15,10 +15,11 @@ export class Ethereum {
   }
 
   public async netVersion(): Promise<string> {
-    const response = await this.client.request({
+    const result = await this.client.request({
       method: "net_version",
       params: [],
     });
-    return response.result;
+
+    return result;
   }
 }
