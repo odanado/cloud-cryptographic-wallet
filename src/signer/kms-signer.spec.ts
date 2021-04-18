@@ -1,33 +1,35 @@
 import { KmsSigner } from "./kms-signer";
-import AWS from "aws-sdk";
+
+import {
+  KMSClient,
+  SignCommand,
+  GetPublicKeyCommand,
+} from "@aws-sdk/client-kms";
 import { mocked } from "ts-jest/utils";
 
 import { Signature } from "../signature";
 import { parseSignature } from "../asn1-parser";
-import { Address } from "../address";
 
-jest.mock("aws-sdk");
+jest.mock("@aws-sdk/client-kms");
 jest.mock("../signature");
 
-function makeKMSMock(publicKey: Buffer, signature: Buffer): AWS.KMS {
-  const KMS = {
-    getPublicKey() {
-      return {
-        promise() {
-          return Promise.resolve({ PublicKey: publicKey });
-        },
-      };
-    },
-    sign() {
-      return {
-        promise() {
-          return Promise.resolve({ Signature: signature });
-        },
-      };
-    },
+function makeKMSMock(publicKey: Buffer, signature: Buffer): KMSClient {
+  type Send = typeof KMSClient.prototype.send;
+  type Command = Parameters<Send>[0];
+
+  const send: Send = async (command: Command) => {
+    if (command instanceof SignCommand) {
+      return Promise.resolve({ Signature: signature });
+    }
+    if (command instanceof GetPublicKeyCommand) {
+      return Promise.resolve({ PublicKey: publicKey });
+    }
+  };
+  const MockKMSClient = {
+    send,
   };
 
-  return KMS as AWS.KMS;
+  return MockKMSClient as KMSClient;
 }
 
 describe("KmsSigner", () => {
@@ -43,7 +45,7 @@ describe("KmsSigner", () => {
   describe("getPublicKey", () => {
     describe("correct", () => {
       beforeEach(async () => {
-        mocked(AWS.KMS).mockReturnValue(
+        mocked(KMSClient).mockReturnValue(
           makeKMSMock(publicKey, Buffer.alloc(0))
         );
 
@@ -63,7 +65,7 @@ describe("KmsSigner", () => {
 
     describe("when return non buffer type", () => {
       beforeEach(() => {
-        mocked(AWS.KMS).mockReturnValue(
+        mocked(KMSClient).mockReturnValue(
           makeKMSMock(null as any, Buffer.alloc(0))
         );
 
@@ -71,20 +73,16 @@ describe("KmsSigner", () => {
       });
       it("can be throw error", async () => {
         await expect(signer.getAddress()).rejects.toThrow(
-          /PublicKey is not Buffer/
+          /PublicKey is undefined/
         );
       });
     });
   });
 
   describe("sign", () => {
-    type Sign = (
-      params: AWS.KMS.Types.SignRequest,
-      callback?: (err: AWS.AWSError, data: AWS.KMS.Types.SignResponse) => void
-    ) => AWS.Request<AWS.KMS.Types.SignResponse, AWS.AWSError>;
     describe("correct", () => {
       beforeEach(() => {
-        mocked(AWS.KMS).mockReturnValue(makeKMSMock(publicKey, signature));
+        mocked(KMSClient).mockReturnValue(makeKMSMock(publicKey, signature));
 
         const { r, s } = parseSignature(signature);
         mocked(Signature).fromDigest.mockReturnValue({
@@ -111,14 +109,16 @@ describe("KmsSigner", () => {
     });
     describe("when return non buffer type", () => {
       beforeEach(() => {
-        mocked(AWS.KMS).mockReturnValue(makeKMSMock(null as any, null as any));
+        mocked(KMSClient).mockReturnValue(
+          makeKMSMock(null as any, null as any)
+        );
 
         signer = new KmsSigner("region", "keyId");
       });
       it("can be throw error", async () => {
         const digest = Buffer.from("");
         await expect(signer.sign(digest)).rejects.toThrow(
-          /Signature is not Buffer/
+          /Signature is undefined/
         );
       });
     });
