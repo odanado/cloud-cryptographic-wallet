@@ -1,7 +1,9 @@
 import Web3 from "web3";
 
 import { KmsProvider } from "../../src/";
-import { region, keyId, rpcUrl } from "../config";
+import { getConfig } from "../config";
+
+const { region, keyId, rpcUrl } = getConfig();
 
 it("web3.js", async () => {
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });

@@ -1,7 +1,9 @@
 import Web3 from "web3";
 
 import { KmsProvider } from "../../src/";
-import { region, keyId, rpcUrl, privateKey } from "../config";
+import { getConfig } from "../config";
+
+const { region, keyId, rpcUrl, privateKey } = getConfig();
 
 beforeEach(async () => {
   const web3 = new Web3(rpcUrl);
