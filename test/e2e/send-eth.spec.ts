@@ -7,13 +7,14 @@ const { region, keyId, rpcUrl, privateKey } = getConfig();
 
 beforeEach(async () => {
   const web3 = new Web3(rpcUrl);
-  web3.eth.accounts.wallet.add(
-    web3.eth.accounts.privateKeyToAccount(privateKey)
-  );
+  const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+  web3.eth.accounts.wallet.add(account);
+
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });
   const accounts = await provider.getAccounts();
 
   await web3.eth.sendTransaction({
+    from: account.address,
     to: accounts[0],
     value: web3.utils.toWei("1", "ether"),
   });
