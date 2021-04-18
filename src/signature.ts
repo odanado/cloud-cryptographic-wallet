@@ -1,4 +1,4 @@
-import BN = require("bn.js");
+import BN from "bn.js";
 import { recover } from "./crypto";
 import { secp256k1N, secp256k1halfN } from "./constant";
 import { Address } from "./address";

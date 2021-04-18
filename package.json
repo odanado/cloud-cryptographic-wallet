@@ -6,10 +6,12 @@
     "url": "https://github.com/odanado/aws-kms-provider"
   },
   "main": "dist/index.js",
+  "module": "lib/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "README.md",
     "dist",
+    "lib",
     "package.json",
     "yarn.lock"
   ],
@@ -19,8 +21,10 @@
   },
   "scripts": {
     "run-jest": "jest --detectOpenHandles --forceExit --coverage",
-    "prebuild": "rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
+    "prebuild": "rm -rf dist lib",
+    "build": "run-p build:*",
+    "build:cjs": "tsc -p tsconfig.build.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "test": "run-p test:*",
     "test:build": "yarn build --noEmit",
     "test:jest": "yarn run-jest ./src",
