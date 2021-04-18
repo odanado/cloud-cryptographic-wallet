@@ -26,7 +26,6 @@
     "build:cjs": "tsc -p tsconfig.build.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "test": "run-p test:*",
-    "test:build": "yarn build --noEmit",
     "test:jest": "yarn run-jest ./src",
     "test:coverage": "yarn test:jest --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
