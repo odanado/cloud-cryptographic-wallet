@@ -1,4 +1,8 @@
-import AWS from "aws-sdk";
+import {
+  KMSClient,
+  SignCommand,
+  GetPublicKeyCommand,
+} from "@aws-sdk/client-kms";
 
 import { Signer } from "./signer";
 import { Signature } from "../signature";
@@ -7,8 +11,8 @@ import { Address } from "../address";
 import { AwsCredential } from "../provider";
 
 export class KmsSigner implements Signer {
-  private readonly kms: AWS.KMS;
   private readonly keyId: string;
+  private readonly client: KMSClient;
 
   public constructor(
     region: string,
@@ -16,11 +20,8 @@ export class KmsSigner implements Signer {
     credential?: AwsCredential
   ) {
     this.keyId = keyId;
-    this.kms = new AWS.KMS({
-      region,
-      accessKeyId: credential?.accessKeyId,
-      secretAccessKey: credential?.secretAccessKey,
-    });
+
+    this.client = new KMSClient({ region, credentials: credential });
   }
 
   public async sign(digest: Buffer): Promise<Signature> {
@@ -38,10 +39,9 @@ export class KmsSigner implements Signer {
   }
 
   private async _getPublicKey(): Promise<Buffer> {
-    const response = await this.kms
-      .getPublicKey({ KeyId: this.keyId })
-      .promise();
+    const command = new GetPublicKeyCommand({ KeyId: this.keyId });
 
+    const response = await this.client.send(command);
     if (!Buffer.isBuffer(response.PublicKey)) {
       throw new TypeError("PublicKey is not Buffer");
     }
@@ -49,14 +49,14 @@ export class KmsSigner implements Signer {
   }
 
   private async _sign(digest: Buffer) {
-    const response = await this.kms
-      .sign({
-        KeyId: this.keyId,
-        Message: digest,
-        MessageType: "DIGEST",
-        SigningAlgorithm: "ECDSA_SHA_256",
-      })
-      .promise();
+    const command = new SignCommand({
+      KeyId: this.keyId,
+      Message: digest,
+      MessageType: "DIGEST",
+      SigningAlgorithm: "ECDSA_SHA_256",
+    });
+    const response = await this.client.send(command);
+
     if (!Buffer.isBuffer(response.Signature)) {
       throw new TypeError("Signature is not Buffer");
     }

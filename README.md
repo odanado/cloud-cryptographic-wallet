@@ -10,7 +10,7 @@ AWS KMS Web3 provider. The provider can sign the transaction using [Asymmetric K
 
 ## Install
 ```bash
-$ npm install aws-kms-provider aws-sdk
+$ npm install aws-kms-provider
 ```
 
 ## Examples
@@ -18,7 +18,7 @@ See [send-eth.ts](https://github.com/odanado/aws-kms-provider/blob/master/exampl
 
 ```ts
 import Web3 from "web3";
-import { KmsProvider } from ".aws-kms-provider";
+import { KmsProvider } from "aws-kms-provider";
 
 const region = "us-east-1";
 const keyId = "xxxxx-xxxx-xxxx-xxxx-xxxxxxxx";
