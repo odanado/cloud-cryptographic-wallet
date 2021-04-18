@@ -49,5 +49,6 @@ jspm_packages
 .yarn-integrity
 
 dist/
+lib
 
 .tmp/
