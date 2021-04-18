@@ -42,10 +42,11 @@ export class KmsSigner implements Signer {
     const command = new GetPublicKeyCommand({ KeyId: this.keyId });
 
     const response = await this.client.send(command);
-    if (!Buffer.isBuffer(response.PublicKey)) {
-      throw new TypeError("PublicKey is not Buffer");
+    if (!response.PublicKey) {
+      throw new TypeError("PublicKey is undefined");
     }
-    return response.PublicKey;
+
+    return Buffer.from(response.PublicKey);
   }
 
   private async _sign(digest: Buffer) {
@@ -57,9 +58,10 @@ export class KmsSigner implements Signer {
     });
     const response = await this.client.send(command);
 
-    if (!Buffer.isBuffer(response.Signature)) {
-      throw new TypeError("Signature is not Buffer");
+    if (!response.Signature) {
+      throw new TypeError("Signature is undefined");
     }
-    return response.Signature;
+
+    return Buffer.from(response.Signature);
   }
 }

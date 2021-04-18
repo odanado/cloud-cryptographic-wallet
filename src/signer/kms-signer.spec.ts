@@ -73,7 +73,7 @@ describe("KmsSigner", () => {
       });
       it("can be throw error", async () => {
         await expect(signer.getAddress()).rejects.toThrow(
-          /PublicKey is not Buffer/
+          /PublicKey is undefined/
         );
       });
     });
@@ -118,7 +118,7 @@ describe("KmsSigner", () => {
       it("can be throw error", async () => {
         const digest = Buffer.from("");
         await expect(signer.sign(digest)).rejects.toThrow(
-          /Signature is not Buffer/
+          /Signature is undefined/
         );
       });
     });
