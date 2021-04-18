@@ -1,33 +1,24 @@
-import { Client } from "jayson/promise";
+import { RequestManager, Client, HTTPTransport } from "@open-rpc/client-js";
 
 export class Ethereum {
   private client: Client;
   constructor(endpoint: string) {
-    const url = new URL(endpoint);
-
-    this.client = this.getClient(url);
+    this.client = this.getClient(endpoint);
   }
 
-  private getClient(url: URL): Client {
-    if (url.protocol === "https:") {
-      return Client.https({
-        hostname: url.hostname,
-        path: url.pathname,
-        port: url.port,
-      });
-    }
-    if (url.protocol === "http:") {
-      return Client.http({
-        hostname: url.hostname,
-        path: url.pathname,
-        port: url.port,
-      });
-    }
-    throw new Error(`unknown protocol ${url.protocol}`);
+  private getClient(url: string): Client {
+    const transport = new HTTPTransport(url);
+    const requestManager = new RequestManager([transport]);
+    const client = new Client(requestManager);
+
+    return client;
   }
 
   public async netVersion(): Promise<string> {
-    const response = await this.client.request("net_version", []);
+    const response = await this.client.request({
+      method: "net_version",
+      params: [],
+    });
     return response.result;
   }
 }
