@@ -1,32 +1,27 @@
-import nock from "nock";
 import { Ethereum } from "./ethereum";
 
-describe("Ethereum", () => {
-  describe("create instance", () => {
-    describe("when unknown protocol", () => {
-      it("should be throw error", () => {
-        expect(() => new Ethereum("ws://localhost")).toThrow();
-      });
-    });
-  });
+// XXX: https://www.white-space.work/node-js-headers-is-not-defined/
+import { Headers } from "node-fetch";
+// @ts-expect-error
+global.Headers = Headers;
 
+jest.mock("isomorphic-fetch", () => {
+  return require("fetch-mock-jest").sandbox();
+});
+
+describe("Ethereum", () => {
   describe.each(["http", "https"])("protocol %s", (protocol) => {
     describe("netVersion", () => {
       it("should be return network id", async () => {
         const endpoint = `${protocol}://example.com/path/to/`;
-        const scope = nock(endpoint)
-          .post("/", {
-            method: "net_version",
-            jsonrpc: "2.0",
-            params: [],
-            id: /.*/,
-          })
-          .reply(200, { result: "3", jsonrpc: "2.0" });
+
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const fetchMock = require("isomorphic-fetch");
+        fetchMock.mock(endpoint, { jsonrpc: "2.0", result: "3", id: 0 });
 
         const ethereum = new Ethereum(endpoint);
 
         await expect(ethereum.netVersion()).resolves.toBe("3");
-        expect(scope.isDone()).toBeTruthy();
       });
     });
   });
