@@ -10,7 +10,8 @@
       "./types",
       "./node_modules/@types"
     ],
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*.ts",
