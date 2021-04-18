@@ -18,6 +18,7 @@ beforeEach(async () => {
     from: account.address,
     to: accounts[0],
     value: web3.utils.toWei("1", "ether"),
+    gas: 21000,
   });
 });
 
