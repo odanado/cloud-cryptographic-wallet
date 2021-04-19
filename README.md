@@ -57,7 +57,7 @@ main().catch(e => console.error(e));
 ```bash
 $ yarn publish
 $ git push origin HEAD
+$ git push origin --tags
 ```
 
 - Write a release note.
-  - https://github.com/odanado/aws-kms-provider/releases/new

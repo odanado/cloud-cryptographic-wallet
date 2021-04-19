@@ -6,7 +6,7 @@ import HookedSubprovider, {
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 import { Transaction, TransactionOptions } from "ethereumjs-tx";
 import Common from "ethereumjs-common";
-import * as EthUtil from "ethereumjs-util";
+import { toBuffer, hashPersonalMessage } from "ethereumjs-util";
 
 import {
   Provider,
@@ -133,8 +133,8 @@ export class KmsProvider implements Provider {
       throw new Error(`Account not found: ${from}`);
     }
 
-    const data = EthUtil.toBuffer(msgParams.data);
-    const digest = EthUtil.hashPersonalMessage(data);
+    const data = toBuffer(msgParams.data);
+    const digest = hashPersonalMessage(data);
     const signature = await signer.sign(digest);
 
     return `0x${signature.toString()}`;
