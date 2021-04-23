@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/asn1js": "^2.0.0",
-    "@types/bn.js": "^4.11.6",
+    "@types/bn.js": "^5.1.0",
     "@types/ethereum-protocol": "^1.0.1",
     "@types/jest": "^26.0.22",
     "@types/keccak": "^3.0.1",
