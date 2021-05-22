@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request:
-      types: [opened, synchronize, reopened]
+  pull_request_target:
 
 jobs:
   setup:
@@ -73,6 +72,7 @@ jobs:
   test-e2e:
     needs: [setup]
     runs-on: ubuntu-latest
+    if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     strategy:
       matrix:
@@ -80,6 +80,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+    - uses: actions/checkout@v2
+      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      with:
+        fetch-depth: 0
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
