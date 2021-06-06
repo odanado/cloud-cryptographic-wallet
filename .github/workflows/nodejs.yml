@@ -20,12 +20,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
 
@@ -61,12 +61,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
 
@@ -103,12 +103,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
     
