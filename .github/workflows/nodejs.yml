@@ -18,13 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-        fetch-depth: 0
-    - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target')
-      with:
         fetch-depth: 0
 
     - name: Use Node.js ${{ matrix.node-version }}
