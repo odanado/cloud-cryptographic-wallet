@@ -4,14 +4,13 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [opened, synchronize, reopened]
   pull_request_target:
     types: [opened, synchronize, reopened]
 
 jobs:
   setup:
     runs-on: ubuntu-latest
+    if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     strategy:
       matrix:
@@ -19,12 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
 
@@ -52,6 +51,7 @@ jobs:
   test-unit:
     needs: [setup]
     runs-on: ubuntu-latest
+    if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     strategy:
       matrix:
@@ -59,12 +59,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
 
@@ -101,12 +101,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      if: (github.event_name == 'pull_request_target')
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      if: (github.event_name != 'pull_request_target')
       with:
         fetch-depth: 0
     
