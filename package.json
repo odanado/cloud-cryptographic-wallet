@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.13.0",
-    "@open-rpc/client-js": "^1.6.3",
+    "@open-rpc/client-js": "^1.7.0",
     "asn1js": "^2.1.1",
     "bn.js": "^5.1.1",
     "ethereumjs-common": "^1.5.2",
