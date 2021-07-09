@@ -64,7 +64,7 @@
     "bn.js": "^5.2.0",
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
-    "ethereumjs-util": "^7.0.10",
+    "ethereumjs-util": "^7.1.0",
     "keccak": "^3.0.1",
     "secp256k1": "4.0",
     "web3-provider-engine": "^16.0.1"
