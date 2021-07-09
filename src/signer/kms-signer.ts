@@ -32,13 +32,13 @@ export class KmsSigner implements Signer {
   }
 
   public async getAddress(): Promise<Address> {
-    const asn1PublicKey = await this._getPublicKey();
+    const asn1PublicKey = await this.getPublicKey();
 
     const publicKey = parsePublicKey(asn1PublicKey);
     return Address.fromPublicKey(publicKey);
   }
 
-  private async _getPublicKey(): Promise<Buffer> {
+  public async getPublicKey(): Promise<Buffer> {
     const command = new GetPublicKeyCommand({ KeyId: this.keyId });
 
     const response = await this.client.send(command);

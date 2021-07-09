@@ -1,6 +1,6 @@
 {
   "name": "aws-kms-provider",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -33,15 +33,15 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/asn1js": "^2.0.0",
+    "@types/asn1js": "^2.0.2",
     "@types/bn.js": "^5.1.0",
-    "@types/ethereum-protocol": "^1.0.1",
-    "@types/jest": "^26.0.23",
+    "@types/ethereum-protocol": "^1.0.2",
+    "@types/jest": "^26.0.24",
     "@types/keccak": "^3.0.1",
-    "@types/node": "^15.12.4",
-    "@types/node-fetch": "^2.5.10",
-    "@types/secp256k1": "^4.0.2",
-    "@types/web3-provider-engine": "^14.0.0",
+    "@types/node": "^16.3.0",
+    "@types/node-fetch": "^2.5.11",
+    "@types/secp256k1": "^4.0.3",
+    "@types/web3-provider-engine": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
@@ -51,20 +51,20 @@
     "fetch-mock-jest": "^1.5.1",
     "jest": "^25.5.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "ts-jest": "^25.3.1",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.4",
-    "web3": "^1.3.6"
+    "typescript": "^4.3.5",
+    "web3": "^1.4.0"
   },
   "dependencies": {
-    "@aws-sdk/client-kms": "^3.19.0",
+    "@aws-sdk/client-kms": "^3.20.0",
     "@open-rpc/client-js": "^1.7.0",
     "asn1js": "^2.1.1",
     "bn.js": "^5.2.0",
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
-    "ethereumjs-util": "^7.0.10",
+    "ethereumjs-util": "^7.1.0",
     "keccak": "^3.0.1",
     "secp256k1": "4.0",
     "web3-provider-engine": "^16.0.1"
