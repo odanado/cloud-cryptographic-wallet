@@ -33,7 +33,7 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/asn1js": "^2.0.0",
+    "@types/asn1js": "^2.0.2",
     "@types/bn.js": "^5.1.0",
     "@types/ethereum-protocol": "^1.0.1",
     "@types/jest": "^26.0.23",
