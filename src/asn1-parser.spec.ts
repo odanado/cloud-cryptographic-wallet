@@ -28,15 +28,12 @@ describe("parsePublicKey", () => {
 });
 
 describe("parseSignature", () => {
-  it("ok", () => {
+  it("ok with 142-length signature", () => {
     const buf = Buffer.from(
       "304502201fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0022100e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b",
       "hex"
     );
     const signature = parseSignature(buf);
-
-    expect(signature.r.length).toBe(32);
-    expect(signature.s.length).toBe(32);
 
     expect(signature.r.toString("hex")).toBe(
       "1fa98c7c5f1b964a6b438d9283adf30519aaea2d1a2b25ac473ac0f85d6e08c0"
@@ -45,5 +42,27 @@ describe("parseSignature", () => {
     expect(signature.s.toString("hex")).toBe(
       "e26f7c547cf497959af070ec7c43ebdbb3e4341395912d6ccc950b43e886781b"
     );
+
+    expect(signature.r.length).toBe(32);
+    expect(signature.s.length).toBe(32);
+  });
+
+  it("ok with 140-length signature", () => {
+    const buf = Buffer.from(
+      "30440221009c68bf9b88814142fef77d95956b21625789c34fde9b853653b24fc23515577f021f74e3e4d71e7385ae71042b0f99f7fbbf66e7760dd513ed2fcea754e2a9131c",
+      "hex"
+    );
+    const signature = parseSignature(buf);
+
+    expect(signature.r.toString("hex")).toBe(
+      "9c68bf9b88814142fef77d95956b21625789c34fde9b853653b24fc23515577f"
+    );
+
+    expect(signature.s.toString("hex")).toBe(
+      "0074e3e4d71e7385ae71042b0f99f7fbbf66e7760dd513ed2fcea754e2a9131c"
+    );
+
+    expect(signature.r.length).toBe(32);
+    expect(signature.s.length).toBe(32);
   });
 });
