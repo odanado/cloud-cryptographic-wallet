@@ -36,7 +36,7 @@
     "@types/asn1js": "^2.0.2",
     "@types/bn.js": "^5.1.0",
     "@types/ethereum-protocol": "^1.0.2",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.1",
     "@types/keccak": "^3.0.1",
     "@types/node": "^16.3.2",
     "@types/node-fetch": "^2.5.12",
