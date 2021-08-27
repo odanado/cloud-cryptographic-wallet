@@ -1662,10 +1662,10 @@
   resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz#af577b477c683fad17c619a78208cede06f9605c"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
-"@open-rpc/client-js@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@open-rpc/client-js/-/client-js-1.7.0.tgz#21c062077f7ce5c454c1e9be0cd24c3f334dbc75"
-  integrity sha512-cRGJbXTgdhJNU49vWzJIATRmKBLP2x6tuHJzX9Jg3N8f1VEkge0riUEek2LFIrZiM4TdUp8XV4Ns1W0SZzdfSw==
+"@open-rpc/client-js@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@open-rpc/client-js/-/client-js-1.7.1.tgz#763d75c046a40f57428b861e16a9a69aaa630cb1"
+  integrity sha512-DycSYZUGSUwFl+k9T8wLBSGA8f2hYkvS5A9AB94tBOuU8QlP468NS5ZtAxy72dF4g2WW0genwNJdfeFnHnaxXQ==
   dependencies:
     isomorphic-fetch "^3.0.0"
     isomorphic-ws "^4.0.1"
