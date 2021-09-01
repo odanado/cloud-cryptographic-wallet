@@ -66,6 +66,7 @@ describe("KmsSigner", () => {
     describe("when return non buffer type", () => {
       beforeEach(() => {
         mocked(KMSClient).mockReturnValue(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           makeKMSMock(null as any, Buffer.alloc(0))
         );
 
@@ -89,6 +90,7 @@ describe("KmsSigner", () => {
           r,
           s,
           recovery: 27,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any);
 
         signer = new KmsSigner("region", "keyId");
@@ -110,6 +112,7 @@ describe("KmsSigner", () => {
     describe("when return non buffer type", () => {
       beforeEach(() => {
         mocked(KMSClient).mockReturnValue(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           makeKMSMock(null as any, null as any)
         );
 

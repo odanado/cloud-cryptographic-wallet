@@ -24,7 +24,7 @@ function pad(params: {
   return Buffer.concat([padding, buffer]);
 }
 
-export function parsePublicKey(buf: Buffer) {
+export function parsePublicKey(buf: Buffer): Buffer {
   const { result } = asn1js.fromBER(toArrayBuffer(buf));
   const values = (result as asn1js.Sequence).valueBlock.value;
 

@@ -6,18 +6,10 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "outDir": "dist",
-    "typeRoots": [
-      "./types",
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./types", "./node_modules/@types"],
     "declaration": true,
     "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./types/**/*.ts"
-  ],
-  "exclude": [
-    "./src/**/*.spec.ts"
-  ]
+  "include": ["./src/**/*.ts", "./types/**/*.ts"],
+  "exclude": ["./src/**/*.spec.ts"]
 }

@@ -97,7 +97,7 @@ export class KmsProvider implements Provider {
     return this.cacheAccounts;
   }
 
-  public async signTransaction(txData: TxData) {
+  public async signTransaction(txData: TxData): Promise<string> {
     const from = txData.from;
     const signer = this.resolveSigner(from);
 
@@ -125,7 +125,7 @@ export class KmsProvider implements Provider {
     return rawTx;
   }
 
-  public async signMessage(msgParams: MsgParams) {
+  public async signMessage(msgParams: MsgParams): Promise<string> {
     const from = msgParams.from;
     const signer = this.resolveSigner(from);
 
@@ -140,14 +140,17 @@ export class KmsProvider implements Provider {
     return `0x${signature.toString()}`;
   }
 
-  public send(payload: JSONRPCRequestPayload, callback: JSONRPCErrorCallback) {
+  public send(
+    payload: JSONRPCRequestPayload,
+    callback: JSONRPCErrorCallback
+  ): void {
     this.engine.sendAsync(payload, callback);
   }
 
   public sendAsync(
     payload: JSONRPCRequestPayload,
     callback: JSONRPCErrorCallback
-  ) {
+  ): void {
     this.engine.sendAsync(payload, callback);
   }
 

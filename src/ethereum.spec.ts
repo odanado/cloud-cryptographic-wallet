@@ -2,10 +2,11 @@ import { Ethereum } from "./ethereum";
 
 // XXX: https://www.white-space.work/node-js-headers-is-not-defined/
 import { Headers } from "node-fetch";
-// @ts-expect-error
+// @ts-expect-error 何故か型がない
 global.Headers = Headers;
 
 jest.mock("isomorphic-fetch", () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   return require("fetch-mock-jest").sandbox();
 });
 
