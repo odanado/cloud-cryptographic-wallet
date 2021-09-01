@@ -17,36 +17,36 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target')
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        fetch-depth: 0
-    - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target')
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v2
+        if: (github.event_name == 'pull_request_target')
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v2
+        if: (github.event_name != 'pull_request_target')
+        with:
+          fetch-depth: 0
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: cache node_modules
-      id: node_modules_cache_id
-      uses: actions/cache@v2
-      with:
-        path: |
-          node_modules
-        key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-    - name: yarn install
-      run: |
-        yarn install --frozen-lockfile
+      - name: yarn install
+        run: |
+          yarn install --frozen-lockfile
 
-    - name: run build
-      run: |
-        yarn build
+      - name: run build
+        run: |
+          yarn build
 
   test-unit:
     needs: [setup]
@@ -57,37 +57,36 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target')
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        fetch-depth: 0
-    - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target')
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v2
+        if: (github.event_name == 'pull_request_target')
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v2
+        if: (github.event_name != 'pull_request_target')
+        with:
+          fetch-depth: 0
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: cache node_modules
-      id: node_modules_cache_id
-      uses: actions/cache@v2
-      with:
-        path: |
-          node_modules
-        key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-    - name: run unit test
-      run: |
-        yarn test
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: run unit test
+        run: |
+          yarn test
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   test-e2e:
     needs: [setup]
@@ -98,37 +97,37 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2
-      if: (github.event_name == 'pull_request_target')
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        fetch-depth: 0
-    - uses: actions/checkout@v2
-      if: (github.event_name != 'pull_request_target')
-      with:
-        fetch-depth: 0
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+        if: (github.event_name == 'pull_request_target')
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v2
+        if: (github.event_name != 'pull_request_target')
+        with:
+          fetch-depth: 0
 
-    - name: cache node_modules
-      id: node_modules_cache_id
-      uses: actions/cache@v2
-      with:
-        path: |
-          node_modules
-        key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
-    - name: Geth Action
-      id: geth
-      uses: odanado/geth-action@v0.0.10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: run e2e test
-      run: |
-        yarn e2e
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        RPC_URL: ${{ steps.geth.outputs.rpc_url }}
-        PRIVATE_KEY: ${{ steps.geth.outputs.private_key }}
+      - name: cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: Geth Action
+        id: geth
+        uses: odanado/geth-action@v0.0.10
+
+      - name: run e2e test
+        run: |
+          yarn e2e
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          RPC_URL: ${{ steps.geth.outputs.rpc_url }}
+          PRIVATE_KEY: ${{ steps.geth.outputs.private_key }}

@@ -6,14 +6,14 @@
 
 AWS KMS Web3 provider. The provider can sign the transaction using [Asymmetric Keys of AWS Key Management Service](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) without managing a private key.
 
-
-
 ## Install
+
 ```bash
 $ npm install aws-kms-provider
 ```
 
 ## Examples
+
 See [send-eth.ts](https://github.com/odanado/aws-kms-provider/blob/master/examples/send-eth.ts).
 
 ```ts
@@ -22,15 +22,11 @@ import { KmsProvider } from "aws-kms-provider";
 
 const region = "us-east-1";
 const keyId = "xxxxx-xxxx-xxxx-xxxx-xxxxxxxx";
-const endpoint =
-  "https://ropsten.infura.io/v3/xxxxxxxxxxxx";
+const endpoint = "https://ropsten.infura.io/v3/xxxxxxxxxxxx";
 const to = "0xabcdef";
 
 async function main() {
-  const provider = new KmsProvider(
-    endpoint,
-    { region, keyIds: [keyId] }
-  );
+  const provider = new KmsProvider(endpoint, { region, keyIds: [keyId] });
 
   const web3 = new Web3(provider as any);
 
@@ -40,19 +36,18 @@ async function main() {
   const receipt = await web3.eth.sendTransaction({
     from: accounts[0],
     to,
-    value: web3.utils.toWei("0.00001", "ether")
+    value: web3.utils.toWei("0.00001", "ether"),
   });
 
   console.log(receipt);
 }
 
-main().catch(e => console.error(e));
+main().catch((e) => console.error(e));
 ```
 
-
 ## For Developer
-### Release
 
+### Release
 
 ```bash
 $ yarn publish
