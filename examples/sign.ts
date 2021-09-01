@@ -20,6 +20,8 @@ async function main() {
 
   const digest = web3.utils.sha3("poyo");
 
+  console.log({ digest });
+
   // XXX
   const signature = await web3.eth.sign(message, accounts[0]);
 
