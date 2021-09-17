@@ -59,7 +59,7 @@
     "web3": "^1.5.2"
   },
   "dependencies": {
-    "@aws-sdk/client-kms": "^3.28.0",
+    "@aws-sdk/client-kms": "^3.31.0",
     "@open-rpc/client-js": "^1.7.1",
     "asn1js": "^2.1.1",
     "bn.js": "^5.2.0",
