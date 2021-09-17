@@ -40,7 +40,7 @@
     "@types/ethereum-protocol": "^1.0.2",
     "@types/jest": "^27.0.1",
     "@types/keccak": "^3.0.1",
-    "@types/node": "^16.7.10",
+    "@types/node": "^16.9.2",
     "@types/node-fetch": "^2.5.12",
     "@types/secp256k1": "^4.0.3",
     "@types/web3-provider-engine": "^14.0.1",
