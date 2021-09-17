@@ -45,7 +45,7 @@
     "@types/secp256k1": "^4.0.3",
     "@types/web3-provider-engine": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "fetch-mock": "^9.11.0",
