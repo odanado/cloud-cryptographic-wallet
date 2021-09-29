@@ -2,26 +2,22 @@ import {
   KMSClient,
   SignCommand,
   GetPublicKeyCommand,
+  KMSClientConfig,
 } from "@aws-sdk/client-kms";
 
 import { Signer } from "./signer";
 import { Signature } from "../signature";
 import { parseSignature, parsePublicKey } from "../asn1-parser";
 import { Address } from "../address";
-import { AwsCredential } from "../provider";
 
 export class KmsSigner implements Signer {
   private readonly keyId: string;
   private readonly client: KMSClient;
 
-  public constructor(
-    region: string,
-    keyId: string,
-    credential?: AwsCredential
-  ) {
+  public constructor(keyId: string, config?: KMSClientConfig) {
     this.keyId = keyId;
 
-    this.client = new KMSClient({ region, credentials: credential });
+    this.client = new KMSClient(config ?? {});
   }
 
   public async sign(digest: Buffer): Promise<Signature> {

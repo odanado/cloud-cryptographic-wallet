@@ -1,0 +1,39 @@
+{
+  "name": "aws-kms-signer",
+  "version": "0.3.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "lib",
+    "package.json",
+    "yarn.lock"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.28.0",
+    "asn1js": "^2.1.1",
+    "bn.js": "^5.2.0",
+    "keccak": "^3.0.2",
+    "secp256k1": "4.0"
+  },
+  "devDependencies": {
+    "@types/asn1js": "^2.0.2",
+    "@types/bn.js": "^5.1.0",
+    "@types/keccak": "^3.0.1",
+    "@types/secp256k1": "^4.0.3"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist lib",
+    "build": "tsc"
+  }
+}

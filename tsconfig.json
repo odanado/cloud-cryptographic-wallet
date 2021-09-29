@@ -1,4 +1,11 @@
 {
-  "extends": "./tsconfig.build",
-  "exclude": []
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "skipLibCheck": true
+  }
 }

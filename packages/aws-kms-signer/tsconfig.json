@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "lib",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.spec.ts"]
+}

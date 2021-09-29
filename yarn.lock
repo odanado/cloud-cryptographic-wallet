@@ -2498,6 +2498,15 @@ available-typed-arrays@^1.0.2:
   dependencies:
     array-filter "^1.0.0"
 
+aws-kms-signer@./packages/aws-kms-signer:
+  version "0.3.4"
+  dependencies:
+    "@aws-sdk/client-kms" "^3.28.0"
+    asn1js "^2.1.1"
+    bn.js "^5.2.0"
+    keccak "^3.0.2"
+    secp256k1 "4.0"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -3963,6 +3972,18 @@ ethereumjs-util@^7.0.10, ethereumjs-util@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.0.tgz#e2b43a30bfcdbcb432a4eb42bd5f2393209b3fd5"
   integrity sha512-kR+vhu++mUDARrsMMhsjjzPduRVAeundLGXucGRHF3B4oEltOUspfgCVco4kckucj3FMlLaZHUl9n7/kdmr6Tw==
+  dependencies:
+    "@types/bn.js" "^5.1.0"
+    bn.js "^5.1.2"
+    create-hash "^1.1.2"
+    ethereum-cryptography "^0.1.3"
+    ethjs-util "0.1.6"
+    rlp "^2.2.4"
+
+ethereumjs-util@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.1.tgz#236ef435f46820f0c420a708c0559b5897952069"
+  integrity sha512-1CGBmCp3m8IMGHhAJF/icH8qjCJrfQtaZ9KW+cAVV8kyN5Lc1IRq3KjV77ILOutrCwiyf5y2gMyCrAUMoCf2Ag==
   dependencies:
     "@types/bn.js" "^5.1.0"
     bn.js "^5.1.2"
