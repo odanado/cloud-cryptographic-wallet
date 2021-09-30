@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@types/ethereum-protocol": "^1.0.2",
-    "@types/web3-provider-engine": "^14.0.1"
+    "@types/web3-provider-engine": "^14.0.1",
+    "fetch-mock-jest": "^1.5.1"
   }
 }
