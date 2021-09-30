@@ -121,8 +121,6 @@ jobs:
       - name: Geth Action
         id: geth
         uses: odanado/geth-action@v0.0.10
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
 
       - name: run e2e test
         run: |
