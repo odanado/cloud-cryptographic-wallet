@@ -2,8 +2,8 @@ name: Node CI
 
 on:
   push:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  #pull_request_target:
+  #types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 jobs:
@@ -76,6 +76,7 @@ jobs:
         with:
           path: |
             node_modules
+            packages/*/node_modules
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: run unit test
