@@ -122,7 +122,7 @@ jobs:
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Geth Action
         id: geth
-        uses: odanado/geth-action@v0.0.10
+        uses: odanado/geth-action@v0.0.11
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
