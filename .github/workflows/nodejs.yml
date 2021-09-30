@@ -94,7 +94,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -122,6 +122,8 @@ jobs:
       - name: Geth Action
         id: geth
         uses: odanado/geth-action@v0.0.10
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: run e2e test
         run: |
