@@ -3463,15 +3463,6 @@ available-typed-arrays@^1.0.2:
   dependencies:
     array-filter "^1.0.0"
 
-"aws-kms-signer@file:packages/aws-kms-signer":
-  version "0.3.4"
-  dependencies:
-    "@aws-sdk/client-kms" "^3.28.0"
-    asn1js "^2.1.1"
-    bn.js "^5.2.0"
-    keccak "^3.0.2"
-    secp256k1 "4.0"
-
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
