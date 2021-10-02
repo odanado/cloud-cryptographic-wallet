@@ -12,6 +12,12 @@ AWS KMS Web3 provider. The provider can sign the transaction using [Asymmetric K
 $ npm install aws-kms-provider
 ```
 
+## Another packages
+
+|                                           |                                               |
+| ----------------------------------------- | --------------------------------------------- |
+| [aws-kms-signer](packages/aws-kms-signer) | Signer using AWS KMS without web3.js provider |
+
 ## Examples
 
 See [send-eth.ts](https://github.com/odanado/aws-kms-provider/blob/master/examples/send-eth.ts).
@@ -50,9 +56,7 @@ main().catch((e) => console.error(e));
 ### Release
 
 ```bash
-$ yarn publish
-$ git push origin HEAD
-$ git push origin --tags
+$ yarn lerna publish
 ```
 
 - Write a release note.

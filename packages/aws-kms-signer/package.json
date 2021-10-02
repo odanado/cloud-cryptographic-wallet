@@ -23,8 +23,11 @@
     "package.json",
     "yarn.lock"
   ],
-  "publishConfig": {
-    "access": "public"
+  "scripts": {
+    "prebuild": "rm -rf lib dist",
+    "build": "run-p build:*",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist"
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.28.0",
@@ -39,10 +42,7 @@
     "@types/keccak": "^3.0.1",
     "@types/secp256k1": "^4.0.3"
   },
-  "scripts": {
-    "prebuild": "rm -rf lib dist",
-    "build": "run-p build:*",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist"
+  "publishConfig": {
+    "access": "public"
   }
 }
