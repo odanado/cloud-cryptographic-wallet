@@ -13,6 +13,7 @@
   "types": "lib/index.d.ts",
   "files": [
     "README.md",
+    "dist",
     "lib",
     "package.json",
     "yarn.lock"
