@@ -1,6 +1,6 @@
 {
   "name": "aws-kms-provider",
-  "version": "0.3.5-alpha.7",
+  "version": "0.3.5-alpha.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@open-rpc/client-js": "^1.7.1",
-    "aws-kms-signer": "^0.3.5-alpha.7",
+    "aws-kms-signer": "^0.3.5-alpha.8",
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
     "ethereumjs-util": "^7.1.1",
