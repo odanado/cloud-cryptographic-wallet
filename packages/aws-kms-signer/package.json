@@ -5,8 +5,14 @@
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
   },
+  "license": "MIT",
   "exports": {
-    ".": "./lib/index.js"
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./dist/index.js",
+      "node": "./dist/index.js",
+      "default": "./lib/index.js"
+    }
   },
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
@@ -17,7 +23,6 @@
     "package.json",
     "yarn.lock"
   ],
-  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
