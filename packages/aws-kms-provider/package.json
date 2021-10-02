@@ -5,12 +5,10 @@
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
   },
-  "main": "dist/index.js",
   "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "README.md",
-    "dist",
     "lib",
     "package.json",
     "yarn.lock"
