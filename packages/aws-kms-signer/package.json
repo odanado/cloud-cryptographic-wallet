@@ -34,7 +34,7 @@
     "@types/secp256k1": "^4.0.3"
   },
   "scripts": {
-    "prebuild": "rm -rf dist lib",
+    "prebuild": "rm -rf lib",
     "build": "tsc"
   }
 }

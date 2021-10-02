@@ -14,7 +14,7 @@ import {
   JSONRPCErrorCallback,
 } from "ethereum-protocol";
 
-import { KmsSigner } from "../../aws-kms-signer/src/signer/kms-signer";
+import { KmsSigner } from "aws-kms-signer";
 import { Ethereum } from "./ethereum";
 
 export interface KmsOptions {
