@@ -9,7 +9,7 @@
   "exports": {
     ".": "./lib/index.js"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "README.md",
@@ -18,8 +18,10 @@
     "yarn.lock"
   ],
   "scripts": {
-    "prebuild": "rm -rf lib",
-    "build": "tsc"
+    "prebuild": "rm -rf lib dist",
+    "build": "run-p build:*",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist"
   },
   "dependencies": {
     "@open-rpc/client-js": "^1.7.1",
