@@ -5,7 +5,10 @@
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
   },
-  "module": "lib/index.js",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "types": "lib/index.d.ts",
   "files": [
     "README.md",
