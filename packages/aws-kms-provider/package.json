@@ -1,6 +1,6 @@
 {
   "name": "aws-kms-provider",
-  "version": "0.3.5-alpha.10",
+  "version": "0.3.5-alpha.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
