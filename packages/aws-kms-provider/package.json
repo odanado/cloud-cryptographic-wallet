@@ -1,0 +1,48 @@
+{
+  "name": "aws-kms-provider",
+  "version": "0.3.5-alpha.10",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./dist/index.js",
+      "node": "./dist/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "lib",
+    "package.json",
+    "yarn.lock"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf lib dist",
+    "build": "run-p build:*",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist"
+  },
+  "dependencies": {
+    "@open-rpc/client-js": "^1.7.1",
+    "aws-kms-signer": "^0.3.5-alpha.9",
+    "ethereumjs-common": "^1.5.2",
+    "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-util": "^7.1.1",
+    "web3-provider-engine": "^16.0.3"
+  },
+  "devDependencies": {
+    "@types/ethereum-protocol": "^1.0.2",
+    "@types/web3-provider-engine": "^14.0.1",
+    "fetch-mock-jest": "^1.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

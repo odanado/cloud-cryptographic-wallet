@@ -38,6 +38,7 @@ jobs:
         with:
           path: |
             node_modules
+            packages/*/node_modules
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: yarn install
@@ -78,6 +79,7 @@ jobs:
         with:
           path: |
             node_modules
+            packages/*/node_modules
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: run unit test
@@ -94,7 +96,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -118,6 +120,7 @@ jobs:
         with:
           path: |
             node_modules
+            packages/*/node_modules
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Geth Action
         id: geth

@@ -1,6 +1,10 @@
 {
-  "name": "aws-kms-provider",
+  "name": "root",
   "version": "0.3.4",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -20,55 +24,31 @@
     "access": "public"
   },
   "scripts": {
-    "run-jest": "jest --detectOpenHandles --forceExit --coverage",
-    "prebuild": "rm -rf dist lib",
-    "build": "run-p build:*",
-    "build:cjs": "tsc -p tsconfig.build.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "yarn workspace aws-kms-provider build; yarn workspace aws-kms-signer build",
     "test": "run-p test:*",
-    "test:jest": "yarn run-jest ./src",
+    "test:jest": "yarn jest packages",
     "test:coverage": "yarn test:jest --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
-    "e2e": "yarn run-jest ./test",
+    "e2e": "yarn jest -i --detectOpenHandles ./test",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/asn1js": "^2.0.2",
-    "@types/bn.js": "^5.1.0",
-    "@types/ethereum-protocol": "^1.0.2",
     "@types/jest": "^27.0.1",
-    "@types/keccak": "^3.0.1",
     "@types/node": "^16.7.10",
     "@types/node-fetch": "^2.5.12",
-    "@types/secp256k1": "^4.0.3",
-    "@types/web3-provider-engine": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "fetch-mock": "^9.11.0",
-    "fetch-mock-jest": "^1.5.1",
     "jest": "^27.1.0",
+    "lerna": "^4.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2",
     "web3": "^1.5.2"
-  },
-  "dependencies": {
-    "@aws-sdk/client-kms": "^3.28.0",
-    "@open-rpc/client-js": "^1.7.1",
-    "asn1js": "^2.1.1",
-    "bn.js": "^5.2.0",
-    "ethereumjs-common": "^1.5.2",
-    "ethereumjs-tx": "^2.1.2",
-    "ethereumjs-util": "^7.1.0",
-    "keccak": "^3.0.2",
-    "secp256k1": "4.0",
-    "web3-provider-engine": "^16.0.3"
-  },
-  "peerDependencies": {}
+  }
 }

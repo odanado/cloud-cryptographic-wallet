@@ -14,7 +14,7 @@ import {
   JSONRPCErrorCallback,
 } from "ethereum-protocol";
 
-import { KmsSigner } from "./signer/kms-signer";
+import { KmsSigner } from "aws-kms-signer";
 import { Ethereum } from "./ethereum";
 
 export interface KmsOptions {
@@ -49,7 +49,11 @@ export class KmsProvider implements Provider {
   ) {
     this.engine = new ProviderEngine();
     this.signers = kmsOptions.keyIds.map(
-      (keyId) => new KmsSigner(kmsOptions.region, keyId, kmsOptions.credential)
+      (keyId) =>
+        new KmsSigner(keyId, {
+          credentials: kmsOptions.credential,
+          region: kmsOptions.region,
+        })
     );
     this.networkOrNetworkOptions = networkOrNetworkOptions;
     this.ethereum = new Ethereum(endpoint);
