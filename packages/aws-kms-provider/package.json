@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@open-rpc/client-js": "^1.7.1",
-    "aws-kms-signer": "^0.3.5-alpha.9",
+    "aws-kms-signer": "^0.3.5-alpha.10",
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
     "ethereumjs-util": "^7.1.1",
