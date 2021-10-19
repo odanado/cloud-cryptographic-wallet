@@ -197,7 +197,7 @@ export class KmsProvider implements Provider {
     if (isNetworkOptions(this.networkOrNetworkOptions)) {
       const networkOptions = this.networkOrNetworkOptions;
       return {
-        common: Common.forCustomChain("mainnet", networkOptions),
+        common: Common.forCustomChain("mainnet", networkOptions, "petersburg"),
       };
     }
 
