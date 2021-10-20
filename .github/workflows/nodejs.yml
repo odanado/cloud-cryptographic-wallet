@@ -123,12 +123,14 @@ jobs:
             node_modules
             packages/*/node_modules
           key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+
+      - name: run yarn build
+        run: |
+          yarn build
+
       - name: Geth Action
         id: geth
         uses: odanado/geth-action@v0.0.11
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
 
       - name: run e2e test
         run: |
