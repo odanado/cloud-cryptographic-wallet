@@ -5,6 +5,11 @@ const config = {
   collectCoverage: true,
   coverageReporters: ["json", "lcov", "text", "html"],
   testEnvironment: "node",
+  globals: {
+    "ts-jest": {
+      diagnostics: false,
+    },
+  },
 };
 
 module.exports = config;

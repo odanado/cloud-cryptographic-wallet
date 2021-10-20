@@ -11,6 +11,7 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     strategy:
       matrix:
@@ -126,8 +127,8 @@ jobs:
         id: geth
         uses: odanado/geth-action@v0.0.11
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
 
       - name: run e2e test
         run: |
