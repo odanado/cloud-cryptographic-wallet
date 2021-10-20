@@ -132,9 +132,6 @@ jobs:
         id: geth
         uses: odanado/geth-action@v0.0.11
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: run e2e test
         run: |
           yarn e2e

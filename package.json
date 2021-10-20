@@ -31,7 +31,7 @@
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
-    "e2e": "yarn jest -i --detectOpenHandles ./test",
+    "e2e": "yarn jest -i --detectOpenHandles --forceExit ./test",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
