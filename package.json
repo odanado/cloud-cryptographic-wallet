@@ -24,14 +24,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "yarn workspace aws-kms-provider build; yarn workspace aws-kms-signer build",
+    "build": "yarn workspace aws-kms-signer build; yarn workspace aws-kms-provider build",
     "test": "run-p test:*",
     "test:jest": "yarn jest packages",
     "test:coverage": "yarn test:jest --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
-    "e2e": "yarn jest -i --detectOpenHandles ./test",
+    "e2e": "yarn jest -i --detectOpenHandles --forceExit ./test",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
