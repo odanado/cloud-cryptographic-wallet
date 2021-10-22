@@ -33,6 +33,8 @@ export interface NetworkOptions {
   chainName: string;
   chainId: number;
   networkId: number;
+  hardfork?: string;
+  supportedHardforks?: Array<string>;
 }
 
 export class KmsProvider implements Provider {
@@ -197,7 +199,16 @@ export class KmsProvider implements Provider {
     if (isNetworkOptions(this.networkOrNetworkOptions)) {
       const networkOptions = this.networkOrNetworkOptions;
       return {
-        common: Common.forCustomChain("mainnet", networkOptions, "petersburg"),
+        common: Common.forCustomChain(
+          "mainnet",
+          {
+            name: networkOptions.chainName,
+            chainId: networkOptions.chainId,
+            networkId: networkOptions.networkId,
+          },
+          networkOptions.hardfork || "petersburg",
+          networkOptions.supportedHardforks
+        ),
       };
     }
 
