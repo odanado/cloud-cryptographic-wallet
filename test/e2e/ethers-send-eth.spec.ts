@@ -25,7 +25,7 @@ describe("ethers", () => {
       kmsClientConfig: { region },
     }).connect(provider);
 
-    const target = "0x75b130ed5e51b00cc7c5b91b1288c8d8e549f678";
+    const target = "0x9332b306f1215fe17533164eae8cae21d972bc37";
 
     const value = ethers.utils.parseEther("0.5");
 
@@ -36,6 +36,7 @@ describe("ethers", () => {
 
     await transaction.wait();
 
-    await expect(provider.getBalance(target)).resolves.toBe(value);
+    const actual = await provider.getBalance(target);
+    expect(actual.eq(value)).toBeTruthy();
   });
 });
