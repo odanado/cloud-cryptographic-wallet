@@ -130,7 +130,7 @@ jobs:
 
       - name: Geth Action
         id: geth
-        uses: odanado/geth-action@v0.0.11
+        uses: odanado/geth-action@v0.0.12
 
       - name: run e2e test
         run: |
