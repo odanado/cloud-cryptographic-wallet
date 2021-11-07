@@ -1,4 +1,4 @@
-import ethers from "ethers";
+import * as ethers from "ethers";
 
 import { KmsEthersSigner } from "../../packages/aws-kms-ethers-signer/src";
 import { getConfig } from "../config";
