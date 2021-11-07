@@ -60,3 +60,10 @@ $ yarn lerna publish
 ```
 
 - Write a release note.
+
+### Run e2e test in local
+
+```bash
+$ export AWS_PROFILE=xxx
+$ ./scripts/prepare_e2e.sh yarn e2e
+```
