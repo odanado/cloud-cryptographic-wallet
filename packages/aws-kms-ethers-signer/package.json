@@ -1,0 +1,52 @@
+{
+  "name": "aws-kms-ethers-signer",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./dist/index.js",
+      "node": "./dist/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "lib",
+    "package.json",
+    "yarn.lock"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf lib dist",
+    "build": "run-p build:*",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.39.0",
+    "@ethersproject/abstract-provider": "^5.5.1",
+    "@ethersproject/abstract-signer": "^5.5.0",
+    "@ethersproject/address": "^5.5.0",
+    "@ethersproject/bignumber": "^5.5.0",
+    "@ethersproject/bytes": "^5.5.0",
+    "@ethersproject/hash": "^5.5.0",
+    "@ethersproject/keccak256": "^5.5.0",
+    "@ethersproject/logger": "^5.5.0",
+    "@ethersproject/properties": "^5.5.0",
+    "@ethersproject/transactions": "^5.5.0",
+    "aws-kms-signer": "^0.4.0"
+  },
+  "devDependencies": {
+    "ethers": "^5.5.1"
+  }
+}
