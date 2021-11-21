@@ -96,13 +96,6 @@ export class Adapter extends Signer {
       Buffer.from(digest.slice(2), "hex")
     );
 
-    console.log(
-      { signature: signature.toString() },
-      signature.v,
-      signature.recovery
-    );
-
-    // return `0x${signature.toString()}`;
     const ethersSignature = splitSignature({
       v: signature.v,
       r: `0x${signature.r.toString("hex")}`,
