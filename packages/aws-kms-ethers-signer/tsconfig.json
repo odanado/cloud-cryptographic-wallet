@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "lib",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.spec.ts"]
+}

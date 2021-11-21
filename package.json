@@ -32,7 +32,12 @@
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
     "e2e": "yarn jest -i --detectOpenHandles --forceExit ./test",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "versionup": "lerna version --conventional-commits",
+    "versionup:patch": "lerna version patch --conventional-commits",
+    "versionup:minor": "lerna version minor --conventional-commits",
+    "versionup:major": "lerna version major --conventional-commits",
+    "release": "lerna publish from-package"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
@@ -42,6 +47,7 @@
     "@typescript-eslint/parser": "^4.30.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "ethers": "^5.5.1",
     "jest": "^27.1.0",
     "lerna": "^4.0.0",
     "npm-run-all": "^4.1.5",

@@ -14,9 +14,10 @@ $ npm install aws-kms-provider
 
 ## Another packages
 
-|                                           |                                               |
-| ----------------------------------------- | --------------------------------------------- |
-| [aws-kms-signer](packages/aws-kms-signer) | Signer using AWS KMS without web3.js provider |
+|                                                         |                                               |
+| ------------------------------------------------------- | --------------------------------------------- |
+| [aws-kms-signer](packages/aws-kms-signer)               | Signer using AWS KMS without web3.js provider |
+| [aws-kms-ethers-signer](packages/aws-kms-ethers-signer) | Signer for ethers.js                          |
 
 ## Examples
 
@@ -60,3 +61,10 @@ $ yarn lerna publish
 ```
 
 - Write a release note.
+
+### Run e2e test in local
+
+```bash
+$ export AWS_PROFILE=xxx
+$ ./scripts/prepare_e2e.sh yarn e2e
+```

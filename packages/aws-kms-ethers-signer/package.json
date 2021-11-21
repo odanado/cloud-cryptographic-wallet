@@ -1,6 +1,6 @@
 {
-  "name": "aws-kms-provider",
-  "version": "0.4.2",
+  "name": "aws-kms-ethers-signer",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -29,20 +29,24 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist"
   },
-  "dependencies": {
-    "@open-rpc/client-js": "^1.7.1",
-    "aws-kms-signer": "^0.4.0",
-    "ethereumjs-common": "^1.5.2",
-    "ethereumjs-tx": "^2.1.2",
-    "ethereumjs-util": "^7.1.1",
-    "web3-provider-engine": "^16.0.3"
-  },
-  "devDependencies": {
-    "@types/ethereum-protocol": "^1.0.2",
-    "@types/web3-provider-engine": "^14.0.1",
-    "fetch-mock-jest": "^1.5.1"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.39.0",
+    "@ethersproject/abstract-provider": "^5.5.1",
+    "@ethersproject/abstract-signer": "^5.5.0",
+    "@ethersproject/address": "^5.5.0",
+    "@ethersproject/bignumber": "^5.5.0",
+    "@ethersproject/bytes": "^5.5.0",
+    "@ethersproject/hash": "^5.5.0",
+    "@ethersproject/keccak256": "^5.5.0",
+    "@ethersproject/logger": "^5.5.0",
+    "@ethersproject/properties": "^5.5.0",
+    "@ethersproject/transactions": "^5.5.0",
+    "aws-kms-signer": "^0.4.0"
+  },
+  "devDependencies": {
+    "ethers": "^5.5.1"
   }
 }
