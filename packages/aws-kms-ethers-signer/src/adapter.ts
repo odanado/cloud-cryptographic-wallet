@@ -57,8 +57,6 @@ export class Adapter extends Signer {
 
     const address = await this.getAddress();
     if (transaction.from != null) {
-      console.log({ transaction });
-      console.log(getAddress(transaction.from), address);
       if (getAddress(transaction.from) !== getAddress(address)) {
         this.logger.throwArgumentError(
           "transaction from address mismatch",
@@ -92,9 +90,7 @@ export class Adapter extends Signer {
         delete unsignedTransaction[key];
       }
     });
-    console.log({ unsignedTransaction });
     const digest = keccak256(serialize(unsignedTransaction));
-    console.log({ digest });
 
     const signature = await this.signer.sign(
       Buffer.from(digest.slice(2), "hex")
@@ -113,11 +109,7 @@ export class Adapter extends Signer {
       s: `0x${signature.s.toString("hex")}`,
     });
 
-    console.log({ ethersSignature });
-
-    const poyo = serialize(unsignedTransaction, ethersSignature);
-    console.log({ poyo });
-    return poyo;
+    return serialize(unsignedTransaction, ethersSignature);
   }
 
   connect(provider: Provider): Adapter {
