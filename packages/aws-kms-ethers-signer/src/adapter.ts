@@ -38,7 +38,7 @@ export class Adapter extends Signer {
 
   async getAddress(): Promise<string> {
     const address = await this.signer.getAddress();
-    return address.toString();
+    return getAddress(address.toString());
   }
 
   async signMessage(message: Bytes | string): Promise<string> {
@@ -57,7 +57,7 @@ export class Adapter extends Signer {
 
     const address = await this.getAddress();
     if (transaction.from != null) {
-      if (getAddress(transaction.from) !== getAddress(address)) {
+      if (getAddress(transaction.from) !== address) {
         this.logger.throwArgumentError(
           "transaction from address mismatch",
           "transaction.from",
