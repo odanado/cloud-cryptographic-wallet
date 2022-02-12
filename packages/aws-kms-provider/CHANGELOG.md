@@ -7,10 +7,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package aws-kms-provider
 
-
-
-
-
 ## [0.4.2](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.3.5-alpha.1...aws-kms-provider@0.4.2) (2021-11-21)
 
 ## 0.4.1 (2021-10-22)
