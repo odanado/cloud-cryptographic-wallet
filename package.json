@@ -61,7 +61,7 @@
     "web3": "^1.5.2"
   },
   "lint-staged": {
-    "*.{js,ts,md,json}": [
+    "*.{js,mjs,ts,md,json}": [
       "prettier --write --ignore-path .gitignore"
     ]
   }
