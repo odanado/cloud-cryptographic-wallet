@@ -50,9 +50,7 @@ jobs:
         run: |
           yarn build
       - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          tmate-server-host: ssh.tmate.io
+        uses: mxschmitt/action-tmate@v3.9
 
   test-unit:
     needs: [setup]
