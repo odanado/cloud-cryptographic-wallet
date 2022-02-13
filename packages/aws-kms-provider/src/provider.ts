@@ -2,8 +2,8 @@ import ProviderEngine from "web3-provider-engine";
 import HookedSubprovider, {
   TxData,
   MsgParams,
-} from "web3-provider-engine/subproviders/hooked-wallet";
-import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
+} from "web3-provider-engine/subproviders/hooked-wallet.js";
+import RpcSubprovider from "web3-provider-engine/subproviders/rpc.js";
 import { Transaction, TransactionOptions } from "ethereumjs-tx";
 import Common from "ethereumjs-common";
 import { toBuffer, hashPersonalMessage } from "ethereumjs-util";
