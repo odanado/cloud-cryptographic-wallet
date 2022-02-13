@@ -8,26 +8,25 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "node": "./dist/index.js",
-      "default": "./lib/index.js"
+      "default": "./dist/index.mjs"
     }
   },
   "main": "dist/index.js",
-  "types": "lib/index.d.ts",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "README.md",
     "dist",
-    "lib",
+    "src",
     "package.json",
     "yarn.lock"
   ],
   "scripts": {
-    "prebuild": "rm -rf lib dist",
-    "build": "run-p build:*",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist"
+    "prebuild": "rm -rf dist",
+    "build": "tsup"
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.28.0",
