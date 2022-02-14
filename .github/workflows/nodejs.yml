@@ -91,9 +91,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check ESM
-        run: node test/e2e/esm-import.mjs
-
   test-e2e:
     needs: [setup]
     runs-on: ubuntu-latest
@@ -143,3 +140,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           RPC_URL: ${{ steps.geth.outputs.rpc_url }}
           PRIVATE_KEY: ${{ steps.geth.outputs.private_key }}
+
+      - name: Check ESM Import
+        run: |
+          yarn install
+          node index.mjs
+        working-directory: test/e2e/esm-import-check
