@@ -49,8 +49,6 @@ jobs:
       - name: run build
         run: |
           yarn build
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
 
   test-unit:
     needs: [setup]
