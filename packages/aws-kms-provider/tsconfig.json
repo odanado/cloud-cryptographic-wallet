@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "outDir": "lib",
+    "noEmit": true,
     "typeRoots": [
       "../../types",
       "../../node_modules/@types",

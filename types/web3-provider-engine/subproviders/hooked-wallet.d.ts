@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-declare module "web3-provider-engine/subproviders/hooked-wallet" {
+declare module "web3-provider-engine/subproviders/hooked-wallet.js" {
   import { TxData as BaseTxData } from "ethereumjs-tx/dist/types";
 
   export interface TxData extends BaseTxData {

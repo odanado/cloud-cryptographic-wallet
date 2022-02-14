@@ -91,6 +91,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check ESM
+        run: node test/e2e/esm-import.mjs
+
   test-e2e:
     needs: [setup]
     runs-on: ubuntu-latest

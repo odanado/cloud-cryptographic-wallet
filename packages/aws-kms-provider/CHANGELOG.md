@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.4.3...aws-kms-provider@0.5.0-alpha.0) (2022-02-14)
+
+**Note:** Version bump only for package aws-kms-provider
+
 ## [0.4.3](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.4.2...aws-kms-provider@0.4.3) (2021-11-29)
 
 **Note:** Version bump only for package aws-kms-provider

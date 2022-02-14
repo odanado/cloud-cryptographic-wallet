@@ -1,8 +1,5 @@
 import secp256k1 from "secp256k1";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const createKeccakHash = require("keccak");
-
 export type Hash = string;
 export type Address = string;
 
@@ -18,10 +15,6 @@ export function addHexadecimalPrefix(x: string): string {
     return x;
   }
   return `0x${x}`;
-}
-
-export function hash(data: Buffer): Buffer {
-  return createKeccakHash("keccak256").update(data).digest();
 }
 
 export function recover(
