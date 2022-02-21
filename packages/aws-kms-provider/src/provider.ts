@@ -5,8 +5,9 @@ import HookedSubprovider, {
 } from "web3-provider-engine/subproviders/hooked-wallet.js";
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc.js";
 import { Transaction, TransactionOptions } from "ethereumjs-tx";
-import Common from "ethereumjs-common";
+import CommonOriginal from "ethereumjs-common";
 import { toBuffer, hashPersonalMessage } from "ethereumjs-util";
+import { interopImportCJSDefault } from "node-cjs-interop";
 
 import {
   Provider,
@@ -16,6 +17,8 @@ import {
 
 import { KmsSigner } from "aws-kms-signer";
 import { Ethereum } from "./ethereum";
+
+const Common = interopImportCJSDefault(CommonOriginal);
 
 export interface KmsOptions {
   region: string;

@@ -35,6 +35,7 @@
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
     "ethereumjs-util": "^7.1.1",
+    "node-cjs-interop": "^0.1.0",
     "web3-provider-engine": "^16.0.3"
   },
   "devDependencies": {
