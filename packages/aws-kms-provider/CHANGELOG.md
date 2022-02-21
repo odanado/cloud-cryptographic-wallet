@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.5.0...aws-kms-provider@0.5.1) (2022-02-21)
+
+### Bug Fixes
+
+- **aws-kms-provider:** TypeError: Common.forCustomChain is not a function ([#421](https://github.com/odanado/aws-kms-provider/issues/421)) ([1c07339](https://github.com/odanado/aws-kms-provider/commit/1c07339aee0f9e7f39ecf42382f7184638da2b69))
+
 # [0.5.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.5.0-alpha.0...aws-kms-provider@0.5.0) (2022-02-14)
 
 **Note:** Version bump only for package aws-kms-provider
