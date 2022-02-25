@@ -1,0 +1,38 @@
+{
+  "name": "@cloud-cryptographic-wallet/signer",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "node": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "bn.js": "^5.2.0",
+    "keccak": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.0",
+    "@types/keccak": "^3.0.1"
+  }
+}
