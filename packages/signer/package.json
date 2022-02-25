@@ -29,10 +29,12 @@
   },
   "dependencies": {
     "bn.js": "^5.2.0",
-    "keccak": "^3.0.2"
+    "keccak": "^3.0.2",
+    "secp256k1": "^4.0.3"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
-    "@types/keccak": "^3.0.1"
+    "@types/keccak": "^3.0.1",
+    "@types/secp256k1": "^4.0.3"
   }
 }

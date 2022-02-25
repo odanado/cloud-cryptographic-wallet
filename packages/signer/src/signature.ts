@@ -1,4 +1,6 @@
 import BN from "bn.js";
+import secp256k1 from "secp256k1";
+import { PublicKey } from "./public-key.js";
 
 export class Signature {
   public readonly buffer: Buffer;
@@ -35,8 +37,48 @@ export class Signature {
     this.validate();
   }
 
+  public recoveryPublicKey(hash: Buffer): PublicKey {
+    const publicKey = secp256k1
+      .ecdsaRecover(
+        Uint8Array.from(Buffer.concat([this.r, this.s])),
+        this.recovery,
+        Uint8Array.from(hash),
+        false
+      )
+      .slice(1);
+
+    return PublicKey.fromBuffer(Buffer.from(publicKey));
+  }
+
   public static fromBuffer(buffer: Buffer): Signature {
     return new Signature(buffer);
+  }
+
+  public static fromRSV(r: Buffer, s: Buffer, v: number): Signature {
+    const recovery = Buffer.alloc(1);
+    recovery.writeUInt8(v, 0);
+
+    return Signature.fromBuffer(Buffer.concat([r, s, recovery]));
+  }
+
+  public static fromHash(
+    hash: Buffer,
+    publicKey: PublicKey,
+    r: Buffer,
+    s: Buffer
+  ): Signature {
+    const candidate = [27, 28].filter((v) => {
+      const candidateSignature = Signature.fromRSV(r, s, v);
+      const candidatePublicKey = candidateSignature.recoveryPublicKey(hash);
+
+      return publicKey.equals(candidatePublicKey);
+    });
+
+    if (candidate.length === 1) {
+      const v = candidate[0];
+      return Signature.fromRSV(r, s, v);
+    }
+    throw new Error(`Signature: failed to solve V.`);
   }
 
   public get r(): Buffer {
