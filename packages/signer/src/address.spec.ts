@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Address } from "./address";
+import { Address } from "./address.js";
 
 describe("Address", () => {
   describe("toChecksumAddress", () => {
