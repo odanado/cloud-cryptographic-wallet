@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2](https://github.com/odanado/aws-kms-provider/compare/@cloud-cryptographic-wallet/asn1-parser@0.0.1...@cloud-cryptographic-wallet/asn1-parser@0.0.2) (2022-02-26)
+
+**Note:** Version bump only for package @cloud-cryptographic-wallet/asn1-parser
+
 ## 0.0.1 (2022-02-26)
 
 ### Features
