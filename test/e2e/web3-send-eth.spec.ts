@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-import { KmsProvider } from "../../packages/aws-kms-provider/src";
+import { KmsProvider } from "../../aws-kms-packages/aws-kms-provider/src";
 import { getConfig } from "../config";
 
 const { region, keyId, rpcUrl, privateKey } = getConfig();
