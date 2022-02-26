@@ -52,7 +52,7 @@ export class Bytes {
   }
 
   public readUInt8(index: number): number {
-    const result = this.asUint8Array.at(index);
+    const result = this.asUint8Array[index];
 
     if (!result) {
       throw new Error(`Bytes: invalid index access. index: ${index}`);
@@ -62,8 +62,8 @@ export class Bytes {
   }
 
   public equals(other: Bytes): boolean {
-    return this.asUint8Array.every((value, index) => {
-      return value === other.asUint8Array.at(index);
+    return this.asUint8Array.every((_, index) => {
+      return this.readUInt8(index) === other.readUInt8(index);
     });
   }
 
