@@ -29,6 +29,9 @@ jobs:
         run: |
           yarn install --frozen-lockfile
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: run build
         run: |
           yarn build
