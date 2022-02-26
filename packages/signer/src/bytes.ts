@@ -54,7 +54,7 @@ export class Bytes {
   public readUInt8(index: number): number {
     const result = this.asUint8Array[index];
 
-    if (!result) {
+    if (result == undefined) {
       throw new Error(`Bytes: invalid index access. index: ${index}`);
     }
 

@@ -33,7 +33,6 @@
     "@types/secp256k1": "^4.0.3"
   },
   "scripts": {
-    "test": "vitest run --coverage src",
     "prebuild": "rm -rf dist",
     "build": "tsc"
   }
