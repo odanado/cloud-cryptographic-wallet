@@ -7,17 +7,12 @@
   },
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "node": "./dist/index.cjs",
-      "default": "./dist/index.js"
-    }
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=12"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "README.md",
     "dist",
@@ -36,5 +31,10 @@
     "@types/bn.js": "^5.1.0",
     "@types/keccak": "^3.0.1",
     "@types/secp256k1": "^4.0.3"
+  },
+  "scripts": {
+    "test": "vitest run --coverage src",
+    "prebuild": "rm -rf dist",
+    "build": "tsc"
   }
 }
