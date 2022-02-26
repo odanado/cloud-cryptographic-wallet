@@ -1,0 +1,36 @@
+{
+  "name": "@cloud-cryptographic-wallet/asn1-parser",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "asn1js": "^2.2.0"
+  },
+  "devDependencies": {
+    "@cloud-cryptographic-wallet/signer": "^0.0.2",
+    "@types/asn1js": "^2.0.2"
+  }
+}
