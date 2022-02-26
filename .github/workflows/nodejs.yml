@@ -41,7 +41,7 @@ jobs:
             node_modules
             packages/*/node_modules
             aws-kms-packages/*/node_modules
-          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          key: v2-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: yarn install
         run: |
@@ -83,7 +83,7 @@ jobs:
             node_modules
             packages/*/node_modules
             aws-kms-packages/*/node_modules
-          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          key: v2-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: run unit test
         run: |
@@ -125,7 +125,7 @@ jobs:
             node_modules
             packages/*/node_modules
             aws-kms-packages/*/node_modules
-          key: node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          key: v2-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: run yarn build
         run: |
