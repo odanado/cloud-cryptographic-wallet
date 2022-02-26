@@ -4,6 +4,7 @@
   "dependencies": {
     "aws-kms-ethers-signer": "^0.1.0",
     "aws-kms-provider": "^0.5.0",
-    "aws-kms-signer": "^0.5.0"
+    "aws-kms-signer": "^0.5.0",
+    "@cloud-cryptographic-wallet/signer": "latest"
   }
 }
