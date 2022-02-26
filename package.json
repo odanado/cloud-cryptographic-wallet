@@ -26,8 +26,8 @@
   "scripts": {
     "build": "yarn workspace aws-kms-signer build; yarn workspace aws-kms-provider build",
     "test": "run-p test:*",
-    "test:jest": "yarn jest packages",
-    "test:coverage": "yarn test:jest --coverage",
+    "test:jest": "jest --coverage packages/aws-kms-signer packages/aws-kms-provider packages/aws-kms-ethers-signer",
+    "test:vitest": "vitest run --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
