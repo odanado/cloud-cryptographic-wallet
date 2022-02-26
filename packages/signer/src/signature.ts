@@ -19,7 +19,14 @@ export class Signature {
         `Signature: invalid signature. V must be 27 or 28. actual: ${this.recovery}`
       );
     }
+  }
 
+  private constructor(bytes: Bytes) {
+    this.bytes = bytes;
+
+    this.validate();
+
+    // EIP-2: https://eips.ethereum.org/EIPS/eip-2
     const secp256k1N = new BN(
       "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141",
       16
@@ -27,16 +34,21 @@ export class Signature {
     const secp256k1halfN = secp256k1N.div(new BN(2));
 
     if (new BN(this.s.asUint8Array).cmp(secp256k1halfN) > 0) {
-      throw Error(
-        `Signature: invalid signature. S must be less than or equal to secp256k1halfN.`
-      );
+      const reversedS = secp256k1N
+        .sub(new BN(this.s.asUint8Array))
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        .toArrayLike(Uint8Array) as Uint8Array;
+
+      const bytes = Bytes.concat([
+        this.r,
+        Bytes.fromArrayBuffer(reversedS.buffer),
+        Bytes.fromArrayBuffer(new Uint8Array([(this.v % 2) + 27]).buffer),
+      ]);
+
+      this.bytes = bytes;
+      this.validate();
     }
-  }
-
-  private constructor(bytes: Bytes) {
-    this.bytes = bytes;
-
-    this.validate();
   }
 
   public recoveryPublicKey(hash: Bytes): PublicKey {

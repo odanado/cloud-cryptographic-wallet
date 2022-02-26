@@ -13,17 +13,7 @@ describe("Signature", () => {
         );
       });
     });
-    describe("when S more than secp256k1halfN", () => {
-      it("should be throw Error", () => {
-        const bytes = Bytes.fromString(
-          "638a54215d80a6713c8d523a6adc4e6e73652d859103a36b700851cb0e61b66b8ebfc1a610c57d732ec6e0a8f06a9a7a28df5051ece514702ff9cdff0b11f4541b"
-        );
 
-        expect(() => Signature.fromBytes(bytes)).toThrow(
-          /Signature: invalid signature. S must be less than or equal to secp256k1halfN./
-        );
-      });
-    });
     describe("when V isn't 27 nor 28", () => {
       it("should be throw Error", () => {
         const bytes = Bytes.fromString(
@@ -119,6 +109,22 @@ describe("Signature", () => {
         const signature = Signature.fromHash(hash, publicKey, r, s);
 
         expect(signature).toBeInstanceOf(Signature);
+      });
+    });
+  });
+
+  describe("fromBytes", () => {
+    describe("when S more than secp256k1halfN", () => {
+      it("should be return reversed signature", () => {
+        const bytes = Bytes.fromString(
+          "638a54215d80a6713c8d523a6adc4e6e73652d859103a36b700851cb0e61b66b8ebfc1a610c57d732ec6e0a8f06a9a7a28df5051ece514702ff9cdff0b11f4541b"
+        );
+
+        const signature = Signature.fromBytes(bytes);
+
+        expect(signature.r.equals(bytes.slice(0, 32))).toBeTruthy();
+        expect(signature.s.equals(bytes.slice(32, 64))).toBeFalsy();
+        expect(signature.v).toBe(28);
       });
     });
   });
