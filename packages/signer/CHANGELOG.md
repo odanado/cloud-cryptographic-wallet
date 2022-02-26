@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.2 (2022-02-26)
+
+### Features
+
+- **signer:** publish to @cloud-cryptographic-wallet/signer ([#432](https://github.com/odanado/aws-kms-provider/issues/432)) ([d134828](https://github.com/odanado/aws-kms-provider/commit/d134828ae79884387547370eb70f1b345f389e56))
+
 ## 0.0.1 (2022-02-26)
 
 ### Features
