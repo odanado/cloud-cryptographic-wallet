@@ -9,25 +9,12 @@
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
   },
-  "main": "dist/index.js",
-  "module": "lib/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "README.md",
-    "dist",
-    "lib",
-    "package.json",
-    "yarn.lock"
-  ],
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "yarn workspace aws-kms-signer build; yarn workspace aws-kms-provider build",
     "test": "run-p test:*",
-    "test:jest": "yarn jest packages",
-    "test:coverage": "yarn test:jest --coverage",
+    "test:jest": "jest --coverage packages/aws-kms-signer packages/aws-kms-provider packages/aws-kms-ethers-signer",
+    "test:vitest": "vitest run --coverage",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
@@ -49,6 +36,7 @@
     "@types/node-fetch": "^2.5.12",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
+    "c8": "^7.11.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "ethers": "^5.5.1",
@@ -62,6 +50,7 @@
     "ts-node": "^10.2.1",
     "tsup": "^5.11.13",
     "typescript": "^4.4.2",
+    "vitest": "^0.5.5",
     "web3": "^1.5.2"
   },
   "lint-staged": {
