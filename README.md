@@ -1,1 +1,1 @@
-packages/aws-kms-provider/README.md
+aws-kms-packages/aws-kms-provider/README.md

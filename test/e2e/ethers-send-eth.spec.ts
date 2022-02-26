@@ -1,6 +1,6 @@
 import * as ethers from "ethers";
 
-import { KmsEthersSigner } from "../../packages/aws-kms-ethers-signer/src";
+import { KmsEthersSigner } from "../../aws-kms-packages/aws-kms-ethers-signer/src";
 import { getConfig } from "../config";
 
 const { region, keyId, rpcUrl, privateKey } = getConfig();

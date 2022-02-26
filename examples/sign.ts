@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-import { KmsProvider } from "../packages/aws-kms-provider";
+import { KmsProvider } from "../aws-kms-packages/aws-kms-provider";
 
 const region = "us-east-1";
 const keyId = "e9005048-475f-4767-9f2d-0d1fb0c89caf";
