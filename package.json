@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "yarn workspace aws-kms-signer build; yarn workspace aws-kms-provider build",
+    "build": "yarn workspaces run build",
     "test": "run-p test:*",
     "test:jest": "jest --coverage aws-kms-packages",
     "test:vitest": "vitest run --coverage",
