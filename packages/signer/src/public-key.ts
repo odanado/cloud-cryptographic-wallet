@@ -1,33 +1,34 @@
 import createKeccakHash from "keccak";
 
 import { Address } from "./address.js";
+import { Bytes } from "./bytes.js";
 
 export class PublicKey {
-  public readonly buffer: Buffer;
-  private constructor(buffer: Buffer) {
-    this.buffer = buffer;
+  public readonly bytes: Bytes;
+  private constructor(bytes: Bytes) {
+    this.bytes = bytes;
 
-    if (this.buffer.length !== 64) {
+    if (this.bytes.length !== 64) {
       throw TypeError(
-        `PublicKey: invalid public key. buffer length must be 64. actual: ${this.buffer.length}`
+        `PublicKey: invalid public key. buffer length must be 64 bytes. actual: ${this.bytes.length}`
       );
     }
   }
 
-  public static fromBuffer(buffer: Buffer): PublicKey {
-    return new PublicKey(buffer);
+  public static fromBytes(bytes: Bytes): PublicKey {
+    return new PublicKey(bytes);
   }
 
   public toAddress(): Address {
     const address = createKeccakHash("keccak256")
-      .update(this.buffer)
+      .update(Buffer.from(this.bytes.toString().slice(2), "hex"))
       .digest()
       .slice(12, 32);
 
-    return Address.fromBuffer(address);
+    return Address.fromBytes(Bytes.fromString(address.toString("hex")));
   }
 
   public equals(other: PublicKey): boolean {
-    return this.buffer.equals(other.buffer);
+    return this.bytes.equals(other.bytes);
   }
 }

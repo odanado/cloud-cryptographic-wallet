@@ -4,7 +4,7 @@ export class Bytes {
     this.buffer = buffer;
   }
 
-  private get asUint8Array(): Uint8Array {
+  public get asUint8Array(): Uint8Array {
     return new Uint8Array(this.buffer);
   }
 
@@ -33,6 +33,32 @@ export class Bytes {
     }
 
     return Bytes.fromArrayBuffer(view.buffer);
+  }
+
+  public static concat(bytesList: Bytes[]): Bytes {
+    const total = bytesList.reduce((prev, cur) => prev + cur.length, 0);
+    const result = new Uint8Array(total);
+
+    let offset = 0;
+    for (const bytes of bytesList) {
+      result.set(bytes.asUint8Array, offset);
+      offset += bytes.length;
+    }
+    return Bytes.fromArrayBuffer(result.buffer);
+  }
+
+  public slice(begin: number, end?: number | undefined): Bytes {
+    return Bytes.fromArrayBuffer(this.buffer.slice(begin, end));
+  }
+
+  public readUInt8(index: number): number {
+    const result = this.asUint8Array.at(index);
+
+    if (!result) {
+      throw new Error(`Bytes: invalid index access. index: ${index}`);
+    }
+
+    return result;
   }
 
   public equals(other: Bytes): boolean {

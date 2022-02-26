@@ -33,6 +33,41 @@ describe("Bytes", () => {
     }
   );
 
+  describe("concat", () => {
+    it("should be concat", () => {
+      const bytes1 = Bytes.fromString("12");
+      const bytes2 = Bytes.fromString("ab");
+      expect(Bytes.concat([bytes1, bytes2]).toString()).toBe("0x12ab");
+    });
+  });
+
+  describe("slice", () => {
+    it("should be slice", () => {
+      const bytes = Bytes.fromString("12345678abcdef");
+
+      expect(bytes.slice(1).toString()).toBe("0x345678abcdef");
+      expect(bytes.slice(2, 4).toString()).toBe("0x5678");
+    });
+  });
+
+  describe("readUInt8", () => {
+    it("should be return number", () => {
+      const bytes = Bytes.fromString("1b");
+
+      expect(bytes.readUInt8(0)).toBe(27);
+    });
+
+    describe("when out of array", () => {
+      it("should be throw Error", () => {
+        const bytes = Bytes.fromString("1b");
+
+        expect(() => bytes.readUInt8(1)).toThrow(
+          /Bytes: invalid index access./
+        );
+      });
+    });
+  });
+
   describe("equals", () => {
     describe("when same string", () => {
       it("should be return true", () => {

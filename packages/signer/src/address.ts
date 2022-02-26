@@ -1,27 +1,30 @@
 import createKeccakHash from "keccak";
 
-export class Address {
-  public readonly buffer: Buffer;
-  private constructor(buffer: Buffer) {
-    this.buffer = buffer;
+import { Bytes } from "./bytes.js";
 
-    if (this.buffer.length !== 20) {
+export class Address {
+  public readonly bytes: Bytes;
+  private constructor(bytes: Bytes) {
+    this.bytes = bytes;
+
+    if (this.bytes.length !== 20) {
       throw TypeError(
-        `Address: invalid public key. buffer length must be 20. actual: ${this.buffer.length}`
+        `Address: invalid public key. address must be 20 bytes. actual: ${this.bytes.length}`
       );
     }
   }
 
-  public static fromBuffer(buffer: Buffer): Address {
-    return new Address(buffer);
+  public static fromBytes(bytes: Bytes): Address {
+    return new Address(bytes);
   }
 
   public equals(other: Address): boolean {
-    return this.buffer.equals(other.buffer);
+    return this.bytes.equals(other.bytes);
   }
 
   public toString(): string {
-    return `0x${this.toChecksumAddress(this.buffer.toString("hex"))}`;
+    const withoutPrefix = this.bytes.toString().slice(2);
+    return `0x${this.toChecksumAddress(withoutPrefix)}`;
   }
 
   private toChecksumAddress(address: string): string {
