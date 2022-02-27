@@ -14,7 +14,6 @@ import {
 } from "@aws-sdk/client-kms";
 
 import { AwsKmsSigner } from "./aws-kms-signer.js";
-import exp from "constants";
 
 function mockSendFunction(
   client: KMSClient,
