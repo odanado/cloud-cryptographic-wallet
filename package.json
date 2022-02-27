@@ -2,6 +2,8 @@
   "name": "root",
   "private": true,
   "workspaces": [
+    "packages/signer",
+    "packages/asn1-parser",
     "packages/*",
     "aws-kms-packages/*"
   ],
