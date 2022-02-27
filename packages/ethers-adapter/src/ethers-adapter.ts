@@ -1,20 +1,5 @@
-import { Signer as EthersSigner } from "@ethersproject/abstract-signer";
-import { getAddress } from "@ethersproject/address";
-import {
-  Deferrable,
-  defineReadOnly,
-  resolveProperties,
-} from "@ethersproject/properties";
-import type {
-  Provider,
-  TransactionRequest,
-} from "@ethersproject/abstract-provider";
-import { Bytes as EthersBytes, splitSignature } from "@ethersproject/bytes";
-import { hashMessage } from "@ethersproject/hash";
-import { Logger } from "@ethersproject/logger";
-import { keccak256 } from "@ethersproject/keccak256";
-import { BigNumber } from "@ethersproject/bignumber";
-import { serialize, UnsignedTransaction } from "@ethersproject/transactions";
+import { ethers } from "ethers";
+import type { TransactionRequest } from "@ethersproject/abstract-provider";
 
 import { Bytes, Signer } from "@cloud-cryptographic-wallet/signer";
 
@@ -22,29 +7,32 @@ export type EthersAdapterConfig = {
   signer: Signer;
 };
 
-export class EthersAdapter extends EthersSigner {
+export class EthersAdapter extends ethers.Signer {
   private readonly config: EthersAdapterConfig;
-  private readonly logger: Logger;
+  private readonly logger: ethers.utils.Logger;
 
-  constructor(config: EthersAdapterConfig, provider?: Provider) {
+  constructor(
+    config: EthersAdapterConfig,
+    provider?: ethers.providers.Provider
+  ) {
     super();
 
-    defineReadOnly(this, "provider", provider);
+    ethers.utils.defineReadOnly(this, "provider", provider);
 
     this.config = config;
 
     const version = "0.1.0";
-    this.logger = new Logger(version);
+    this.logger = new ethers.utils.Logger(version);
   }
 
   async getAddress(): Promise<string> {
     const address = (await this.config.signer.getPublicKey()).toAddress();
 
-    return getAddress(address.toString());
+    return ethers.utils.getAddress(address.toString());
   }
 
-  async signMessage(message: EthersBytes | string): Promise<string> {
-    const hash = Bytes.fromString(hashMessage(message));
+  async signMessage(message: ethers.utils.Bytes | string): Promise<string> {
+    const hash = Bytes.fromString(ethers.utils.hashMessage(message));
 
     const signature = await this.config.signer.sign(hash);
 
@@ -52,14 +40,16 @@ export class EthersAdapter extends EthersSigner {
   }
 
   async signTransaction(
-    deferrableTransaction: Deferrable<TransactionRequest>
+    deferrableTransaction: ethers.utils.Deferrable<TransactionRequest>
   ): Promise<string> {
-    const transaction = await resolveProperties(deferrableTransaction);
+    const transaction = await ethers.utils.resolveProperties(
+      deferrableTransaction
+    );
 
     const address = await this.getAddress();
 
     if (transaction.from != null) {
-      if (getAddress(transaction.from) !== address) {
+      if (ethers.utils.getAddress(transaction.from) !== address) {
         this.logger.throwArgumentError(
           "transaction from address mismatch",
           "transaction.from",
@@ -69,10 +59,10 @@ export class EthersAdapter extends EthersSigner {
     }
 
     const nonce = transaction.nonce
-      ? BigNumber.from(transaction.nonce).toNumber()
+      ? ethers.BigNumber.from(transaction.nonce).toNumber()
       : undefined;
 
-    const unsignedTransaction: UnsignedTransaction = {
+    const unsignedTransaction: ethers.utils.UnsignedTransaction = {
       to: transaction.to,
       nonce,
       gasLimit: transaction.gasLimit,
@@ -87,26 +77,33 @@ export class EthersAdapter extends EthersSigner {
     };
 
     (
-      Object.keys(unsignedTransaction) as Array<keyof UnsignedTransaction>
+      Object.keys(unsignedTransaction) as Array<
+        keyof ethers.utils.UnsignedTransaction
+      >
     ).forEach((key) => {
       if (key in unsignedTransaction && unsignedTransaction[key] == undefined) {
         delete unsignedTransaction[key];
       }
     });
-    const hash = keccak256(serialize(unsignedTransaction));
+    const hash = ethers.utils.keccak256(
+      ethers.utils.serializeTransaction(unsignedTransaction)
+    );
 
     const signature = await this.config.signer.sign(Bytes.fromString(hash));
 
-    const ethersSignature = splitSignature({
+    const ethersSignature = ethers.utils.splitSignature({
       v: signature.v,
       r: signature.r.toString(),
       s: signature.s.toString(),
     });
 
-    return serialize(unsignedTransaction, ethersSignature);
+    return ethers.utils.serializeTransaction(
+      unsignedTransaction,
+      ethersSignature
+    );
   }
 
-  connect(provider: Provider): EthersAdapter {
+  connect(provider: ethers.providers.Provider): EthersAdapter {
     return new EthersAdapter(this.config, provider);
   }
 }
