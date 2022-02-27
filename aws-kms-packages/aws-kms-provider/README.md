@@ -14,10 +14,11 @@ $ npm install aws-kms-provider
 
 ## Another packages
 
-|                                                                 |                                               |
-| --------------------------------------------------------------- | --------------------------------------------- |
-| [aws-kms-signer](aws-kms-packages/aws-kms-signer)               | Signer using AWS KMS without web3.js provider |
-| [aws-kms-ethers-signer](aws-kms-packages/aws-kms-ethers-signer) | Signer for ethers.js                          |
+|                                                                       |                                                |
+| --------------------------------------------------------------------- | ---------------------------------------------- |
+| [aws-kms-signer](aws-kms-packages/aws-kms-signer)                     | Signer using AWS KMS without web3.js provider  |
+| [aws-kms-ethers-signer](aws-kms-packages/aws-kms-ethers-signer)       | Signer for ethers.js                           |
+| [@cloud-cryptographic-wallet/ethers-adapter](packages/ethers-adapter) | Signer of ethers for variety of cloud services |
 
 ## Examples
 
