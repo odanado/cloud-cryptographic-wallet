@@ -38,7 +38,7 @@ export class AwsKmsSigner implements Signer {
     const response = await this.client.send(command);
 
     if (!response.Signature) {
-      throw new Error("AwsKmsSigner: Signature is undefined");
+      throw new Error("AwsKmsSigner: Signature is undefined.");
     }
 
     const { r, s } = parseSignature(new Uint8Array(response.Signature).buffer);
