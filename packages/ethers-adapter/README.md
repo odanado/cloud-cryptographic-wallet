@@ -1,5 +1,7 @@
 # @cloud-cryptographic-wallet/ethers-adapter
 
+[![npm version](https://badge.fury.io/js/@cloud-cryptographic-wallet%2Fethers-adapter.svg)](https://badge.fury.io/js/@cloud-cryptographic-wallet%2Fethers-adapter)
+
 This package allows you to use Signer of [ethers](https://docs.ethers.io/v5/) with a variety of cloud service key management systems.
 
 ## Support Cloud Services
