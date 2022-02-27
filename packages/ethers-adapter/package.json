@@ -1,0 +1,39 @@
+{
+  "name": "@cloud-cryptographic-wallet/ethers-adapter",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@cloud-cryptographic-wallet/signer": "^0.0.3"
+  },
+  "devDependencies": {
+    "@ethersproject/abstract-provider": "^5.5.1",
+    "ethers": "^5.5.4"
+  },
+  "peerDependencies": {
+    "ethers": "^5.5.4"
+  }
+}
