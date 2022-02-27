@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/signer",
     "packages/asn1-parser",
-    "packages/*",
+    "packages/aws-kms-signer",
     "aws-kms-packages/*"
   ],
   "repository": {
