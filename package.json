@@ -6,6 +6,7 @@
     "packages/asn1-parser",
     "packages/aws-kms-signer",
     "packages/cloud-kms-signer",
+    "packages/ethers-adapter",
     "aws-kms-packages/*"
   ],
   "repository": {
