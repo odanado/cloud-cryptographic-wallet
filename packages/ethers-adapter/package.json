@@ -8,7 +8,12 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
-  "exports": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "node": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  },
   "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=12"
@@ -23,15 +28,15 @@
     "access": "public"
   },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "tsc"
+    "build": "tsup"
   },
   "dependencies": {
     "@cloud-cryptographic-wallet/signer": "^0.0.3"
   },
   "devDependencies": {
     "@ethersproject/abstract-provider": "^5.5.1",
-    "ethers": "^5.5.4"
+    "ethers": "^5.5.4",
+    "tsup": "^5.12.1"
   },
   "peerDependencies": {
     "ethers": "^5.5.4"
