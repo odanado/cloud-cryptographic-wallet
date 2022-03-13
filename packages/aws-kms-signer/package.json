@@ -8,7 +8,12 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
-  "exports": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "node": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  },
   "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=12"
@@ -23,12 +28,14 @@
     "access": "public"
   },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "tsc"
+    "build": "tsup"
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.53.0",
     "@cloud-cryptographic-wallet/asn1-parser": "^0.0.2",
     "@cloud-cryptographic-wallet/signer": "^0.0.3"
+  },
+  "devDependencies": {
+    "tsup": "^5.12.1"
   }
 }
