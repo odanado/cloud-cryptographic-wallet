@@ -8,8 +8,13 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
-  "exports": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "node": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  },
+  "types": "./dist-esm/index.d.ts",
   "engines": {
     "node": ">=12"
   },
@@ -30,10 +35,10 @@
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
     "@types/keccak": "^3.0.1",
-    "@types/secp256k1": "^4.0.3"
+    "@types/secp256k1": "^4.0.3",
+    "tsup": "^5.12.1"
   },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "tsc"
+    "build": "tsup"
   }
 }
