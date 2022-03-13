@@ -1,6 +1,6 @@
 {
   "name": "@cloud-cryptographic-wallet/asn1-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -34,7 +34,7 @@
     "asn1js": "^2.2.0"
   },
   "devDependencies": {
-    "@cloud-cryptographic-wallet/signer": "^0.0.3",
+    "@cloud-cryptographic-wallet/signer": "^0.0.4",
     "@types/asn1js": "^2.0.2",
     "tsup": "^5.12.1"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@cloud-cryptographic-wallet/ethers-adapter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -31,7 +31,7 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@cloud-cryptographic-wallet/signer": "^0.0.3"
+    "@cloud-cryptographic-wallet/signer": "^0.0.4"
   },
   "devDependencies": {
     "@ethersproject/abstract-provider": "^5.5.1",
