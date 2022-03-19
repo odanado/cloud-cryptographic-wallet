@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
+    "outDir": "dist",
+    "sourceMap": true,
+    "inlineSources": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.spec.ts"]
+}
