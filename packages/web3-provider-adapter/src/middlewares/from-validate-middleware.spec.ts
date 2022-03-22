@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 
 import { randomBytes } from "crypto";
 import secp256k1 from "secp256k1";
@@ -9,7 +9,11 @@ import {
   Signer,
 } from "@cloud-cryptographic-wallet/signer";
 import { createFromValidateMiddleware } from "./from-validate-middleware.js";
-import { JsonRpcEngine, JsonRpcRequest } from "json-rpc-engine";
+import {
+  JsonRpcEngine,
+  JsonRpcMiddleware,
+  JsonRpcRequest,
+} from "json-rpc-engine";
 
 class SignerForTest implements Signer {
   private privateKey;
@@ -36,7 +40,6 @@ class SignerForTest implements Signer {
       this.privateKey
     );
 
-    console.log(signature, signature.length);
     return Promise.resolve(
       Signature.fromRSV(
         Bytes.fromArrayBuffer(signature.slice(0, 64)),
@@ -48,18 +51,24 @@ class SignerForTest implements Signer {
 }
 
 describe("createFromValidateMiddleware", () => {
-  const signer = new SignerForTest();
+  let signer: Signer;
+  let fromValidateMiddleware: JsonRpcMiddleware<unknown, unknown>;
 
-  const fromValidateMiddleware = createFromValidateMiddleware({
-    signers: [signer],
+  let engine: JsonRpcEngine;
+
+  beforeEach(() => {
+    signer = new SignerForTest();
+    fromValidateMiddleware = createFromValidateMiddleware({
+      signers: [signer],
+    });
+
+    engine = new JsonRpcEngine();
+    engine.push(fromValidateMiddleware);
   });
-  const engine = new JsonRpcEngine();
 
   describe("when from is missing", () => {
     it("shoud be get error", (done) => {
       expect.assertions(1);
-
-      engine.push(fromValidateMiddleware);
 
       const req: JsonRpcRequest<unknown> = {
         jsonrpc: "2.0",
@@ -81,8 +90,6 @@ describe("createFromValidateMiddleware", () => {
     it("shoud be get error", (done) => {
       expect.assertions(1);
 
-      engine.push(fromValidateMiddleware);
-
       const from = "0xcb18adc534b1f96107c71e95994b17f105d058be";
 
       const req: JsonRpcRequest<unknown> = {
@@ -102,7 +109,6 @@ describe("createFromValidateMiddleware", () => {
   });
   describe("when from is a address of signer", () => {
     it("should be get error of JsonRpcEngine", async (done) => {
-      engine.push(fromValidateMiddleware);
       const from = (await signer.getPublicKey()).toAddress().toString();
 
       const req: JsonRpcRequest<unknown> = {

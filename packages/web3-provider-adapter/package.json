@@ -36,10 +36,11 @@
     "@ethereumjs/tx": "^3.5.0",
     "eth-json-rpc-middleware": "^8.0.1",
     "json-rpc-engine": "^6.1.0",
-    "node-fetch": "^3.2.3"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
+    "msw": "^0.39.2",
     "secp256k1": "^4.0.3",
     "tsup": "^5.12.1",
     "web3": "^1.7.1"
