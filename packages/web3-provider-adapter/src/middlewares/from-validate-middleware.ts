@@ -4,7 +4,7 @@ import {
   createScaffoldMiddleware,
   JsonRpcMiddleware,
 } from "json-rpc-engine";
-import { hasFrom } from "../validators/has-from.js";
+import { hasFrom } from "../type-guards/has-from.js";
 
 export type FromValidateMiddlewareOptions = {
   signers: Signer[];
