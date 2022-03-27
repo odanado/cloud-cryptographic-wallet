@@ -1,6 +1,8 @@
-export function getTransactionType(
-  transaction: Record<string, unknown>
-): number {
+// ref: https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#generic-type-parameters-are-implicitly-constrained-to-unknown
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type MaybeTransaction = Record<string, any>;
+
+export function getTransactionType(transaction: MaybeTransaction): number {
   if (transaction.type !== undefined) {
     if (typeof transaction.type !== "number") {
       throw new Error(
