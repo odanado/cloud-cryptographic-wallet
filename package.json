@@ -7,6 +7,7 @@
     "packages/aws-kms-signer",
     "packages/cloud-kms-signer",
     "packages/ethers-adapter",
+    "packages/web3-provider-adapter",
     "aws-kms-packages/*"
   ],
   "repository": {

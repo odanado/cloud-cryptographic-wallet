@@ -3,20 +3,20 @@ import { createWalletMiddleware } from "eth-json-rpc-middleware";
 
 import tx from "@ethereumjs/tx";
 
-import { Block } from "../node_modules/eth-json-rpc-middleware/dist/utils/cache.js";
+import { Block } from "eth-json-rpc-middleware/dist/utils/cache";
 import { Signer, Bytes } from "@cloud-cryptographic-wallet/signer";
 
-import { query } from "./query.js";
-import { getTransactionType } from "./parameters/get-transaction-type.js";
-import { hasNonce } from "./type-guards/has-nonce.js";
-import { getNonce } from "./ethereum-json-rpc/get-nonce.js";
-import { hasFrom } from "./type-guards/has-from.js";
-import { processSignature } from "./process-signature.js";
-import { getCommon } from "./get-common.js";
-import { assertKnownAddress } from "./parameters/assert-known-address.js";
-import { getAccounts } from "./get-accounts.js";
-import { lookupSigner } from "./lookup-signer.js";
-import { getGas } from "./ethereum-json-rpc/get-gas.js";
+import { query } from "../query.js";
+import { getTransactionType } from "../parameters/get-transaction-type.js";
+import { hasNonce } from "../type-guards/has-nonce.js";
+import { getNonce } from "../ethereum-json-rpc/get-nonce.js";
+import { hasFrom } from "../type-guards/has-from.js";
+import { processSignature } from "../process-signature.js";
+import { getCommon } from "../get-common.js";
+import { assertKnownAddress } from "../parameters/assert-known-address.js";
+import { getAccounts } from "../get-accounts.js";
+import { lookupSigner } from "../lookup-signer.js";
+import { getGas } from "../ethereum-json-rpc/get-gas.js";
 
 export function createWalletMiddlewareFromSigners(
   signers: Signer[],

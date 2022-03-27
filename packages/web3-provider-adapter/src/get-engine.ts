@@ -3,7 +3,7 @@ import { createFetchMiddleware } from "eth-json-rpc-middleware";
 
 import { Signer } from "@cloud-cryptographic-wallet/signer";
 
-import { createWalletMiddlewareFromSigners } from "./create-wallet-middleware-from-signers.js";
+import { createWalletMiddlewareFromSigners } from "./middlewares/create-wallet-middleware-from-signers.js";
 
 export type GetEngineOptions = {
   singers: Signer[];
