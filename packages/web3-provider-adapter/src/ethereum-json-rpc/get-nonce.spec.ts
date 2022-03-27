@@ -50,7 +50,7 @@ describe("getNonce", () => {
       );
     });
 
-    it("shoud be get nonce", async () => {
+    it("shoud be throw error", async () => {
       await expect(getNonce(rpcUrl, from)).rejects.toThrow(
         /can't get result of eth_getTransactionCount/
       );

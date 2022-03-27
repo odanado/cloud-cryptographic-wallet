@@ -34,8 +34,13 @@
     "@cloud-cryptographic-wallet/signer": "^0.0.4",
     "@ethereumjs/common": "^2.6.2",
     "@ethereumjs/tx": "^3.5.0",
+    "@metamask/safe-event-emitter": "^2.0.0",
+    "eip1193-provider": "^1.0.1",
     "eth-json-rpc-middleware": "^8.0.1",
+    "eth-rpc-errors": "^4.0.3",
+    "ethereumjs-util": "^7.1.4",
     "json-rpc-engine": "^6.1.0",
+    "node-cjs-interop": "^0.1.0",
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
