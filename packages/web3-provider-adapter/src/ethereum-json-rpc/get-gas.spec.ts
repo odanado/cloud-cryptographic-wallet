@@ -10,7 +10,7 @@ import {
 import {
   getServer,
   makeHandler,
-} from "../../test-utils/json-rpc-server.mock.js";
+} from "../../../../test/test-utils/json-rpc-server.mock.js";
 import { getGas } from "./get-gas.js";
 
 describe("getGas", () => {

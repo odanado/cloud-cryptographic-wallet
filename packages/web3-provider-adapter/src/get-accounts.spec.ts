@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
 
 import { getAccounts } from "./get-accounts.js";
-import { SignerForTest } from "../test-utils/signer-for-test.js";
+import { SignerForTest } from "../../../test/test-utils/signer-for-test.js";
 
 test("get addresses", async () => {
   const singers = [new SignerForTest(), new SignerForTest()];

@@ -7,7 +7,10 @@ import {
   afterEach,
   afterAll,
 } from "vitest";
-import { getServer, makeHandler } from "../test-utils/json-rpc-server.mock.js";
+import {
+  getServer,
+  makeHandler,
+} from "../../../test/test-utils/json-rpc-server.mock.js";
 import { getCommon } from "./get-common.js";
 
 describe("getCommon", () => {

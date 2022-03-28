@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 
-import { SignerForTest } from "../test-utils/signer-for-test.js";
+import { SignerForTest } from "../../../test/test-utils/signer-for-test.js";
 import { lookupSigner } from "./lookup-signer.js";
 
 const signers = [new SignerForTest(), new SignerForTest(), new SignerForTest()];

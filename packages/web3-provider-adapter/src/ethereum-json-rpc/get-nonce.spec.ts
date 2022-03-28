@@ -11,7 +11,7 @@ import {
 import {
   getServer,
   makeHandler,
-} from "../../test-utils/json-rpc-server.mock.js";
+} from "../../../../test/test-utils/json-rpc-server.mock.js";
 import { getNonce } from "./get-nonce.js";
 
 describe("getNonce", () => {
