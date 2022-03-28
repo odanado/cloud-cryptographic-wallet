@@ -26,11 +26,9 @@ export class Signature {
       const recovery = Buffer.alloc(1);
       recovery.writeUInt8((this.v % 2) + 27, 0);
 
-      this.buffer = Buffer.concat([
-        this.r,
-        secp256k1N.sub(s).toBuffer("be", 32),
-        recovery,
-      ]);
+      const reverseS = secp256k1N.sub(s).toArrayLike(Buffer, "be", 32);
+
+      this.buffer = Buffer.concat([this.r, reverseS, recovery]);
     }
   }
 
