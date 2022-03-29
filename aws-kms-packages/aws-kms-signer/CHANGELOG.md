@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/odanado/aws-kms-provider/compare/aws-kms-signer@0.5.1...aws-kms-signer@0.5.2) (2022-03-29)
+
+### Bug Fixes
+
+- **aws-kms-provider:** use toArrayLike instead of toBuffer ([#489](https://github.com/odanado/aws-kms-provider/issues/489)) ([488bb60](https://github.com/odanado/aws-kms-provider/commit/488bb60c81197b8734cc21da6fcec84e4c421598))
+
 ## [0.5.1](https://github.com/odanado/aws-kms-provider/compare/aws-kms-signer@0.5.0...aws-kms-signer@0.5.1) (2022-02-26)
 
 **Note:** Version bump only for package aws-kms-signer

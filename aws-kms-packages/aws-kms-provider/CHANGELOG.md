@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.5.2...aws-kms-provider@0.6.0) (2022-03-29)
+
+### Features
+
+- **ethers-adapter:** publish @cloud-cryptographic-wallet/ethers-adapter ([#440](https://github.com/odanado/aws-kms-provider/issues/440)) ([bc9f441](https://github.com/odanado/aws-kms-provider/commit/bc9f4412368f7b6d587449e7035bb1ec1a71ecea))
+
 ## [0.5.2](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.5.1...aws-kms-provider@0.5.2) (2022-02-26)
 
 **Note:** Version bump only for package aws-kms-provider
