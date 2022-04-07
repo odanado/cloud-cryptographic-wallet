@@ -3,7 +3,6 @@
 set -eu
 
 geth \
-    --verbosity 5 \
     --nodiscover \
     --syncmode 'full' \
     --nat none \
@@ -13,10 +12,7 @@ geth \
     --http.port 8501 \
     --http.vhosts '*' \
     --http.api 'personal,eth,net,web3,txpool,miner,debug' \
-    --networkid '10412' \
     --mine \
-    --miner.etherbase '0x4cdBd835fE18BD93ccA39A262Cff72dbAC99E24F' \
     --miner.gasprice 0 \
-    --unlock '0x4cdBd835fE18BD93ccA39A262Cff72dbAC99E24F' \
-    --password /root/config/password.txt \
-    --allow-insecure-unlock
+    --allow-insecure-unlock \
+    --dev
