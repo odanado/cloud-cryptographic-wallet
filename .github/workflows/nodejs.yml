@@ -42,7 +42,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  test-e2e-legacy:
+  test-e2e:
     runs-on: ubuntu-latest
 
     strategy:
@@ -78,37 +78,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           RPC_URL: http://localhost:8501
-
-  test-e2e:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
-
-      - name: yarn install
-        run: |
-          yarn install --frozen-lockfile
-
-      - name: run yarn build
-        run: |
-          yarn build
-
-      - name: run e2e test
-        run: |
-          yarn e2e
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   check-esm-import:
     runs-on: ubuntu-latest
