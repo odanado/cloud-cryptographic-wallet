@@ -1,14 +1,16 @@
+import crypto from "crypto";
+import { describe, it, expect, beforeEach } from "vitest";
 import * as ethers from "ethers";
 
-import { KmsEthersSigner } from "../../aws-kms-packages/aws-kms-ethers-signer/src";
-import { getConfig } from "../config";
+import { KmsEthersSigner } from "../../../aws-kms-packages/aws-kms-ethers-signer";
+import { getConfig } from "../../config";
 
-const { region, keyId, rpcUrl, privateKey } = getConfig();
+const { region, keyId, rpcUrl } = getConfig();
 
 describe("ethers", () => {
   beforeEach(async () => {
     const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
-    const wallet = new ethers.Wallet(privateKey).connect(provider);
+    const wallet = provider.getSigner();
 
     const signer = new KmsEthersSigner({ keyId, kmsClientConfig: { region } });
 
@@ -25,7 +27,7 @@ describe("ethers", () => {
       kmsClientConfig: { region },
     }).connect(provider);
 
-    const target = "0x9332b306f1215fe17533164eae8cae21d972bc37";
+    const target = crypto.randomBytes(20).toString("hex");
 
     const value = ethers.utils.parseEther("0.5");
 

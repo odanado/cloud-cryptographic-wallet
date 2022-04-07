@@ -22,7 +22,7 @@
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
-    "e2e": "yarn jest -i --detectOpenHandles --forceExit ./test",
+    "e2e": "vitest run --no-threads 1 test/e2e",
     "prepublishOnly": "yarn build",
     "versionup": "lerna version --conventional-commits",
     "versionup:patch": "lerna version patch --conventional-commits",
