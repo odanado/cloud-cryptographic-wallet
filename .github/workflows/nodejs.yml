@@ -68,7 +68,7 @@ jobs:
 
       - name: Run geth for dev
         run: |
-          docker-compose up
+          docker-compose up -d
         working-directory: geth
 
       - name: run e2e test

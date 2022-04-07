@@ -18,7 +18,7 @@
     "build": "yarn workspace aws-kms-signer build; yarn workspaces run build",
     "test": "run-p test:*",
     "test:jest": "jest --coverage aws-kms-packages",
-    "test:vitest": "vitest run --coverage",
+    "test:vitest": "vitest run --coverage packages",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "format": "yarn test:format --write",
