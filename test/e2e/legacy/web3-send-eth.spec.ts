@@ -1,20 +1,21 @@
+import { it, expect, beforeEach } from "vitest";
 import Web3 from "web3";
+import crypto from "crypto";
 
-import { KmsProvider } from "../../aws-kms-packages/aws-kms-provider/src";
-import { getConfig } from "../config";
+import { KmsProvider } from "../../../aws-kms-packages/aws-kms-provider";
+import { getConfig } from "../../config";
 
-const { region, keyId, rpcUrl, privateKey } = getConfig();
+const { region, keyId, rpcUrl } = getConfig();
 
 beforeEach(async () => {
   const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-  const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-  web3.eth.accounts.wallet.add(account);
+  const account = (await web3.eth.getAccounts())[0];
 
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });
   const accounts = await provider.getAccounts();
 
   await web3.eth.sendTransaction({
-    from: account.address,
+    from: account,
     to: accounts[0],
     value: web3.utils.toWei("1", "ether"),
     gas: 21000,
@@ -22,7 +23,7 @@ beforeEach(async () => {
 });
 
 it("web3.js", async () => {
-  const target = "0x75b130ed5e51b00cc7c5b91b1288c8d8e549f678";
+  const target = crypto.randomBytes(20).toString("hex");
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });
 
   const web3 = new Web3(provider);

@@ -1,7 +1,8 @@
+import { it, expect } from "vitest";
 import Web3 from "web3";
 
-import { KmsProvider } from "../../aws-kms-packages/aws-kms-provider/src";
-import { getConfig } from "../config";
+import { KmsProvider } from "../../../aws-kms-packages/aws-kms-provider";
+import { getConfig } from "../../config";
 
 const { region, keyId, rpcUrl } = getConfig();
 
