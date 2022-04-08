@@ -8,7 +8,6 @@ export default defineConfig({
       "**/cypress/**",
       "**/.{idea,git,cache,output,temp}/**",
       "aws-kms-packages/**",
-      "test/e2e/**",
     ],
   },
 });

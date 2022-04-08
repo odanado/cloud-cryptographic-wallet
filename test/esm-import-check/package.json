@@ -1,0 +1,14 @@
+{
+  "name": "esm-import-check",
+  "private": true,
+  "dependencies": {
+    "aws-kms-ethers-signer": "latest",
+    "aws-kms-provider": "latest",
+    "aws-kms-signer": "latest",
+    "@cloud-cryptographic-wallet/asn1-parser": "latest",
+    "@cloud-cryptographic-wallet/aws-kms-signer": "latest",
+    "@cloud-cryptographic-wallet/cloud-kms-signer": "latest",
+    "@cloud-cryptographic-wallet/ethers-adapter": "latest",
+    "@cloud-cryptographic-wallet/signer": "latest"
+  }
+}
