@@ -40,7 +40,7 @@ async function prepare(rpcUrl: string, to: string) {
 }
 
 describe("web3.js send-eth", () => {
-  it("CloudKmsSigner", async () => {
+  it.skip("CloudKmsSigner", async () => {
     const name =
       "projects/aws-kms-provider/locations/asia-northeast1/keyRings/for-e2e-test/cryptoKeys/for-e2e-test/cryptoKeyVersions/1";
 
