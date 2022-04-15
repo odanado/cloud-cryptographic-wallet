@@ -2189,9 +2189,9 @@
   integrity sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==
 
 "@google-cloud/kms@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/kms/-/kms-2.11.0.tgz#f0b039482b83e0647fb0d81cd3a243d8290b300e"
-  integrity sha512-dlO2LAv3b+3+SjHYbQ2rKlXaZ9pujD0ij4yLrBlijihHFUWPt31qNm5CpL8SsXDvCM7carigZdJMM4O7rGAt+w==
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/kms/-/kms-2.11.1.tgz#56a19957e11e2f560fa469c34aad932502a0db43"
+  integrity sha512-rmRQ9MVlEeKySlTP4QAwP9CY5UZqQ1Mpdeqe0N3FW+2HjJ2uH0oOSawv7UKa8+nQEx6R4SJI2u0A9Le5Wrd72A==
   dependencies:
     google-gax "^2.24.1"
 
