@@ -46,7 +46,7 @@ describe("web3.js send-eth", () => {
 
     const cloudKmsSigner = new CloudKmsSigner(name);
     const provider = createProvider({ signers: [cloudKmsSigner], rpcUrl });
-    const web3 = new Web3(provider as any);
+    const web3 = new Web3(provider as never);
 
     const accounts = await web3.eth.getAccounts();
 
@@ -79,7 +79,7 @@ describe("web3.js send-eth", () => {
     const awsKmsSigner = new AwsKmsSigner(keyId, { region });
 
     const provider = createProvider({ signers: [awsKmsSigner], rpcUrl });
-    const web3 = new Web3(provider as any);
+    const web3 = new Web3(provider as never);
 
     const accounts = await web3.eth.getAccounts();
 
