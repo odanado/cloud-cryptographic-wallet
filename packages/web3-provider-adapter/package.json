@@ -1,0 +1,53 @@
+{
+  "name": "@cloud-cryptographic-wallet/web3-provider-adapter",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odanado/aws-kms-provider"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "node": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@cloud-cryptographic-wallet/signer": "^0.0.4",
+    "@ethereumjs/common": "^2.6.2",
+    "@ethereumjs/tx": "^3.5.0",
+    "@metamask/safe-event-emitter": "^2.0.0",
+    "eip1193-provider": "^1.0.1",
+    "eth-json-rpc-middleware": "^8.0.1",
+    "eth-rpc-errors": "^4.0.3",
+    "ethereumjs-util": "^7.1.4",
+    "json-rpc-engine": "^6.1.0",
+    "node-cjs-interop": "^0.1.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "@types/secp256k1": "^4.0.3",
+    "msw": "^0.39.2",
+    "secp256k1": "^4.0.3",
+    "tsup": "^5.12.1",
+    "web3": "^1.7.1"
+  }
+}
