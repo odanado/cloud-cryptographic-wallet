@@ -31,7 +31,7 @@
     "build": "tsup"
   },
   "dependencies": {
-    "asn1js": "^2.2.0"
+    "asn1js": "^3.0.2"
   },
   "devDependencies": {
     "@cloud-cryptographic-wallet/signer": "^0.0.4",

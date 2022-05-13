@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.28.0",
-    "asn1js": "^2.1.1",
+    "asn1js": "^3.0.2",
     "bn.js": "^5.2.0",
     "keccak": "^3.0.2",
     "secp256k1": "4.0"
