@@ -33,7 +33,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.1",
+    "@commitlint/cli": "^17.0.0",
     "@commitlint/config-lerna-scopes": "^16.2.2",
     "@commitlint/types": "^16.2.1",
     "@types/jest": "^27.0.1",
