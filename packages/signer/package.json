@@ -36,7 +36,7 @@
     "@types/bn.js": "^5.1.0",
     "@types/keccak": "^3.0.1",
     "@types/secp256k1": "^4.0.3",
-    "tsup": "^5.12.1"
+    "tsup": "^6.0.1"
   },
   "scripts": {
     "build": "tsup"
