@@ -36,6 +36,6 @@
     "@cloud-cryptographic-wallet/signer": "^0.0.4"
   },
   "devDependencies": {
-    "tsup": "^5.12.1"
+    "tsup": "^6.1.0"
   }
 }
