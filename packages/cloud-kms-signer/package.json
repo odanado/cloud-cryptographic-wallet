@@ -37,6 +37,6 @@
     "@node-lightning/checksum": "^0.27.0"
   },
   "devDependencies": {
-    "tsup": "^5.12.1"
+    "tsup": "^6.1.2"
   }
 }
