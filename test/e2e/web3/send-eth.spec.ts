@@ -42,7 +42,7 @@ async function prepare(rpcUrl: string, to: string) {
 describe("web3.js send-eth", () => {
   it("CloudKmsSigner", async () => {
     const name =
-      "projects/cloud-cryptographic-wallet/locations/global/keyRings/for-e2e-test2/cryptoKeys/secp256k1-key";
+      "projects/cloud-cryptographic-wallet/locations/global/keyRings/for-e2e-test2/cryptoKeys/secp256k1-key/cryptoKeyVersions/1";
 
     const cloudKmsSigner = new CloudKmsSigner(name);
     const provider = createProvider({ signers: [cloudKmsSigner], rpcUrl });

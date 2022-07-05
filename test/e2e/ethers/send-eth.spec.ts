@@ -42,7 +42,7 @@ const dummyAddress = "0x96d8fbe23dc200d75cc569a578d8ba6840e2f22f";
 describe("ethers.js send-eth", () => {
   it("CloudKmsSigner", async () => {
     const name =
-      "projects/cloud-cryptographic-wallet/locations/global/keyRings/for-e2e-test2/cryptoKeys/secp256k1-key";
+      "projects/cloud-cryptographic-wallet/locations/global/keyRings/for-e2e-test2/cryptoKeys/secp256k1-key/cryptoKeyVersions/1";
     const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
 
     const ethersSigner = await provider.getSigner();
