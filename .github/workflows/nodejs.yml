@@ -44,6 +44,9 @@ jobs:
 
   test-e2e:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     strategy:
       matrix:
@@ -70,6 +73,11 @@ jobs:
         run: |
           docker-compose up -d
         working-directory: geth
+
+      - uses: google-github-actions/auth@v0.4.3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_PROVIDER_NAME }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
 
       - name: run e2e test
         run: |
