@@ -11,6 +11,9 @@ on:
 jobs:
   test-unit:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     strategy:
       matrix:
