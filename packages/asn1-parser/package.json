@@ -36,6 +36,6 @@
   "devDependencies": {
     "@cloud-cryptographic-wallet/signer": "^0.0.4",
     "@types/asn1js": "^2.0.2",
-    "tsup": "^5.12.1"
+    "tsup": "^6.1.3"
   }
 }
