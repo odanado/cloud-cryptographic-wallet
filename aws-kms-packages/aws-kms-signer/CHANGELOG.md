@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.3](https://github.com/odanado/aws-kms-provider/compare/aws-kms-signer@0.5.2...aws-kms-signer@0.5.3) (2022-07-06)
+
+**Note:** Version bump only for package aws-kms-signer
+
 ## [0.5.2](https://github.com/odanado/aws-kms-provider/compare/aws-kms-signer@0.5.1...aws-kms-signer@0.5.2) (2022-03-29)
 
 ### Bug Fixes

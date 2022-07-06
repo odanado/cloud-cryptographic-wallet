@@ -1,6 +1,6 @@
 {
   "name": "@cloud-cryptographic-wallet/aws-kms-signer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/odanado/aws-kms-provider"
@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.53.0",
-    "@cloud-cryptographic-wallet/asn1-parser": "^0.0.3",
-    "@cloud-cryptographic-wallet/signer": "^0.0.4"
+    "@cloud-cryptographic-wallet/asn1-parser": "^0.0.4",
+    "@cloud-cryptographic-wallet/signer": "^0.0.5"
   },
   "devDependencies": {
     "tsup": "^6.1.3"
