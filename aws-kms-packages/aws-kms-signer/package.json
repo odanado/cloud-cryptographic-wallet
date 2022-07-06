@@ -31,13 +31,13 @@
   },
   "dependencies": {
     "@aws-sdk/client-kms": "^3.28.0",
-    "asn1js": "^2.1.1",
+    "asn1js": "^3.0.5",
     "bn.js": "^5.2.0",
     "keccak": "^3.0.2",
     "secp256k1": "4.0"
   },
   "devDependencies": {
-    "@types/asn1js": "^2.0.2",
+    "@types/asn1js": "^3.0.7",
     "@types/bn.js": "^5.1.0",
     "@types/keccak": "^3.0.1",
     "@types/secp256k1": "^4.0.3"
