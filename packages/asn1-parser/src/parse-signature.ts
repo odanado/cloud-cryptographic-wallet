@@ -21,14 +21,8 @@ export function parseSignature(inputBuffer: ArrayBuffer): {
   s: ArrayBuffer;
 } {
   const schema = new asn1js.Sequence({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     value: [
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       new asn1js.Integer({ name: "r" }),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       new asn1js.Integer({ name: "s" }),
     ],
   });
@@ -36,7 +30,7 @@ export function parseSignature(inputBuffer: ArrayBuffer): {
   const parsed = asn1js.verifySchema(inputBuffer, schema);
 
   if (!parsed.verified) {
-    throw new Error("parseSignature: failed to parse");
+    throw new Error(`parseSignature: failed to parse. ${parsed.result.error}`);
   }
   const r = parsed.result.r.valueBlock.valueHex as ArrayBuffer;
   const s = parsed.result.s.valueBlock.valueHex as ArrayBuffer;
