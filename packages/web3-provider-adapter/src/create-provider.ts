@@ -1,6 +1,6 @@
 import { providerFromEngine } from "eth-json-rpc-middleware";
 
-import { SafeEventEmitterProvider } from "../node_modules/eth-json-rpc-middleware/dist/utils/cache.js";
+import { SafeEventEmitterProvider } from "../node_modules/eth-json-rpc-middleware/dist/types.js";
 
 import { getEngine, GetEngineOptions } from "./get-engine.js";
 
