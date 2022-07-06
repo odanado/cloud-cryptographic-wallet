@@ -41,7 +41,7 @@
     "ethereumjs-util": "^7.1.4",
     "json-rpc-engine": "^6.1.0",
     "node-cjs-interop": "^0.1.0",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^3.2.6"
   },
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
