@@ -24,6 +24,7 @@ export interface KmsOptions {
   region: string;
   keyIds: string[];
   credential?: AwsCredential;
+  endpoint?: string;
 }
 
 export interface AwsCredential {
@@ -58,6 +59,7 @@ export class KmsProvider implements Provider {
         new KmsSigner(keyId, {
           credentials: kmsOptions.credential,
           region: kmsOptions.region,
+          endpoint: kmsOptions.endpoint,
         })
     );
     this.networkOrNetworkOptions = networkOrNetworkOptions;
