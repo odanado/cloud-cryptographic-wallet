@@ -9507,9 +9507,9 @@ node-addon-api@^3.2.1:
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
 
 node-cjs-interop@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/node-cjs-interop/-/node-cjs-interop-0.1.0.tgz#a277ace8b99ea1ac1816ccc7a0e0807cfa9d99fa"
-  integrity sha512-PuoMk0AiKNQa1R8CheS7GPa1u9I+JpyO7/NxhwOqL5+Bw1XjNyeiNJAehktKXSsIHBf6IPctZrMZZ0k3wK5H9g==
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/node-cjs-interop/-/node-cjs-interop-0.1.1.tgz#1e5df341b622b80c3bea9c5fa03036f20cad8e22"
+  integrity sha512-kjVtyYQ/4Pf/gJ3NfKZsHQFjLH7U+8ZWsL9a8V59y+gX8T22y2JDiKJ1zKC7cQbTSOyQDNM1kPIUc2YJit9DcA==
 
 node-domexception@^1.0.0:
   version "1.0.0"
