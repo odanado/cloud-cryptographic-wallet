@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.7.0...aws-kms-provider@0.8.0) (2022-08-18)
+
+### Features
+
+- **aws-kms-provider:** provide endpoint argument ([#625](https://github.com/odanado/aws-kms-provider/issues/625)) ([579fa88](https://github.com/odanado/aws-kms-provider/commit/579fa88b9b20fc74d1b3d21f093af2857ea4f12c))
+
 # [0.7.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.6.0...aws-kms-provider@0.7.0) (2022-07-06)
 
 ### Features
