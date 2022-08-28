@@ -90,6 +90,13 @@ export class KmsProvider implements Provider {
             })
             .catch((err) => callback(err));
         },
+        signTypedMessage: (msgParams, callback) => {
+          this.signTypedMessage(msgParams)
+            .then((signature) => {
+              callback(null, signature);
+            })
+            .catch((err) => callback(err));
+        },
       })
     );
 
@@ -148,6 +155,17 @@ export class KmsProvider implements Provider {
     const digest = hashPersonalMessage(data);
     const signature = await signer.sign(digest);
 
+    return `0x${signature.toString()}`;
+  }
+
+  public async signTypedMessage(msgParams: MsgParams): Promise<string> {
+    const from = msgParams.from;
+    const signer = this.resolveSigner(from);
+    if (!signer) {
+      throw new Error(`Account not found: ${from}`);
+    }
+    const digest = toBuffer(msgParams.data);
+    const signature = await signer.sign(digest);
     return `0x${signature.toString()}`;
   }
 

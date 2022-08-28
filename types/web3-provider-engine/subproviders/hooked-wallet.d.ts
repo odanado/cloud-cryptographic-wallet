@@ -34,7 +34,7 @@ declare module "web3-provider-engine/subproviders/hooked-wallet.js" {
     signPersonalMessage?: Function;
     decryptMessage?: Function;
     encryptionPublicKey?: Function;
-    signTypedMessage?: Function;
+    signTypedMessage?: (msgParams: MsgParams, cb: Callback<string>) => void;
     recoverPersonalSignature?: Function;
 
     publishTransaction?: Function;
