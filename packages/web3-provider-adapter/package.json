@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@cloud-cryptographic-wallet/signer": "^0.0.5",
-    "@ethereumjs/common": "^2.6.2",
+    "@ethereumjs/common": "^3.0.0",
     "@ethereumjs/tx": "^3.5.0",
     "@metamask/safe-event-emitter": "^2.0.0",
     "eip1193-provider": "^1.0.1",
