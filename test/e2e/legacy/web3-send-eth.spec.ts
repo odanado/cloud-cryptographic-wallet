@@ -26,6 +26,7 @@ it("web3.js", async () => {
   const target = crypto.randomBytes(20).toString("hex");
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const web3 = new Web3(provider as any);
   const accounts = await web3.eth.getAccounts();
 
