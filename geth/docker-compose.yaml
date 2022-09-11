@@ -2,7 +2,7 @@ version: "3"
 
 services:
   geth:
-    image: ethereum/client-go
+    image: ethereum/client-go:stable
     ports:
       - "8501:8501"
     volumes:
