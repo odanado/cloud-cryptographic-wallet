@@ -9,7 +9,7 @@ const { region, keyId, rpcUrl } = getConfig();
 it("web3.js", async () => {
   const provider = new KmsProvider(rpcUrl, { region, keyIds: [keyId] });
 
-  const web3 = new Web3(provider);
+  const web3 = new Web3(provider as any);
 
   const accounts = await web3.eth.getAccounts();
 
