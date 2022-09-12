@@ -7,7 +7,7 @@ export function processSignature(
 ): tx.TypedTransaction {
   const r = Buffer.from(signature.r.buffer);
   const s = Buffer.from(signature.s.buffer);
-  const v = signature.v;
+  const v = BigInt(signature.v);
   if (typedTransaction instanceof tx.Transaction) {
     return typedTransaction["_processSignature"](v, r, s);
   } else {
