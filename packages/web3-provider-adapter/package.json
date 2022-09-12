@@ -36,7 +36,7 @@
     "@ethereumjs/tx": "^4.0.0",
     "@metamask/safe-event-emitter": "^2.0.0",
     "eip1193-provider": "^1.0.1",
-    "eth-json-rpc-middleware": "^8.0.1",
+    "eth-json-rpc-middleware": "^9.0.0",
     "eth-rpc-errors": "^4.0.3",
     "ethereumjs-util": "^7.1.4",
     "json-rpc-engine": "^6.1.0",
