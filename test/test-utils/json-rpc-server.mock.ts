@@ -1,10 +1,10 @@
 import { setupServer, SetupServerApi } from "msw/node";
-import { rest, RestHandler, MockedRequest, DefaultRequestBody } from "msw";
+import { rest, RestHandler, MockedRequest, DefaultBodyType } from "msw";
 
 export function makeHandler(
   rpcUrl: string,
   mock: Mock
-): RestHandler<MockedRequest<DefaultRequestBody>> {
+): RestHandler<MockedRequest<DefaultBodyType>> {
   const handler = rest.post<{ id: string; method: string }>(
     rpcUrl,
     (req, res, ctx) => {

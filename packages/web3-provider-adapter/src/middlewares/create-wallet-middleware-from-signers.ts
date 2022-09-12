@@ -3,7 +3,7 @@ import { createWalletMiddleware } from "eth-json-rpc-middleware";
 
 import tx from "@ethereumjs/tx";
 
-import { Block } from "eth-json-rpc-middleware/dist/utils/cache";
+import { Block } from "eth-json-rpc-middleware/dist/types.js";
 import { Signer, Bytes } from "@cloud-cryptographic-wallet/signer";
 
 import { query } from "../query.js";
