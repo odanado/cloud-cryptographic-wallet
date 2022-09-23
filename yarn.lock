@@ -2768,9 +2768,9 @@
   integrity sha512-T04e4iTurVy7I8Sw4+c5OSN9/RkPlo1uKxAomtxQNLq8j1uPAqnsqG1bqvY3Jv7c13gyr6dui0zmh/I3+f/JaQ==
 
 "@node-lightning/checksum@^0.27.0":
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/@node-lightning/checksum/-/checksum-0.27.0.tgz#d2beb2661834a236cb9092ecc83a1faa074f981e"
-  integrity sha512-/LbE7YOXnx6awbbUscLNSRb3TCbVrRzkLIsLoSFvhRqWTsIiiZhSZQyU32RatBnyduujMwYqMNZH3iAn9WPwRw==
+  version "0.27.4"
+  resolved "https://registry.yarnpkg.com/@node-lightning/checksum/-/checksum-0.27.4.tgz#493004e76aa76cdbab46f01bf445e4010c30a179"
+  integrity sha512-33DuXWqVVvHPnO7O38L2wtz9cSjCXeqi3+xUHZpPhZHpez4atw0JUcc1Fa1SJ4aEjDX81t6rLloMW083z9ZHYQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
