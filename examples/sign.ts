@@ -11,7 +11,8 @@ async function main() {
   const provider = new KmsProvider(endpoint, { region, keyIds: [keyId] });
 
   // XXX
-  const web3 = new Web3(provider);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const web3 = new Web3(provider as any);
 
   const accounts = await web3.eth.getAccounts();
   console.log("accounts", accounts);

@@ -23,7 +23,7 @@ describe("getCommon", () => {
   afterAll(() => server.close());
 
   describe("when return gas", () => {
-    const chainId = "0x1";
+    const chainId = "0x123";
 
     beforeEach(() => {
       server.use(
@@ -37,7 +37,7 @@ describe("getCommon", () => {
     it("shoud be get common", async () => {
       const common = await getCommon(rpcUrl);
 
-      expect(`0x${common.chainIdBN().toString("hex")}`).toBe(chainId);
+      expect(`0x${common.chainId().toString(16)}`).toBe(chainId);
     });
   });
   describe("when return null", () => {
