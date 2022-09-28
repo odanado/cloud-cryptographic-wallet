@@ -14,6 +14,11 @@ import {
   JSONRPCRequestPayload,
   JSONRPCErrorCallback,
 } from "ethereum-protocol";
+import {
+  TypedDataUtils,
+  SignTypedDataVersion,
+  typedSignatureHash,
+} from "@metamask/eth-sig-util";
 
 import { KmsSigner } from "aws-kms-signer";
 import { Ethereum } from "./ethereum";
@@ -164,7 +169,11 @@ export class KmsProvider implements Provider {
     if (!signer) {
       throw new Error(`Account not found: ${from}`);
     }
-    const digest = toBuffer(msgParams.data);
+    const typedData = JSON.parse(msgParams.data);
+
+    const digest = Array.isArray(typedData)
+      ? toBuffer(typedSignatureHash(typedData))
+      : TypedDataUtils.eip712Hash(typedData, SignTypedDataVersion.V4);
     const signature = await signer.sign(digest);
     return `0x${signature.toString()}`;
   }
