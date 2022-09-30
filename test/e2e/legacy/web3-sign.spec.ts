@@ -29,7 +29,7 @@ it("web3.js", async () => {
   expect(web3.eth.accounts.recover(message, signature)).toBe(accounts[0]);
 });
 
-describe.only("EIP-712", () => {
+describe("EIP-712", () => {
   const fixture = {
     v1: {
       msgParams: [
