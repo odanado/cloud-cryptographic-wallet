@@ -30,6 +30,7 @@
     "build": "tsup"
   },
   "dependencies": {
+    "@metamask/eth-sig-util": "^5.0.0",
     "@open-rpc/client-js": "^1.7.1",
     "aws-kms-signer": "^0.5.3",
     "ethereumjs-common": "^1.5.2",
