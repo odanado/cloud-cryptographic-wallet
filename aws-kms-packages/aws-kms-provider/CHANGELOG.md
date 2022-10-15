@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.8.0...aws-kms-provider@0.9.0) (2022-10-15)
+
+### Features
+
+- **aws-kms-provider:** support signTypedMessage ([#663](https://github.com/odanado/aws-kms-provider/issues/663)) ([8e1ac04](https://github.com/odanado/aws-kms-provider/commit/8e1ac042c944ca586ab14e1caf5323fd281c4b45))
+
 # [0.8.0](https://github.com/odanado/aws-kms-provider/compare/aws-kms-provider@0.7.0...aws-kms-provider@0.8.0) (2022-08-18)
 
 ### Features
