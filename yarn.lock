@@ -2780,10 +2780,10 @@
   resolved "https://registry.yarnpkg.com/@noble/secp256k1/-/secp256k1-1.6.3.tgz#7eed12d9f4404b416999d0c87686836c4c5c9b94"
   integrity sha512-T04e4iTurVy7I8Sw4+c5OSN9/RkPlo1uKxAomtxQNLq8j1uPAqnsqG1bqvY3Jv7c13gyr6dui0zmh/I3+f/JaQ==
 
-"@node-lightning/checksum@^0.27.0":
-  version "0.27.4"
-  resolved "https://registry.yarnpkg.com/@node-lightning/checksum/-/checksum-0.27.4.tgz#493004e76aa76cdbab46f01bf445e4010c30a179"
-  integrity sha512-33DuXWqVVvHPnO7O38L2wtz9cSjCXeqi3+xUHZpPhZHpez4atw0JUcc1Fa1SJ4aEjDX81t6rLloMW083z9ZHYQ==
+"@node-lightning/checksum@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@node-lightning/checksum/-/checksum-0.28.0.tgz#31796a0a9abd67fd5e30b265a1205375fab10185"
+  integrity sha512-Z60zHGtuSts7N7fBaMWpml6GCHQVr0RxrXWcvYb/bBahX8/jdJ40jknTsG2TFxTjMEaZxSqXrc2Fi+UqSJjf+Q==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
