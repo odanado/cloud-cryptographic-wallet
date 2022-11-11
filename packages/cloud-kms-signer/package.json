@@ -34,7 +34,7 @@
     "@cloud-cryptographic-wallet/asn1-parser": "^0.0.4",
     "@cloud-cryptographic-wallet/signer": "^0.0.5",
     "@google-cloud/kms": "^3.0.1",
-    "@node-lightning/checksum": "^0.27.0"
+    "@node-lightning/checksum": "^0.28.0"
   },
   "devDependencies": {
     "tsup": "^6.1.3"
