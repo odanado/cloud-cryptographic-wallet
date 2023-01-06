@@ -30,7 +30,7 @@
   "dependencies": {
     "bn.js": "^5.2.0",
     "keccak": "^3.0.2",
-    "secp256k1": "^4.0.3"
+    "secp256k1": "^5.0.0"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
