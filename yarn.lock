@@ -1306,9 +1306,9 @@
     find-up "^5.0.0"
 
 "@commitlint/types@^17.0.0":
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-17.0.0.tgz#3b4604c1a0f06c340ce976e6c6903d4f56e3e690"
-  integrity sha512-hBAw6U+SkAT5h47zDMeOu3HSiD0SODw4Aq7rRNh1ceUmL7GyLKYhPbUvlRWqZ65XjBLPHZhFyQlRaPNz8qvUyQ==
+  version "17.4.4"
+  resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-17.4.4.tgz#1416df936e9aad0d6a7bbc979ecc31e55dade662"
+  integrity sha512-amRN8tRLYOsxRr6mTnGGGvB5EmW/4DDjLMgiwK3CCVEmN6Sr/6xePGEpWaspKkckILuUORCwe6VfDBw6uj4axQ==
   dependencies:
     chalk "^4.1.0"
 
