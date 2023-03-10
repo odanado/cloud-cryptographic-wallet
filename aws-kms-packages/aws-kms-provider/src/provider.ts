@@ -106,8 +106,6 @@ export class KmsProvider implements Provider {
     );
 
     this.engine.addProvider(new RpcSubprovider({ rpcUrl: endpoint }));
-
-    this.engine.start();
   }
 
   public async getAccounts(): Promise<string[]> {
