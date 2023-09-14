@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import path from "path";
 
 export default defineConfig({
   test: {
@@ -9,5 +10,10 @@ export default defineConfig({
       "**/.{idea,git,cache,output,temp}/**",
       "aws-kms-packages/**",
     ],
+  },
+  resolve: {
+    alias: {
+      "@packages": path.resolve(__dirname, "./packages"),
+    },
   },
 });
