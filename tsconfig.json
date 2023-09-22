@@ -4,6 +4,7 @@
     "module": "ESNext",
     "target": "ES2020",
     "strict": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "declaration": true,

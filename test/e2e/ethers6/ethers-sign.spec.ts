@@ -3,15 +3,15 @@ import { ethers } from "ethers";
 import { EthersAdapter } from "@packages/ethers-adapter/src/ethers-adapter";
 import { CloudKmsSigner } from "@packages/cloud-kms-signer/src/cloud-kms-signer";
 import dotenv from "dotenv";
+import testERC721 from "./contracts/erc721.json";
 
 dotenv.config();
 
 describe("ethers.js CloudKmsSigner sign", () => {
-  const name = process.env.BCP_KMS_NAME as string;
+  const provider = new ethers.JsonRpcProvider(process.env.MUMBAI_RPC);
+  const cloudKmsSigner = new CloudKmsSigner(process.env.BCP_KMS_NAME as string);
 
   it("Can sign transaction and broadcast", async () => {
-    const provider = new ethers.JsonRpcProvider(process.env.MUMBAI_RPC);
-    const cloudKmsSigner = new CloudKmsSigner(name);
     const cloudSigner = new EthersAdapter({ signer: cloudKmsSigner }, provider);
 
     const toWallet = ethers.Wallet.createRandom();
@@ -47,8 +47,6 @@ describe("ethers.js CloudKmsSigner sign", () => {
     expect(afterToBalance - originalToBalance).toBe(0.001);
   }, 100000);
   it("Throws if from address is not the signer's address.", async () => {
-    const provider = new ethers.JsonRpcProvider(process.env.MUMBAI_RPC);
-    const cloudKmsSigner = new CloudKmsSigner(name);
     const cloudSigner = new EthersAdapter({ signer: cloudKmsSigner }, provider);
 
     const toWallet = ethers.Wallet.createRandom();
@@ -73,4 +71,37 @@ describe("ethers.js CloudKmsSigner sign", () => {
       "transaction from address mismatch transaction.from"
     );
   }, 100000);
+  it("Can deploy a contract, and interact with the deployed contract", async () => {
+    const cloudSigner = new EthersAdapter({ signer: cloudKmsSigner }, provider);
+
+    const factory = new ethers.ContractFactory(
+      testERC721.abi,
+      testERC721.bytecode,
+      cloudSigner
+    );
+
+    const contract = (await factory.deploy()) as ethers.Contract;
+
+    await contract.waitForDeployment();
+
+    const cloudSignerAddress = await cloudSigner.getAddress();
+
+    const tx = await contract.safeMint(cloudSignerAddress, 1);
+    await tx.wait();
+
+    expect(await contract.balanceOf(cloudSignerAddress)).toBe(
+      ethers.toBigInt(1)
+    );
+
+    // check Contract class constructor too
+    const testERC721Contract = new ethers.Contract(
+      await contract.getAddress(),
+      testERC721.abi,
+      cloudSigner
+    );
+
+    expect(await testERC721Contract.balanceOf(cloudSignerAddress)).toBe(
+      ethers.toBigInt(1)
+    );
+  }, 400000);
 });

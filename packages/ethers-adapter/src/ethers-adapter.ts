@@ -60,29 +60,11 @@ export class EthersAdapter extends ethers.AbstractSigner<ethers.JsonRpcApiProvid
       }
     }
 
-    const unsignedTransaction: ethers.TransactionLike = {
-      to: transaction.to as string,
-      nonce: transaction.nonce,
-      gasLimit: transaction.gasLimit,
-      gasPrice: transaction.gasPrice,
-      data: transaction.data,
-      value: transaction.value,
-      chainId: transaction.chainId,
-      type: transaction.type,
-      accessList: transaction.accessList,
-      maxPriorityFeePerGas: transaction.maxPriorityFeePerGas,
-      maxFeePerGas: transaction.maxFeePerGas,
-    };
+    // reference: sendTransaction in abstract-signer.tx
+    const pop = await this.populateTransaction(tx);
+    delete pop.from;
 
-    (
-      Object.keys(unsignedTransaction) as Array<keyof ethers.TransactionLike>
-    ).forEach((key) => {
-      if (key in unsignedTransaction && unsignedTransaction[key] == undefined) {
-        delete unsignedTransaction[key];
-      }
-    });
-
-    const txObj = ethers.Transaction.from(unsignedTransaction);
+    const txObj = ethers.Transaction.from(pop);
 
     const hash = ethers.keccak256(txObj.unsignedSerialized);
 
