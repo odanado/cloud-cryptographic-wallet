@@ -18,6 +18,7 @@ export async function query<T = unknown>(
   const { fetchUrl, fetchParams } = createFetchConfigFromReq({
     rpcUrl,
     req: {
+      jsonrpc: "2.0",
       method,
       params,
       id: nextRequestId++,
