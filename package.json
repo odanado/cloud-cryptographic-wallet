@@ -24,7 +24,7 @@
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "test:format": "prettier --ignore-path .gitignore . --check",
     "test:tsc": "tsc --noEmit",
-    "test:ethers6": "vitest run test/e2e/ethers6/ethers-sign.spec.ts",
+    "test:ethers6": "vitest run test/e2e/ethers6/ethers-signTypedData.spec.ts",
     "format": "yarn test:format --write",
     "e2e": "vitest run --no-threads 1 test/e2e",
     "pubkey": "ts-node scripts/show_pub_address.ts",
@@ -72,6 +72,7 @@
     ]
   },
   "dependencies": {
+    "@openzeppelin/contracts": "5.0.0",
     "cosmiconfig-typescript-loader": "^5.0.0",
     "dotenv": "^16.3.1"
   }
