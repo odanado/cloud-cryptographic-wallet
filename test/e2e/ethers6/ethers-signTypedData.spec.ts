@@ -166,7 +166,7 @@ describe("ethers.js CloudKmsSigner sign", () => {
     };
 
     const amount = 10000;
-    const deadline = Math.floor(Date.now() / 1000) + 3600;
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600);
 
     const value = {
       owner: holderWallet.address,
