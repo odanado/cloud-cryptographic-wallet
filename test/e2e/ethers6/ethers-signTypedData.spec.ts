@@ -5,7 +5,6 @@ import { ethers } from "ethers";
 import { describe, it, expect } from "vitest";
 // import testERC20Permit from "./contracts/erc20Permit.json";
 import * as testERC20Permit from "./contracts/artifacts/contracts/ERC20Permit.sol/MyToken.json";
-import { fromRpcSig } from "ethereumjs-util";
 
 dotenv.config();
 
@@ -198,8 +197,7 @@ describe("ethers.js CloudKmsSigner sign", () => {
     const signature = await holderWallet.signTypedData(domain, types, value);
     console.log("finished creating signature");
 
-    // const signatureBytes = ethers.Signature.from(signature);
-    const signatureBytes = fromRpcSig(signature);
+    const signatureBytes = ethers.Signature.from(signature);
     console.log("signatureBytes", signatureBytes);
     console.log(signatureBytes.v);
     console.log(signatureBytes.r);
