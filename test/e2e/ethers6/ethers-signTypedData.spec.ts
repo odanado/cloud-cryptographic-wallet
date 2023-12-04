@@ -189,7 +189,7 @@ describe("ethers.js CloudKmsSigner sign", () => {
     const value = {
       owner: holderWallet.address,
       spender: spenderWallet.address,
-      value: amount.toString(),
+      value: amount,
       nonce,
       deadline,
     };
@@ -212,7 +212,7 @@ describe("ethers.js CloudKmsSigner sign", () => {
     const result = await contract.permit(
       holderWallet.address,
       spenderWallet.address,
-      amount.toString(),
+      amount,
       deadline,
       signatureBytes.v,
       signatureBytes.r,
