@@ -28,8 +28,42 @@ export class EthersAdapter extends ethers.AbstractSigner<ethers.JsonRpcApiProvid
     types: Record<string, Array<TypedDataField>>,
     value: Record<string, any>
   ): Promise<string> {
-    // todo: not implemented yet.
-    throw "signTypedData is not implemented.";
+    // Populate any ENS names
+    const populated = await ethers.TypedDataEncoder.resolveNames(
+      domain,
+      types,
+      value,
+      async (name: string) => {
+        // @TODO: this should use resolveName; addresses don't
+        //        need a provider
+
+        ethers.assert(
+          this.provider != null,
+          "cannot resolve ENS names without a provider",
+          "UNSUPPORTED_OPERATION",
+          {
+            operation: "resolveName",
+            info: { name },
+          }
+        );
+
+        const address = await this.provider.resolveName(name);
+        ethers.assert(
+          address != null,
+          "unconfigured ENS name",
+          "UNCONFIGURED_NAME",
+          {
+            value: name,
+          }
+        );
+
+        return address;
+      }
+    );
+
+    return this.signMessage(
+      ethers.TypedDataEncoder.hash(populated.domain, types, populated.value)
+    );
   }
 
   async getAddress(): Promise<string> {
