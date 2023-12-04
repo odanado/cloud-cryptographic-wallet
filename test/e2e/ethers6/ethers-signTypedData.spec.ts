@@ -1,7 +1,7 @@
 import { CloudKmsSigner } from "@packages/cloud-kms-signer/src/cloud-kms-signer";
 import { EthersAdapter } from "@packages/ethers-adapter/src/ethers-adapter";
 import dotenv from "dotenv";
-import { ethers } from "ethers";
+import { TypedDataDomain, TypedDataEncoder, ethers } from "ethers";
 import { describe, it, expect } from "vitest";
 // import testERC20Permit from "./contracts/erc20Permit.json";
 import * as testERC20Permit from "./contracts/artifacts/contracts/ERC20Permit.sol/MyToken.json";
@@ -134,6 +134,13 @@ describe("ethers.js CloudKmsSigner sign", () => {
       "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
       provider
     );
+
+    //public 0xe14c8cE4E8085e5560B7DB85e6E742AE4a24bE68
+    const spenderWallet = new ethers.Wallet(
+      "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+      provider
+    );
+
     const factory = new ethers.ContractFactory(
       testERC20Permit.abi,
       testERC20Permit.bytecode,
@@ -143,12 +150,6 @@ describe("ethers.js CloudKmsSigner sign", () => {
     await contract.waitForDeployment();
 
     const contractAddress = await contract.getAddress();
-
-    //public 0xe14c8cE4E8085e5560B7DB85e6E742AE4a24bE68
-    const spenderWallet = new ethers.Wallet(
-      "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
-      provider
-    );
 
     // const contract = new ethers.Contract(
     //   contractAddress,
@@ -161,13 +162,23 @@ describe("ethers.js CloudKmsSigner sign", () => {
     console.log(`nonce ${nonce}`);
     console.log("domain seperater");
     console.log(await contract.DOMAIN_SEPARATOR());
-    const domain = {
-      name: "MyToken",
-      version: "1.0.0",
+    const domain: TypedDataDomain = {
+      name: await contract.name(),
+      version: "1",
       chainId: 31337n,
       verifyingContract: contractAddress,
     };
-    const types = {
+    // const types = {
+    //   Permit: [
+    //     { name: "owner", type: "address" },
+    //     { name: "spender", type: "address" },
+    //     { name: "value", type: "uint256" },
+    //     { name: "nonce", type: "uint256" },
+    //     { name: "deadline", type: "uint256" },
+    //   ],
+    // };
+
+    const { types } = new TypedDataEncoder({
       Permit: [
         { name: "owner", type: "address" },
         { name: "spender", type: "address" },
@@ -175,7 +186,7 @@ describe("ethers.js CloudKmsSigner sign", () => {
         { name: "nonce", type: "uint256" },
         { name: "deadline", type: "uint256" },
       ],
-    };
+    });
 
     const amount = 10000n;
     const misoka = new Date(2023, 12, 31);
