@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/soma/noplan/cloud-cryptographic-wallet/test/e2e/ethers6/contracts/contracts/erc20Permit.sol": {
-      "lastModificationDate": 1701662779432,
-      "contentHash": "5bc790f6f8535c8c57d5d861988871ac",
+      "lastModificationDate": 1701664367353,
+      "contentHash": "35e8ed42d97b90e8574c79d8cba89e6c",
       "sourceName": "contracts/erc20Permit.sol",
       "solcConfig": {
         "version": "0.8.20",

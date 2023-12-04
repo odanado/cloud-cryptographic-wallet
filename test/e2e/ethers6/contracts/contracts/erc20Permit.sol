@@ -22,7 +22,7 @@ contract MyToken is ERC20Permit {
         bytes32 s) override public {
         console.log("permit called");
         // super.permit(owner, spender, value, deadline, v, r, s);
-        console.log("deadline timestamp");
+        console.log("deadline timestampa");
         console.logUint(block.timestamp);
         console.logUint(deadline);
         if (block.timestamp > deadline) {

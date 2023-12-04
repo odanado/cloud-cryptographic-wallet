@@ -3,12 +3,15 @@ import { EthersAdapter } from "@packages/ethers-adapter/src/ethers-adapter";
 import dotenv from "dotenv";
 import { ethers } from "ethers";
 import { describe, it, expect } from "vitest";
-import testERC20Permit from "./contracts/erc20Permit.json";
+// import testERC20Permit from "./contracts/erc20Permit.json";
+import * as testERC20Permit from "./contracts/artifacts/contracts/ERC20Permit.sol/MyToken.json";
+import { fromRpcSig } from "ethereumjs-util";
 
 dotenv.config();
 
 describe("ethers.js CloudKmsSigner sign", () => {
-  const provider = new ethers.JsonRpcProvider(process.env.MUMBAI_RPC);
+  // const provider = new ethers.JsonRpcProvider(process.env.MUMBAI_RPC);
+  const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
   const cloudKmsSigner = new CloudKmsSigner(process.env.BCP_KMS_NAME as string);
 
   it("Can deploy a contract, and interact with the deployed contract", async () => {
@@ -129,30 +132,40 @@ describe("ethers.js CloudKmsSigner sign", () => {
   }, 400000);
   it.only("original signTypedData with a previously deployed contract works", async () => {
     const holderWallet = new ethers.Wallet(
-      "0xaa28b9c38c2d5d10a5321f18d937aa4e89becc3b5eefc5bc9285e37429e3092d"
+      "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+      provider
     );
+    const factory = new ethers.ContractFactory(
+      testERC20Permit.abi,
+      testERC20Permit.bytecode,
+      holderWallet
+    );
+    const contract = (await factory.deploy()) as ethers.Contract;
+    await contract.waitForDeployment();
 
-    const contractAddress = "0x853724E15a359C0670515E653a43aC3B29b3b810";
+    const contractAddress = await contract.getAddress();
 
     //public 0xe14c8cE4E8085e5560B7DB85e6E742AE4a24bE68
     const spenderWallet = new ethers.Wallet(
-      "0xd7602dd73fd247bd177117131583b4c0ba8ebaab32a0883ed7b1cf67b8826e76",
+      "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
       provider
     );
 
-    const contract = new ethers.Contract(
-      contractAddress,
-      testERC20Permit.abi,
-      spenderWallet
-    );
+    // const contract = new ethers.Contract(
+    //   contractAddress,
+    //   testERC20Permit.abi,
+    //   spenderWallet
+    // );
 
     const nonce = await contract.nonces(holderWallet.address);
 
     console.log(`nonce ${nonce}`);
+    console.log("domain seperater");
+    console.log(await contract.DOMAIN_SEPARATOR());
     const domain = {
       name: "MyToken",
       version: "1.0.0",
-      chainId: 80001,
+      chainId: 31337n,
       verifyingContract: contractAddress,
     };
     const types = {
@@ -165,13 +178,18 @@ describe("ethers.js CloudKmsSigner sign", () => {
       ],
     };
 
-    const amount = 10000;
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600);
+    const amount = 10000n;
+    const misoka = new Date(2023, 12, 31);
+    const deadline = BigInt(Math.floor(misoka.getTime() / 1000) + 3600);
+
+    console.log("holderWallet.address", holderWallet.address);
+    console.log("spenderWallet.address", spenderWallet.address);
+    console.log("amount", typeof amount);
 
     const value = {
       owner: holderWallet.address,
       spender: spenderWallet.address,
-      value: amount,
+      value: amount.toString(),
       nonce,
       deadline,
     };
@@ -180,13 +198,21 @@ describe("ethers.js CloudKmsSigner sign", () => {
     const signature = await holderWallet.signTypedData(domain, types, value);
     console.log("finished creating signature");
 
-    const signatureBytes = ethers.Signature.from(signature);
+    // const signatureBytes = ethers.Signature.from(signature);
+    const signatureBytes = fromRpcSig(signature);
+    console.log("signatureBytes", signatureBytes);
+    console.log(signatureBytes.v);
+    console.log(signatureBytes.r);
+    console.log(signatureBytes.s);
 
     console.log("sending transaction");
+    console.log("balenceof");
+    console.log(await contract.balanceOf(holderWallet.address));
+    console.log(await contract.balanceOf(spenderWallet.address));
     const result = await contract.permit(
       holderWallet.address,
       spenderWallet.address,
-      amount,
+      amount.toString(),
       deadline,
       signatureBytes.v,
       signatureBytes.r,
